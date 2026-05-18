@@ -15,9 +15,7 @@ services:
       - key: DB_CONNECTION
         value: pgsql
       - key: DATABASE_URL
-        fromDatabase:
-          name: aeterna-db
-          property: connectionString
+        sync: false
       - key: SESSION_DRIVER
         value: cookie
       - key: SESSION_LIFETIME
@@ -30,9 +28,3 @@ services:
         value: stderr
       - key: LOG_LEVEL
         value: error
-
-databases:
-  - name: aeterna-db
-    plan: free
-    databaseName: aeterna
-    user: aeterna
