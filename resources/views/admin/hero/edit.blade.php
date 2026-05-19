@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="h4 fw-bold text-white mb-0">Hero Section</h1>
+  <h1 class="admin-section-title">Hero Section</h1>
 </div>
 
 <form method="POST" action="{{ route('admin.hero.update') }}">
@@ -14,7 +14,7 @@
   <div class="row g-4">
     <div class="col-lg-8">
       <div class="admin-card p-4 mb-4">
-        <h6 class="fw-semibold text-white mb-4">Content</h6>
+        <h6 class="fw-semibold mb-4" style="color:var(--wise-ink)">Content</h6>
         <div class="mb-3">
           <label class="form-label">Badge Text</label>
           <input type="text" name="badge_text" class="form-control" value="{{ old('badge_text', $hero->badge_text) }}">
@@ -58,15 +58,15 @@
       <!-- Stats repeater -->
       <div class="admin-card p-4">
         <div class="d-flex justify-content-between align-items-center mb-3">
-          <h6 class="fw-semibold text-white mb-0">Stats</h6>
-          <button type="button" id="add-stat" class="btn btn-sm btn-outline-secondary" style="font-size:.78rem">+ Add Stat</button>
+          <h6 class="fw-semibold mb-0" style="color:var(--wise-ink)">Stats</h6>
+          <button type="button" id="add-stat" class="btn btn-wise-secondary btn-sm">+ Add Stat</button>
         </div>
         <div id="stats-container">
           @foreach(old('stats', $hero->stats_json ?? []) as $i => $stat)
           <div class="row g-2 mb-2 stat-row">
             <div class="col-5"><input type="text" name="stats[{{ $i }}][value]" class="form-control form-control-sm" placeholder="160K+" value="{{ $stat['value'] ?? '' }}"></div>
             <div class="col-5"><input type="text" name="stats[{{ $i }}][label]" class="form-control form-control-sm" placeholder="TPS" value="{{ $stat['label'] ?? '' }}"></div>
-            <div class="col-2"><button type="button" class="btn btn-sm btn-outline-danger w-100 remove-row">✕</button></div>
+            <div class="col-2"><button type="button" class="btn btn-wise-danger btn-sm w-100 remove-row">✕</button></div>
           </div>
           @endforeach
         </div>
@@ -75,10 +75,10 @@
 
     <div class="col-lg-4">
       <div class="admin-card p-4">
-        <h6 class="fw-semibold text-white mb-4">Settings</h6>
+        <h6 class="fw-semibold mb-4" style="color:var(--wise-ink)">Settings</h6>
         <div class="form-check form-switch mb-4">
           <input class="form-check-input" type="checkbox" name="is_active" id="is_active" value="1" {{ $hero->is_active ? 'checked' : '' }}>
-          <label class="form-check-label text-white-50" for="is_active">Section Active</label>
+          <label class="form-check-label" for="is_active">Section Active</label>
         </div>
         <button type="submit" class="btn btn-accent w-100">Save Changes</button>
       </div>
@@ -95,7 +95,7 @@ document.getElementById('add-stat').addEventListener('click', () => {
   c.insertAdjacentHTML('beforeend', `<div class="row g-2 mb-2 stat-row">
     <div class="col-5"><input type="text" name="stats[${statIdx}][value]" class="form-control form-control-sm" placeholder="160K+"></div>
     <div class="col-5"><input type="text" name="stats[${statIdx}][label]" class="form-control form-control-sm" placeholder="TPS"></div>
-    <div class="col-2"><button type="button" class="btn btn-sm btn-outline-danger w-100 remove-row">✕</button></div>
+    <div class="col-2"><button type="button" class="btn btn-wise-danger btn-sm w-100 remove-row">✕</button></div>
   </div>`);
   statIdx++;
 });

@@ -1,9 +1,9 @@
-<section id="exchange" class="py-24 px-6 bg-[#0a0a0a]">
+<section id="exchange" class="py-24 px-6" style="background:#F5F4F0">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16" data-animate>
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/3 text-white/60 text-sm mb-4">Exchange</div>
-      <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">The Most Powerful<br>Decentralized Exchange</h2>
-      <p class="text-white/50 text-lg max-w-2xl mx-auto">AI-powered, cross-chain, privacy-preserving DEX built on Aeterna's L1 — the fastest on-chain trading experience.</p>
+      <div class="section-label mb-4">Exchange</div>
+      <h2 class="text-4xl md:text-5xl mb-4" style="color:#1A1A1A;font-weight:900;letter-spacing:-0.03em">The Most Powerful<br>Decentralized Exchange</h2>
+      <p class="text-lg max-w-2xl mx-auto" style="color:#454745">AI-powered, cross-chain, privacy-preserving DEX built on Aeterna's L1 — the fastest on-chain trading experience.</p>
     </div>
 
     <!-- Feature cards -->
@@ -42,34 +42,26 @@
     ];
     @endphp
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/10 border border-white/10 overflow-hidden rounded-2xl mb-16">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 overflow-hidden mb-16" style="border:1px solid #D6D6D6;border-radius:16px;gap:1px;background:#D6D6D6">
       @foreach($features as $i => $f)
-      <div class="h-full animate-fade-in-up" style="animation-delay:{{ $i * 50 }}ms" data-animate>
-        <div class="group relative flex flex-col h-full bg-[#0a0a0a] border border-white/10 hover:border-[#EBFF00]/50 transition-all duration-500 overflow-hidden card-spotlight">
-          {{-- Hover gradient overlay --}}
-          <div class="absolute inset-0 bg-gradient-to-br from-[#EBFF00]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+      <div class="animate-fade-in-up" style="animation-delay:{{ $i * 50 }}ms" data-animate>
+        <div class="group relative flex flex-col h-full overflow-hidden transition-all duration-500 card-spotlight" style="background:#FFFFFF">
+          <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style="background:linear-gradient(135deg,rgba(159,232,112,0.10) 0%,transparent 60%)"></div>
 
           <div class="p-8 flex flex-col h-full relative z-10">
-            {{-- Icon row --}}
             <div class="flex justify-between items-start mb-6">
-              <div class="w-12 h-12 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#EBFF00] group-hover:scale-110 group-hover:bg-[#EBFF00] group-hover:text-black transition-all duration-300 shrink-0">
+              <div class="w-12 h-12 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-[#9FE870] shrink-0"
+                   style="background:#F5F4F0;border:1.5px solid #D0D0CA;color:#1A1A1A">
                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{!! $f['icon'] !!}</svg>
               </div>
-              {{-- Arrow indicator --}}
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                   class="text-neutral-700 group-hover:text-[#EBFF00] opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0" aria-hidden="true">
+                   class="opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0" style="color:#D6D6D6" aria-hidden="true">
                 <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
               </svg>
             </div>
 
-            {{-- Text --}}
-            <h3 class="text-xl font-bold text-white mb-3 group-hover:text-[#EBFF00] transition-colors duration-300">{{ $f['title'] }}</h3>
-            <p class="text-sm text-neutral-400 leading-relaxed group-hover:text-neutral-300 transition-colors">{{ $f['desc'] }}</p>
-          </div>
-
-          {{-- Ghost icon in corner --}}
-          <div class="absolute -bottom-8 -right-8 opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500 pointer-events-none">
-            <svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{!! $f['icon'] !!}</svg>
+            <h3 class="text-xl font-bold mb-3 transition-colors duration-300" style="color:#1A1A1A">{{ $f['title'] }}</h3>
+            <p class="text-sm leading-relaxed" style="color:#454745">{{ $f['desc'] }}</p>
           </div>
         </div>
       </div>
@@ -77,11 +69,11 @@
     </div>
 
     <!-- Intent demo -->
-    <div class="bg-[#111] border border-white/10 rounded-2xl p-8" data-animate>
-      <h3 class="text-xl font-bold text-white mb-6">See Chain Abstraction in Action</h3>
+    <div class="rounded-2xl p-8" style="background:#FFFFFF;border:1px solid #D6D6D6" data-animate>
+      <h3 class="text-xl font-bold mb-6" style="color:#1A1A1A">See Chain Abstraction in Action</h3>
       <div class="grid lg:grid-cols-2 gap-8 items-center">
         <div>
-          <pre class="rounded-xl overflow-auto text-sm"><code class="language-typescript">// Aeterna Intent SDK
+          <pre class="rounded-xl overflow-auto text-sm" style="background:#1A1A1A"><code class="language-typescript">// Aeterna Intent SDK
 const intent = await aeterna.createIntent({
   from: { chain: 'arbitrum', token: 'USDC', amount: 1000 },
   to:   { chain: 'solana',   token: 'SOL' },
@@ -102,11 +94,11 @@ const result = await intent.execute();
             ['n'=>'04','label'=>'Settlement','desc'=>'Funds delivered in <100ms, proof stored on-chain'],
           ]; @endphp
           @foreach($steps as $step)
-          <div class="flex items-start gap-4 p-4 rounded-xl bg-white/3 border border-white/8">
-            <span class="text-[#EBFF00] font-mono text-sm font-bold flex-shrink-0">{{ $step['n'] }}</span>
+          <div class="flex items-start gap-4 p-4 rounded-xl" style="background:#F5F4F0;border:1px solid #D6D6D6">
+            <span class="font-mono text-sm font-bold flex-shrink-0" style="color:#9FE870">{{ $step['n'] }}</span>
             <div>
-              <div class="text-white font-medium text-sm">{{ $step['label'] }}</div>
-              <div class="text-white/40 text-xs mt-0.5">{{ $step['desc'] }}</div>
+              <div class="font-semibold text-sm" style="color:#1A1A1A">{{ $step['label'] }}</div>
+              <div class="text-xs mt-0.5" style="color:#454745">{{ $step['desc'] }}</div>
             </div>
           </div>
           @endforeach

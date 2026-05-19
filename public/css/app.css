@@ -1,0 +1,393 @@
+/* ══════════════════════════════════════════════════════
+   Wise × Aeterna Design System
+   Light mode public site — Aeterna yellow accent kept
+   Animations untouched (see animations.css)
+   ══════════════════════════════════════════════════════ */
+
+:root {
+  /* Surfaces */
+  --bg-primary:    #F5F4F0;
+  --bg-secondary:  #EEECEA;
+  --bg-card:       #FFFFFF;
+  --bg-dark:       #0D0D0D;
+  --bg-dark-card:  #1A1A1A;
+
+  /* Accent */
+  --accent:        #EBFF00;
+  --accent-dark:   #D4E600;
+  --accent-text:   #0D0D0D;
+
+  /* Text */
+  --text-primary:   #1A1A1A;
+  --text-secondary: #454745;
+  --text-light:     #FFFFFF;
+  --text-muted:     rgba(255,255,255,0.6);
+
+  /* Borders */
+  --border:      #D6D6D6;
+  --border-dark: #2A2A2A;
+
+  /* Radius (Wise scale) */
+  --radius-sm:   8px;
+  --radius-md:   16px;
+  --radius-lg:   24px;
+  --radius-pill: 999px;
+}
+
+/* ── Global ── */
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+}
+
+/* ── Typography — light sections ── */
+section:not(#hero) h1,
+section:not(#hero) h2 {
+  color: var(--text-primary);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+section:not(#hero) h3 {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+section:not(#hero) h4 {
+  color: var(--text-primary);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+section:not(#hero) p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── Global buttons ── */
+.btn-primary {
+  background: var(--accent);
+  color: var(--accent-text);
+  border-radius: var(--radius-pill);
+  padding: 14px 28px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background: var(--accent-dark);
+  color: var(--accent-text);
+  transform: translateY(-1px);
+}
+
+.btn-secondary-dark {
+  background: var(--bg-dark);
+  color: var(--text-light);
+  border-radius: var(--radius-pill);
+  padding: 14px 28px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.btn-secondary-dark:hover {
+  background: #333333;
+  color: var(--text-light);
+  transform: translateY(-1px);
+}
+
+.btn-outline-light {
+  border: 2px solid rgba(255,255,255,0.3);
+  color: var(--text-light);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  padding: 14px 28px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: border-color 0.2s, background 0.2s;
+  text-decoration: none;
+}
+.btn-outline-light:hover {
+  border-color: rgba(255,255,255,0.8);
+  background: rgba(255,255,255,0.05);
+  color: var(--text-light);
+}
+
+/* ── Section label pill ── */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+}
+
+/* ── Light section cards ── */
+.light-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+.light-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+}
+
+/* ── Wise variables ── */
+:root {
+  --wise-bg:          #E8E8E3;
+  --wise-bg-card:     #FFFFFF;
+  --wise-text:        #1A1A1A;
+  --wise-text-muted:  #454745;
+  --wise-text-subtle: #6B6B68;
+  --wise-green:       #9FE870;
+  --wise-green-hover: #8AD660;
+  --wise-border:      #C8C8C2;
+  --wise-radius:      999px;
+}
+
+/* ── Navbar ── */
+#main-nav {
+  background: var(--wise-bg) !important;
+  border-bottom: 1px solid transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+#main-nav.scrolled {
+  background: var(--wise-bg) !important;
+  border-bottom: 1px solid transparent !important;
+  box-shadow: 0 1px 0 rgba(0,0,0,0.10) !important;
+  backdrop-filter: none !important;
+}
+/* Logo: keep dark on sage bg */
+#main-nav .nav-logo {
+  filter: brightness(0);
+}
+/* Nav links */
+#main-nav nav a,
+#main-nav nav button {
+  color: var(--wise-text) !important;
+  font-weight: 600;
+}
+/* Nav dropdown */
+#main-nav .mega-menu-bg {
+  background: var(--wise-bg-card) !important;
+  border-color: var(--wise-border) !important;
+}
+/* Mobile menu */
+#mobile-menu {
+  background: var(--wise-bg) !important;
+}
+#mobile-menu nav a {
+  color: var(--wise-text) !important;
+  border-bottom-color: var(--wise-border) !important;
+}
+/* Primary CTA hover */
+.shimmer-btn:hover {
+  background: var(--wise-green-hover) !important;
+  transform: translateY(-1px);
+}
+/* Secondary "Launch App" hover */
+a[href="https://app.aeternaio.com/"]:hover {
+  background: #F0F0EA !important;
+  border-color: #A0A09A !important;
+}
+/* Hero secondary CTA hover */
+.btn-wise-secondary:hover {
+  background: #F5F5F0 !important;
+  border-color: #A0A09A !important;
+}
+
+/* ── Architecture — tab active state (light bg → green) ── */
+.active-tab {
+  background: #9FE870 !important;
+  color: #1A1A1A !important;
+  border-color: #9FE870 !important;
+  font-weight: 700;
+}
+.active-tab::after { display: none; }
+
+/* ── Use-case cards hover ── */
+#use-cases .use-case-card:hover {
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  transform: translateY(-4px);
+}
+
+/* ── Card-spotlight: green glow on light sections, yellow on dark ── */
+#architecture .card-spotlight::after,
+#exchange .card-spotlight::after,
+#use-cases .card-spotlight::after,
+#tokenomics .card-spotlight::after {
+  background: radial-gradient(
+    500px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px),
+    rgba(159,232,112,0.13),
+    transparent 40%
+  );
+}
+#hero .card-spotlight::after,
+#ticker-strip .card-spotlight::after {
+  background: radial-gradient(
+    500px circle at var(--mouse-x, -9999px) var(--mouse-y, -9999px),
+    rgba(235,255,0,0.12),
+    transparent 40%
+  );
+}
+
+/* ── Ticker ── */
+#ticker-strip {
+  background: var(--bg-dark-card);
+}
+
+/* ══════════════════════════════════════════════════════
+   Wise Card System — Roadmap
+   ══════════════════════════════════════════════════════ */
+
+.feat-card {
+  border-radius: 24px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.feat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+}
+.feat-card.content { background: #FFFFFF; }
+.feat-card.sage    { background: #EEECEA; border: 1px solid #D0D0CA; }
+.feat-card.green   { background: #DFF5D0; }
+.feat-card.dark    { background: #1A1A1A; }
+
+.feat-card.dark .eyebrow     { color: rgba(255,255,255,0.4); }
+.feat-card.dark h3            { color: #9FE870; }
+.feat-card.dark .phase-time  { color: rgba(255,255,255,0.5); }
+.feat-card.dark li            { color: rgba(255,255,255,0.75); }
+.feat-card.dark .phase-icon-wrap {
+  background: rgba(159,232,112,0.15);
+  color: #9FE870;
+}
+
+.eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #868685;
+}
+
+.roadmap-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 16px;
+}
+@media (max-width: 768px) {
+  .roadmap-card-grid { grid-template-columns: 1fr; }
+  .feat-card.phase-current { grid-template-columns: 1fr; }
+}
+
+/* Phase 1 — full-width banner, two-column interior */
+.feat-card.phase-current {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+/* Phases 2-4 — equal thirds */
+.feat-card.phase-upcoming {
+  grid-column: span 1;
+}
+
+/* "View all" toggle button */
+.view-all-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: opacity 0.15s;
+  margin-top: 4px;
+  align-self: flex-start;
+}
+.view-all-btn:hover { opacity: 0.7; }
+.feat-card.content  .view-all-btn,
+.feat-card.sage     .view-all-btn  { color: #1A1A1A; }
+.feat-card.green    .view-all-btn  { color: #2D7A0F; }
+.feat-card.dark     .view-all-btn  { color: #9FE870; }
+
+.phase-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F0F0EA;
+  color: #1A1A1A;
+  flex-shrink: 0;
+}
+
+.milestone-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.milestone-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+  color: #454745;
+  line-height: 1.5;
+}
+.milestone-list li::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: #9FE870;
+}
+.feat-card.dark  .milestone-list li::before { background: #9FE870; }
+.feat-card.sage  .milestone-list li::before { background: #1A1A1A; }
+.feat-card.green .milestone-list li::before { background: #2D7A0F; }
+
+/* ── Thesis Web2 card on light bg ── */
+#thesis .web2-card {
+  background: #FFFFFF;
+  border: 1px solid #FFD6D6;
+  border-radius: var(--radius-md);
+}
+#thesis .aeterna-card {
+  background: #FAFFED;
+  border: 1px solid rgba(235,255,0,0.4);
+  border-radius: var(--radius-md);
+}

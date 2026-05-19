@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="h4 fw-bold text-white mb-0">Architecture Layers</h1>
+  <h1 class="admin-section-title">Architecture Layers</h1>
 </div>
 
 <div class="row g-4">
@@ -12,17 +12,19 @@
   <div class="col-md-6">
     <div class="admin-card p-4">
       <div class="d-flex justify-content-between align-items-start mb-3">
-        <div>
-          <span class="badge badge-accent me-2" style="font-size:.72rem">L{{ $layer->layer_number }}</span>
-          <span class="text-white fw-semibold">{{ $layer->name }}</span>
+        <div class="d-flex align-items-center gap-2">
+          <span class="wise-badge wise-badge-stage">L{{ $layer->layer_number }}</span>
+          <span style="font-size:.9rem;font-weight:600;color:var(--wise-ink)">{{ $layer->name }}</span>
         </div>
         <div class="d-flex align-items-center gap-2">
-          <span class="badge" style="{{ $layer->is_active ? 'background:rgba(74,222,128,.15);color:#4ade80' : 'background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)' }};font-size:.72rem">{{ $layer->is_active ? 'Active' : 'Inactive' }}</span>
-          <a href="{{ route('admin.architecture.edit', $layer) }}" class="btn btn-sm btn-outline-secondary" style="font-size:.75rem">Edit</a>
+          <span class="wise-badge {{ $layer->is_active ? 'wise-badge-active' : 'wise-badge-inactive' }}">
+            {{ $layer->is_active ? 'Active' : 'Inactive' }}
+          </span>
+          <a href="{{ route('admin.architecture.edit', $layer) }}" class="btn btn-wise-outline btn-sm">Edit</a>
         </div>
       </div>
-      <p class="text-white-50 mb-3" style="font-size:.83rem;line-height:1.5">{{ Str::limit($layer->description, 100) }}</p>
-      <div class="text-white-50" style="font-size:.78rem">{{ count($layer->features_json ?? []) }} features</div>
+      <p style="font-size:.83rem;line-height:1.5;color:var(--wise-body)" class="mb-2">{{ Str::limit($layer->description, 100) }}</p>
+      <div style="font-size:.78rem;color:var(--wise-mute)">{{ count($layer->features_json ?? []) }} features</div>
     </div>
   </div>
   @endforeach

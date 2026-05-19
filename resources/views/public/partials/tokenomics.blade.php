@@ -1,22 +1,22 @@
-<section id="tokenomics" class="py-24 px-6 bg-[#111]">
+<section id="tokenomics" class="py-24 px-6" style="background:#EEECEA">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16" data-animate>
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#EBFF00]/20 bg-[#EBFF00]/5 text-[#EBFF00] text-sm mb-4">{{ $tokenomics->section_badge ?? 'Token Economics' }}</div>
-      <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">{{ $tokenomics->section_title ?? 'AETHER Tokenomics' }}</h2>
-      <p class="text-white/50 text-lg max-w-2xl mx-auto">{{ $tokenomics->section_subtitle ?? '' }}</p>
+      <div class="section-label mb-4">{{ $tokenomics->section_badge ?? 'Token Economics' }}</div>
+      <h2 class="text-4xl md:text-5xl mb-4" style="color:#1A1A1A;font-weight:900;letter-spacing:-0.03em">{{ $tokenomics->section_title ?? 'AETHER Tokenomics' }}</h2>
+      <p class="text-lg max-w-2xl mx-auto" style="color:#454745">{{ $tokenomics->section_subtitle ?? '' }}</p>
     </div>
 
     <div class="grid lg:grid-cols-2 gap-8 mb-12">
-      <!-- Token card -->
-      <div class="bg-[#0a0a0a] border border-white/10 rounded-2xl p-8" data-animate>
+      <!-- Token card — stays dark for contrast -->
+      <div class="rounded-3xl p-8" style="background:#1A1A1A;border:1px solid #2A2A2A" data-animate>
         <div class="flex justify-between items-start mb-6">
           <div>
-            <h3 class="text-3xl font-bold text-white">{{ $tokenomics->token_name ?? 'AETHER' }}</h3>
-            <div class="text-[#EBFF00] font-mono text-sm mt-1">{{ $tokenomics->token_ticker ?? 'ATA' }}</div>
+            <h3 class="text-3xl font-black" style="color:#FFFFFF;letter-spacing:-0.03em">{{ $tokenomics->token_name ?? 'AETHER' }}</h3>
+            <div class="font-mono text-sm mt-1" style="color:#EBFF00">{{ $tokenomics->token_ticker ?? 'ATA' }}</div>
           </div>
           <div class="text-right">
-            <div class="text-xs text-white/40 mb-1">Total Supply</div>
-            <div class="text-lg font-bold text-white">{{ $tokenomics->token_supply ?? '1,000,000,000 ATA' }}</div>
+            <div class="text-xs mb-1" style="color:rgba(255,255,255,0.4)">Total Supply</div>
+            <div class="text-lg font-bold" style="color:#FFFFFF">{{ $tokenomics->token_supply ?? '1,000,000,000 ATA' }}</div>
           </div>
         </div>
         <!-- Allocation chart -->
@@ -29,36 +29,36 @@
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background:{{ $alloc['color'] }}"></span>
-                <span class="text-xs text-white/60">{{ $alloc['label'] }}</span>
+                <span class="text-xs" style="color:rgba(255,255,255,0.6)">{{ $alloc['label'] }}</span>
               </div>
-              <span class="text-xs font-bold text-white">{{ $alloc['percentage'] }}%</span>
+              <span class="text-xs font-bold" style="color:#FFFFFF">{{ $alloc['percentage'] }}%</span>
             </div>
             @endforeach
           </div>
         </div>
       </div>
 
-      <!-- Stats grid -->
+      <!-- Stats grid — light cards -->
       <div class="grid grid-cols-2 gap-4" data-animate>
         @foreach($tokenomics->stats_json ?? [] as $stat)
-        <div class="bg-[#0a0a0a] border border-white/10 rounded-xl p-6 hover:border-[#EBFF00]/20 transition">
-          <div class="text-2xl font-bold text-[#EBFF00] mb-1">{{ $stat['value'] }}</div>
-          <div class="text-sm text-white font-medium mb-1">{{ $stat['label'] }}</div>
-          <div class="text-xs text-white/40">{{ $stat['description'] ?? '' }}</div>
+        <div class="rounded-xl p-6 transition-all" style="background:#FFFFFF;border:1px solid #D6D6D6;border-radius:16px">
+          <div class="text-2xl font-black mb-1" style="color:#1A1A1A;letter-spacing:-0.02em">{{ $stat['value'] }}</div>
+          <div class="text-sm font-semibold mb-1" style="color:#1A1A1A">{{ $stat['label'] }}</div>
+          <div class="text-xs" style="color:#454745">{{ $stat['description'] ?? '' }}</div>
         </div>
         @endforeach
       </div>
     </div>
 
     <!-- Flywheel -->
-    <div class="bg-[#0a0a0a] border border-white/10 rounded-2xl p-8 mb-12" data-animate>
-      <h3 class="text-xl font-bold text-white mb-6 text-center">Economic Flywheel</h3>
+    <div class="rounded-3xl p-8 mb-12" style="background:#FFFFFF;border:1px solid #D6D6D6" data-animate>
+      <h3 class="text-xl font-bold mb-6 text-center" style="color:#1A1A1A;letter-spacing:-0.02em">Economic Flywheel</h3>
       <div class="flex flex-wrap justify-center items-center gap-2">
         @foreach($tokenomics->flywheel_steps_json ?? [] as $i => $step)
           <div class="flex items-center gap-2">
-            <div class="px-3 py-2 rounded-lg bg-[#EBFF00]/10 border border-[#EBFF00]/20 text-[#EBFF00] text-xs font-medium text-center">{{ $step }}</div>
+            <div class="px-4 py-2 rounded-full text-xs font-semibold text-center" style="background:rgba(159,232,112,0.18);border:1px solid rgba(159,232,112,0.5);color:#1A1A1A;letter-spacing:0.01em">{{ $step }}</div>
             @if(!$loop->last)
-              <svg class="w-4 h-4 text-white/30 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:#D6D6D6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
             @endif
           </div>
         @endforeach
@@ -66,37 +66,35 @@
     </div>
 
     <!-- Mechanics -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10 overflow-hidden rounded-2xl mb-12">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 overflow-hidden mb-12" style="border:1px solid #D6D6D6;border-radius:16px;gap:1px;background:#D6D6D6">
       @foreach($tokenomics->mechanics_json ?? [] as $i => $mech)
-      <div class="group relative flex flex-col bg-[#0a0a0a] border border-white/10 hover:border-[#EBFF00]/50 transition-all duration-500 overflow-hidden card-spotlight" data-animate style="animation-delay:{{ $i * 50 }}ms">
-        <div class="absolute inset-0 bg-gradient-to-br from-[#EBFF00]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+      <div class="group relative flex flex-col overflow-hidden transition-all duration-500 card-spotlight" style="background:#FFFFFF" data-animate style="animation-delay:{{ $i * 50 }}ms">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style="background:linear-gradient(135deg,rgba(235,255,0,0.08) 0%,transparent 60%)"></div>
         <div class="p-7 flex flex-col h-full relative z-10">
           <div class="flex justify-between items-start mb-5">
-            <div class="w-11 h-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#EBFF00] group-hover:scale-110 group-hover:bg-[#EBFF00] group-hover:text-black transition-all duration-300 shrink-0">
+            <div class="w-11 h-11 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:bg-[#9FE870] shrink-0"
+                 style="background:#F5F4F0;border:1.5px solid #D0D0CA;color:#1A1A1A">
               <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{!! $mech['icon_svg'] !!}</svg>
             </div>
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                 class="text-neutral-700 group-hover:text-[#EBFF00] opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0" aria-hidden="true">
+                 class="opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0" style="color:#D6D6D6" aria-hidden="true">
               <path d="M7 7h10v10"/><path d="M7 17 17 7"/>
             </svg>
           </div>
-          <h4 class="font-bold text-white mb-2 text-sm group-hover:text-[#EBFF00] transition-colors duration-300">{{ $mech['title'] }}</h4>
-          <p class="text-neutral-500 text-xs leading-relaxed group-hover:text-neutral-400 transition-colors">{{ $mech['description'] }}</p>
-        </div>
-        <div class="absolute -bottom-6 -right-6 opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500 pointer-events-none">
-          <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{!! $mech['icon_svg'] !!}</svg>
+          <h4 class="font-bold mb-2 text-sm transition-colors duration-300" style="color:#1A1A1A">{{ $mech['title'] }}</h4>
+          <p class="text-xs leading-relaxed" style="color:#454745">{{ $mech['description'] }}</p>
         </div>
       </div>
       @endforeach
     </div>
 
-    <!-- AIA Token card -->
-    <div class="bg-gradient-to-r from-[#EBFF00]/5 to-transparent border border-[#EBFF00]/20 rounded-2xl p-8" data-animate>
+    <!-- AIA Token card — stays dark for contrast -->
+    <div class="rounded-3xl p-8" style="background:#1A1A1A;border:1px solid rgba(235,255,0,0.2)" data-animate>
       <div class="flex items-start gap-6">
-        <div class="w-14 h-14 rounded-xl bg-[#EBFF00]/15 border border-[#EBFF00]/30 flex items-center justify-center text-[#EBFF00] font-bold text-lg flex-shrink-0">AIA</div>
+        <div class="w-14 h-14 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0" style="background:rgba(235,255,0,0.15);border:1.5px solid rgba(235,255,0,0.4);color:#EBFF00">AIA</div>
         <div>
-          <h3 class="text-xl font-bold text-white mb-2">{{ $tokenomics->lp_token_name ?? 'AIA' }} — Liquidity Provider Token</h3>
-          <p class="text-white/60 leading-relaxed">{{ $tokenomics->lp_token_description ?? '' }}</p>
+          <h3 class="text-xl font-bold mb-2" style="color:#FFFFFF">{{ $tokenomics->lp_token_name ?? 'AIA' }} — Liquidity Provider Token</h3>
+          <p style="color:rgba(255,255,255,0.6);line-height:1.6">{{ $tokenomics->lp_token_description ?? '' }}</p>
         </div>
       </div>
     </div>

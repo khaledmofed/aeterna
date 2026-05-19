@@ -22,16 +22,15 @@ tailwind = { config: {
 <link href="/site-assets/prism-tomorrow.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
 <link rel="stylesheet" href="/css/animations.css">
+<link rel="stylesheet" href="/css/app.css">
 
 <style>
-body{background:#0a0a0a;color:#f5f5f5;font-family:'Inter',sans-serif;}
-#main-nav{transition:background .3s,border-color .3s;}
-#main-nav.scrolled{background:rgba(10,10,10,.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,.07);}
+body{background:#F5F4F0;color:#1A1A1A;font-family:'Inter',sans-serif;}
+#main-nav{transition:background .3s,border-color .3s,box-shadow .3s;}
 .shimmer-btn{position:relative;overflow:hidden;}
 .shimmer-btn::after{content:'';position:absolute;top:0;left:-60px;width:60px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:shimmer 2s infinite;}
 .card-beam{position:relative;overflow:hidden;}
-.card-beam::before{content:'';position:absolute;left:50%;transform:translateX(-50%);width:2px;height:100%;background:linear-gradient(transparent,#EBFF00,transparent);opacity:.35;animation:beam 3s linear infinite;}
-.active-tab{color:#EBFF00 !important;border-bottom:2px solid #EBFF00;}
+.active-tab{background:#EBFF00 !important;color:#0D0D0D !important;border-color:#EBFF00 !important;font-weight:700;}
 #back-to-top{transition:opacity .3s;}
 [data-animate]{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
 [data-animate].animated{opacity:1;transform:translateY(0);}

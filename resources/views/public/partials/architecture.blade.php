@@ -1,16 +1,17 @@
-<section id="architecture" class="py-24 px-6 bg-[#0a0a0a]">
+<section id="architecture" class="py-24 px-6" style="background:#F5F4F0">
   <div class="max-w-7xl mx-auto">
-    <div class="text-center mb-16" data-animate>
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 bg-white/3 text-white/60 text-sm mb-4">Architecture</div>
-      <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Built Different. Built to Last.</h2>
-      <p class="text-white/50 text-lg max-w-2xl mx-auto">A 4-layer architecture designed for the AI-native, chain-abstracted future of the internet.</p>
+    <div class="text-center mb-14" data-animate>
+      <div class="section-label">Architecture</div>
+      <h2 class="text-4xl md:text-5xl mb-4" style="color:#1A1A1A;font-weight:900;letter-spacing:-0.03em">Built Different. Built to Last.</h2>
+      <p class="text-lg max-w-2xl mx-auto" style="color:#454745">A 4-layer architecture designed for the AI-native, chain-abstracted future of the internet.</p>
     </div>
 
     <!-- Layer tabs -->
     <div class="flex flex-wrap justify-center gap-2 mb-12" data-animate>
       @foreach($layers as $layer)
         <button data-arch-tab="{{ $layer->slug }}"
-          class="px-5 py-2.5 rounded-full border border-white/15 text-white/60 text-sm font-medium hover:text-white hover:border-white/30 transition">
+          class="px-5 py-2.5 text-sm font-semibold transition-all duration-200"
+          style="border-radius:999px;border:1.5px solid #D6D6D6;background:#EEECEA;color:#454745">
           L{{ $layer->layer_number }} {{ $layer->name }}
         </button>
       @endforeach
@@ -20,27 +21,29 @@
     @foreach($layers as $layer)
     <div id="{{ $layer->slug }}" data-arch-panel="{{ $layer->slug }}" class="hidden">
       <div class="grid lg:grid-cols-2 gap-8 items-start">
-        <!-- Left: info -->
-        <div class="card-beam card-spotlight bg-[#111] border border-white/10 rounded-2xl p-8 hover:border-[#EBFF00]/30 transition-colors">
+        <!-- Left: info card -->
+        <div class="card-spotlight p-8 transition-all duration-300 hover:shadow-lg"
+             style="background:#FFFFFF;border:1px solid #D6D6D6;border-radius:16px">
           <div class="flex items-center gap-4 mb-5">
-            <div class="w-12 h-12 rounded-xl bg-[#EBFF00]/10 border border-[#EBFF00]/20 flex items-center justify-center text-[#EBFF00]">
+            <div class="w-12 h-12 flex items-center justify-center flex-shrink-0"
+                 style="background:rgba(159,232,112,0.15);border:1.5px solid rgba(159,232,112,0.45);border-radius:16px;color:#1A1A1A">
               {!! $layer->icon_svg !!}
             </div>
             <div>
-              <div class="text-xs text-[#EBFF00] font-mono mb-1">LAYER {{ $layer->layer_number }}</div>
-              <h3 class="text-xl font-bold text-white">{{ $layer->name }}</h3>
+              <div class="text-xs font-bold mb-1" style="color:#EBFF00;background:#0D0D0D;display:inline-block;padding:2px 10px;border-radius:999px;letter-spacing:0.06em">LAYER {{ $layer->layer_number }}</div>
+              <h3 class="text-xl font-bold" style="color:#1A1A1A;letter-spacing:-0.02em">{{ $layer->name }}</h3>
             </div>
           </div>
-          <p class="text-white/60 leading-relaxed">{{ $layer->description }}</p>
+          <p style="color:#454745;line-height:1.65">{{ $layer->description }}</p>
         </div>
 
         <!-- Right: features grid -->
         <div class="grid sm:grid-cols-2 gap-4">
           @foreach($layer->features_json ?? [] as $i => $feature)
-          <div class="card-spotlight bg-[#111] border border-white/8 rounded-xl p-5 hover:border-[#EBFF00]/20 hover:bg-[#EBFF00]/2 transition-all" data-animate style="animation-delay:{{ $i * 0.05 }}s">
-            <div class="w-5 h-5 text-[#EBFF00] mb-3">{!! $feature['icon_svg'] !!}</div>
-            <h4 class="text-white font-semibold mb-1.5 text-sm">{{ $feature['title'] }}</h4>
-            <p class="text-white/45 text-xs leading-relaxed">{{ $feature['description'] }}</p>
+          <div class="card-spotlight p-5 transition-all duration-200 group" data-animate style="animation-delay:{{ $i * 0.05 }}s;background:#FFFFFF;border:1px solid #D6D6D6;border-radius:16px">
+            <div class="w-5 h-5 mb-3" style="color:#1A1A1A">{!! $feature['icon_svg'] !!}</div>
+            <h4 class="font-semibold mb-1.5 text-sm" style="color:#1A1A1A">{{ $feature['title'] }}</h4>
+            <p class="text-xs leading-relaxed" style="color:#454745">{{ $feature['description'] }}</p>
           </div>
           @endforeach
         </div>
@@ -49,22 +52,22 @@
     @endforeach
 
     <!-- Stack diagram -->
-    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-px bg-white/10 border border-white/10 overflow-hidden rounded-2xl" data-animate>
+    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 overflow-hidden" style="border:1px solid #D6D6D6;border-radius:16px;gap:1px;background:#D6D6D6" data-animate>
       @foreach($layers->sortBy('layer_number') as $i => $layer)
-      <div class="group relative flex flex-col bg-[#0a0a0a] border border-white/10 hover:border-[#EBFF00]/50 transition-all duration-500 overflow-hidden card-spotlight">
-        <div class="absolute inset-0 bg-gradient-to-br from-[#EBFF00]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+      <div class="group relative flex flex-col overflow-hidden transition-all duration-300 card-spotlight"
+           style="background:#FFFFFF">
+        <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+             style="background:linear-gradient(135deg,rgba(159,232,112,0.10) 0%,transparent 60%)"></div>
         <div class="p-7 flex flex-col h-full relative z-10">
           <div class="flex justify-between items-start mb-5">
-            <div class="w-11 h-11 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[#EBFF00] group-hover:scale-110 group-hover:bg-[#EBFF00] group-hover:text-black transition-all duration-300 shrink-0">
+            <div class="w-11 h-11 flex items-center justify-center transition-all duration-300 group-hover:scale-110 shrink-0"
+                 style="background:#F5F4F0;border:1.5px solid #D6D6D6;border-radius:12px;color:#1A1A1A">
               {!! $layer->icon_svg !!}
             </div>
-            <span class="font-mono text-[10px] uppercase tracking-widest text-neutral-600 group-hover:text-[#EBFF00] transition-colors">L0{{ $layer->layer_number }}</span>
+            <span class="font-mono text-[10px] uppercase tracking-widest" style="color:#D6D6D6">L0{{ $layer->layer_number }}</span>
           </div>
-          <h4 class="font-bold text-white text-sm mb-2 group-hover:text-[#EBFF00] transition-colors duration-300">{{ $layer->name }}</h4>
-          <p class="text-neutral-600 text-xs leading-relaxed group-hover:text-neutral-400 transition-colors line-clamp-3">{{ $layer->description }}</p>
-        </div>
-        <div class="absolute -bottom-6 -right-6 opacity-0 group-hover:opacity-[0.03] transition-opacity duration-500 pointer-events-none">
-          <div class="w-32 h-32 text-white">{!! $layer->icon_svg !!}</div>
+          <h4 class="font-bold text-sm mb-2 transition-colors duration-300" style="color:#1A1A1A;letter-spacing:-0.01em">{{ $layer->name }}</h4>
+          <p class="text-xs leading-relaxed line-clamp-3" style="color:#868685">{{ $layer->description }}</p>
         </div>
       </div>
       @endforeach

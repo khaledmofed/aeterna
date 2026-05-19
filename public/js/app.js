@@ -210,7 +210,7 @@ function initHeroCanvas() {
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(235,255,0,${p.o})`;
+      ctx.fillStyle = `rgba(0,0,0,${p.o * 0.4})`;
       ctx.fill();
     }
 
@@ -222,7 +222,7 @@ function initHeroCanvas() {
         const dist = Math.sqrt(dx * dx + dy * dy);
         if (dist < CONNECT) {
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(235,255,0,${(1 - dist / CONNECT) * 0.12})`;
+          ctx.strokeStyle = `rgba(0,0,0,${(1 - dist / CONNECT) * 0.08})`;
           ctx.moveTo(particles[i].x, particles[i].y);
           ctx.lineTo(particles[j].x, particles[j].y);
           ctx.stroke();

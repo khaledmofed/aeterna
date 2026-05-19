@@ -4,33 +4,40 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="h4 fw-bold text-white mb-0">Roadmap</h1>
-  <a href="{{ route('admin.roadmap.create') }}" class="btn btn-accent btn-sm px-3">+ Add Stage</a>
+  <h1 class="admin-section-title">Roadmap</h1>
+  <a href="{{ route('admin.roadmap.create') }}" class="btn btn-accent btn-sm px-4">+ Add Stage</a>
 </div>
 <div class="row g-4">
   @forelse($stages as $stage)
   <div class="col-md-6">
     <div class="admin-card p-4">
       <div class="d-flex justify-content-between align-items-start mb-3">
-        <div>
-          <span class="badge me-2" style="background:rgba(235,255,0,.1);color:#EBFF00;font-size:.72rem">Stage {{ $stage->stage_number }}</span>
-          <span class="text-white fw-semibold">{{ $stage->name }}</span>
+        <div class="d-flex align-items-center gap-2">
+          <span class="wise-badge wise-badge-stage">Stage {{ $stage->stage_number }}</span>
+          <span style="font-size:.9rem;font-weight:600;color:var(--wise-ink)">{{ $stage->name }}</span>
         </div>
-        <span class="badge" style="{{ $stage->status === 'active' ? 'background:rgba(235,255,0,.15);color:#EBFF00' : ($stage->status === 'completed' ? 'background:rgba(74,222,128,.15);color:#4ade80' : 'background:rgba(255,255,255,.06);color:rgba(255,255,255,.4)') }};font-size:.72rem">{{ ucfirst($stage->status) }}</span>
+        @php
+          $statusClass = match($stage->status) {
+            'active'    => 'wise-badge-active',
+            'completed' => 'wise-badge-primary',
+            default     => 'wise-badge-inactive',
+          };
+        @endphp
+        <span class="wise-badge {{ $statusClass }}">{{ ucfirst($stage->status) }}</span>
       </div>
-      <div class="text-white-50 mb-3" style="font-size:.82rem">{{ $stage->timeframe }}</div>
-      <div class="text-white-50 mb-3" style="font-size:.78rem">{{ count($stage->milestones_json ?? []) }} milestones</div>
+      <div style="font-size:.82rem;color:var(--wise-mute)" class="mb-2">{{ $stage->timeframe }}</div>
+      <div style="font-size:.78rem;color:var(--wise-mute)" class="mb-3">{{ count($stage->milestones_json ?? []) }} milestones</div>
       <div class="d-flex gap-2">
-        <a href="{{ route('admin.roadmap.edit', $stage) }}" class="btn btn-sm btn-outline-secondary" style="font-size:.75rem">Edit</a>
+        <a href="{{ route('admin.roadmap.edit', $stage) }}" class="btn btn-wise-outline btn-sm">Edit</a>
         <form method="POST" action="{{ route('admin.roadmap.destroy', $stage) }}" onsubmit="return confirm('Delete?')">
           @csrf @method('DELETE')
-          <button class="btn btn-sm btn-outline-danger" style="font-size:.75rem">Delete</button>
+          <button class="btn btn-wise-danger btn-sm">Delete</button>
         </form>
       </div>
     </div>
   </div>
   @empty
-  <div class="col"><p class="text-white-50">No stages yet.</p></div>
+  <div class="col"><p style="color:var(--wise-mute)">No stages yet.</p></div>
   @endforelse
 </div>
 @endsection
