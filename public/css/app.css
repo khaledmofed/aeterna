@@ -376,7 +376,16 @@ a[href="https://app.aeternaio.com/"]:hover {
   flex-shrink: 0;
   background: #9FE870;
 }
-.feat-card.dark  .milestone-list li::before { background: #9FE870; }
+.feat-card.dark .milestone-list li::before {
+  content: '✓';
+  width: auto;
+  height: auto;
+  background: none;
+  color: #9FE870;
+  font-size: 12px;
+  font-weight: 800;
+  border-radius: 0;
+}
 .feat-card.sage  .milestone-list li::before { background: #1A1A1A; }
 .feat-card.green .milestone-list li::before { background: #2D7A0F; }
 

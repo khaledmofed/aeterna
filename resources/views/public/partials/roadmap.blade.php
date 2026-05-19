@@ -31,10 +31,14 @@
 
       @if($num === 1)
       {{-- ─── PHASE 1: Full-width dark banner ─── --}}
-      <div class="feat-card dark phase-current animate-scale-in" data-animate>
+      <div class="feat-card dark phase-current animate-scale-in" data-animate
+           style="background:linear-gradient(135deg,#1E1E1E 0%,#141414 100%);border:1px solid rgba(159,232,112,0.15);box-shadow:0 0 0 1px rgba(159,232,112,0.08),0 24px 48px rgba(0,0,0,0.3);position:relative;overflow:hidden">
 
-        {{-- LEFT column: eyebrow + icon + title --}}
-        <div style="display:flex;flex-direction:column;gap:20px">
+        {{-- Decorative top-right glow --}}
+        <div style="position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(159,232,112,0.08) 0%,transparent 70%);pointer-events:none"></div>
+
+        {{-- LEFT column: eyebrow + icon + title + progress + stats --}}
+        <div style="display:flex;flex-direction:column;gap:20px;position:relative;z-index:1">
 
           {{-- Eyebrow + LIVE badge --}}
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
@@ -60,10 +64,28 @@
             The foundation is live. Core infrastructure, AI engine, and chain abstraction layers are being deployed across the network.
           </p>
 
+          {{-- Progress bar --}}
+          <div style="margin-top:4px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+              <span style="font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;letter-spacing:0.05em">DEPLOYMENT PROGRESS</span>
+              <span style="font-size:12px;color:#9FE870;font-weight:700">65%</span>
+            </div>
+            <div style="height:4px;background:rgba(255,255,255,0.1);border-radius:999px;overflow:hidden">
+              <div style="width:65%;height:100%;background:#9FE870;border-radius:999px;box-shadow:0 0 12px rgba(159,232,112,0.5)"></div>
+            </div>
+          </div>
+
+          {{-- Mini stat pills --}}
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span style="background:rgba(159,232,112,0.1);border:1px solid rgba(159,232,112,0.2);color:#9FE870;font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px">✓ Mainnet Live</span>
+            <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px">{{ count($milestones) }} Milestones</span>
+            <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px">{{ $stage->timeframe }}</span>
+          </div>
+
         </div>
 
-        {{-- RIGHT column: all milestones --}}
-        <ul class="milestone-list" style="padding-top:4px">
+        {{-- RIGHT column: checkmark milestones + left divider --}}
+        <ul class="milestone-list" style="padding-top:4px;border-left:1px solid rgba(255,255,255,0.06);padding-left:32px;position:relative;z-index:1">
           @foreach($milestones as $milestone)
             <li>{{ $milestone }}</li>
           @endforeach
