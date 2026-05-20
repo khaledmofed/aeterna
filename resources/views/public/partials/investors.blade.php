@@ -28,12 +28,24 @@
     </div>
 
     <!-- Strategic partners -->
+    @php
+    $logoMap = [
+        'YZI Labs'        => 'https://static.yzilabs.com/yzi-lab/static/images/logo.png',
+        'Binance Labs'    => 'https://static.yzilabs.com/yzi-lab/static/images/logo.png',
+        'OKX Ventures'    => 'https://www.okx.com/cdn/assets/imgs/221/187957948BD02D97.png',
+        'HashKey Capital' => 'https://hashkey.capital/static/images/logo.png',
+        'Animoca Brands'  => 'https://cdn.prod.website-files.com/694b47ff8f3088ab9288889c/694b47ff8f3088ab928888ff_logo.svg',
+        'Pantera Capital' => 'https://logo.clearbit.com/panteracapital.com',
+        'Gate Ventures'   => 'https://logo.clearbit.com/gate.io',
+    ];
+    @endphp
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
       @foreach($strategic as $inv)
       @php
         $domain   = parse_url($inv->website_url ?? '', PHP_URL_HOST);
         $domain   = $domain ? preg_replace('/^www\./', '', $domain) : null;
         $logoSrc  = $inv->logo_url
+                      ?: ($logoMap[$inv->name] ?? null)
                       ?: ($domain ? 'https://logo.clearbit.com/' . $domain : null);
       @endphp
       <a href="{{ $inv->website_url ?? '#' }}" target="_blank"
