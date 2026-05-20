@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<title>Admin — @yield('title','Dashboard') | AeternaX</title>
+<title>Admin ; @yield('title','Dashboard') | AeternaX</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
@@ -58,7 +58,7 @@ body {
   color: var(--wise-ink);
 }
 
-/* ── Sidebar (Wise dark surface — card-feature-dark pattern) ── */
+/* ── Sidebar (Wise dark surface ; card-feature-dark pattern) ── */
 #sidebar {
   position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-w);
   background: var(--wise-ink);
@@ -105,7 +105,7 @@ body {
   border-top: 1px solid rgba(255,255,255,.08);
 }
 
-/* ── Topbar (Wise nav-bar — white surface) ── */
+/* ── Topbar (Wise nav-bar ; white surface) ── */
 #topbar {
   position: fixed; top: 0; left: var(--sidebar-w); right: 0; height: 60px;
   background: var(--wise-canvas);

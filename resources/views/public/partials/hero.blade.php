@@ -12,7 +12,7 @@
     <div class="inline-flex items-center gap-2 px-4 py-2 mb-6 animate-scale-in"
          style="background:#9FE870;color:#1A1A1A;border-radius:999px;font-size:0.8rem;font-weight:700;letter-spacing:0.02em">
       <span class="w-2 h-2 rounded-full animate-pulse" style="background:#1A1A1A;opacity:0.4"></span>
-      {{ $hero->badge_text ?? 'AI Native Layer 1 — Now Live' }}
+      {{ $hero->badge_text ?? 'AI Native Layer 1 ; Now Live' }}
     </div>
 
     <!-- Headline -->

@@ -6,7 +6,7 @@
 @endsection
 
 @section('content')
-<div class="mb-4"><h1 class="admin-section-title">Edit — {{ $layer->name }}</h1></div>
+<div class="mb-4"><h1 class="admin-section-title">Edit ; {{ $layer->name }}</h1></div>
 
 <form method="POST" action="{{ route('admin.architecture.update', $layer) }}">
   @csrf @method('PUT')

@@ -1,4 +1,4 @@
-<section id="architecture" class="py-24 px-6" style="background:#F5F4F0">
+<section id="architecture" class="pt-24 px-6" style="background:#F5F4F0">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-14" data-animate>
       <div class="section-label">Architecture</div>

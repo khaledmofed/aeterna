@@ -34,14 +34,15 @@
       </div>
 
       <!-- Aeterna flow -->
-      <div class="rounded-2xl p-8" style="background:linear-gradient(135deg,rgba(235,255,0,0.07) 0%,transparent 60%);border:1px solid rgba(235,255,0,0.3)">
-        <h3 class="text-lg font-bold mb-6 flex items-center gap-2" style="color:#1A1A1A">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#EBFF00"><path d="M20 6 9 17l-5-5"/></svg>
+      <div class="rounded-2xl p-8" style="background: linear-gradient(135deg, rgb(159 232 112 / 16%) 0%, #eeecea 60%);
+    border: 1px solid rgb(159 232 112);">
+        <h3 class="text-lg font-bold mb-6 flex items-center gap-2" style="color:#59d807">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#59d807"><path d="M20 6 9 17l-5-5"/></svg>
           Aeterna Value Flow
         </h3>
         @php $aeterna = [
           ['Users create value','Users generate all content, data & attention'],
-          ['Protocol captures 0.02–0.1%','Minimal protocol fee — 99.9%+ stays in the ecosystem'],
+          ['Protocol captures 0.02–0.1%','Minimal protocol fee ; 99.9%+ stays in the ecosystem'],
           ['90% burned permanently','Token supply decreases, increasing value for all holders'],
           ['10% to stakers + you earn','Active participants earn directly from every transaction'],
         ]; @endphp

@@ -31,7 +31,7 @@
     <div class="mb-3">
       <label class="form-label">Parent <small style="color:var(--wise-mute)">(optional)</small></label>
       <select name="parent_id" class="form-select">
-        <option value="">— Top Level —</option>
+        <option value="">; Top Level ;</option>
         @foreach($parents as $p)
           <option value="{{ $p->id }}" {{ (old('parent_id', $item->parent_id ?? '')) == $p->id ? 'selected' : '' }}>{{ $p->label }}</option>
         @endforeach

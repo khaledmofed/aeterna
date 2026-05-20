@@ -7,7 +7,7 @@
     </div>
 
     <div class="grid lg:grid-cols-2 gap-8 mb-12">
-      <!-- Token card — stays dark for contrast -->
+      <!-- Token card ; stays dark for contrast -->
       <div class="rounded-3xl p-8" style="background:#1A1A1A;border:1px solid #2A2A2A" data-animate>
         <div class="flex justify-between items-start mb-6">
           <div>
@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <!-- Stats grid — light cards -->
+      <!-- Stats grid ; light cards -->
       <div class="grid grid-cols-2 gap-4" data-animate>
         @foreach($tokenomics->stats_json ?? [] as $stat)
         <div class="rounded-xl p-6 transition-all" style="background:#FFFFFF;border:1px solid #D6D6D6;border-radius:16px">
@@ -88,12 +88,12 @@
       @endforeach
     </div>
 
-    <!-- AIA Token card — stays dark for contrast -->
+    <!-- AIA Token card ; stays dark for contrast -->
     <div class="rounded-3xl p-8" style="background:#1A1A1A;border:1px solid rgba(235,255,0,0.2)" data-animate>
       <div class="flex items-start gap-6">
         <div class="w-14 h-14 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0" style="background:rgba(235,255,0,0.15);border:1.5px solid rgba(235,255,0,0.4);color:#EBFF00">AIA</div>
         <div>
-          <h3 class="text-xl font-bold mb-2" style="color:#FFFFFF">{{ $tokenomics->lp_token_name ?? 'AIA' }} — Liquidity Provider Token</h3>
+          <h3 class="text-xl font-bold mb-2" style="color:#FFFFFF">{{ $tokenomics->lp_token_name ?? 'AIA' }} ; Liquidity Provider Token</h3>
           <p style="color:rgba(255,255,255,0.6);line-height:1.6">{{ $tokenomics->lp_token_description ?? '' }}</p>
         </div>
       </div>

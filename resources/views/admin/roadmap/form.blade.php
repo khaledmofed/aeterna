@@ -24,7 +24,7 @@
     </div>
     <div class="mb-3">
       <label class="form-label">Timeframe</label>
-      <input type="text" name="timeframe" class="form-control" placeholder="Year 1 — Q1 & Q2" value="{{ old('timeframe', $stage->timeframe ?? '') }}">
+      <input type="text" name="timeframe" class="form-control" placeholder="Year 1 ; Q1 & Q2" value="{{ old('timeframe', $stage->timeframe ?? '') }}">
     </div>
     <div class="mb-3">
       <label class="form-label">Status</label>

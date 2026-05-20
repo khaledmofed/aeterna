@@ -3,7 +3,7 @@
     <div class="text-center mb-16" data-animate>
       <div class="section-label mb-4">Exchange</div>
       <h2 class="text-4xl md:text-5xl mb-4" style="color:#1A1A1A;font-weight:900;letter-spacing:-0.03em">The Most Powerful<br>Decentralized Exchange</h2>
-      <p class="text-lg max-w-2xl mx-auto" style="color:#454745">AI-powered, cross-chain, privacy-preserving DEX built on Aeterna's L1 — the fastest on-chain trading experience.</p>
+      <p class="text-lg max-w-2xl mx-auto" style="color:#454745">AI-powered, cross-chain, privacy-preserving DEX built on Aeterna's L1 ; the fastest on-chain trading experience.</p>
     </div>
 
     <!-- Feature cards -->
@@ -11,12 +11,12 @@
     $features = [
       [
         'title' => 'High-Frequency Trading',
-        'desc'  => 'Sub-100ms execution with 160K+ TPS throughput — institutional-grade performance for every trader.',
+        'desc'  => 'Sub-100ms execution with 160K+ TPS throughput ; institutional-grade performance for every trader.',
         'icon'  => '<path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>',
       ],
       [
         'title' => 'Cross-Chain Liquidity',
-        'desc'  => 'Unified liquidity from 15+ chains in a single pool — no bridging, no slippage surprises.',
+        'desc'  => 'Unified liquidity from 15+ chains in a single pool ; no bridging, no slippage surprises.',
         'icon'  => '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
       ],
       [
@@ -26,7 +26,7 @@
       ],
       [
         'title' => 'Private Trading',
-        'desc'  => 'Optional RingCT + ZK-proof privacy — trade confidentially without revealing position sizes.',
+        'desc'  => 'Optional RingCT + ZK-proof privacy ; trade confidentially without revealing position sizes.',
         'icon'  => '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>',
       ],
       [
@@ -36,7 +36,7 @@
       ],
       [
         'title' => 'Advanced Order Types',
-        'desc'  => 'Limit orders, stop-loss, TWAP, and AI-optimized conditional orders — all executed on-chain.',
+        'desc'  => 'Limit orders, stop-loss, TWAP, and AI-optimized conditional orders ; all executed on-chain.',
         'icon'  => '<path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/>',
       ],
     ];
@@ -89,7 +89,7 @@ const result = await intent.execute();
         <div class="flex flex-col gap-3">
           @php $steps = [
             ['n'=>'01','label'=>'Intent submitted','desc'=>'User declares desired outcome on Aeterna'],
-            ['n'=>'02','label'=>'Solver auction','desc'=>'On-chain Dutch auction — solvers compete for best route'],
+            ['n'=>'02','label'=>'Solver auction','desc'=>'On-chain Dutch auction ; solvers compete for best route'],
             ['n'=>'03','label'=>'Cross-chain bridging','desc'=>'Universal Address handles multi-chain transfer'],
             ['n'=>'04','label'=>'Settlement','desc'=>'Funds delivered in <100ms, proof stored on-chain'],
           ]; @endphp

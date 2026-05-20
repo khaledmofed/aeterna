@@ -21,7 +21,7 @@
         @forelse($useCases as $uc)
         <tr>
           <td>{{ $uc->title }}</td>
-          <td class="text-muted-cell">{{ $uc->category ?? '—' }}</td>
+          <td class="text-muted-cell">{{ $uc->category ?? ';' }}</td>
           <td class="text-muted-cell">{{ $uc->sort_order }}</td>
           <td>
             <span class="wise-badge {{ $uc->is_active ? 'wise-badge-active' : 'wise-badge-inactive' }}">

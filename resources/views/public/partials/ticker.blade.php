@@ -4,7 +4,7 @@
   $doubled = array_merge($items, $items);
   @endphp
 
-  <!-- Row 1 — scroll left -->
+  <!-- Row 1 ; scroll left -->
   <div class="flex whitespace-nowrap mb-4">
     <div class="flex gap-8 animate-scroll-left">
       @foreach($doubled as $chain)
@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <!-- Row 2 — scroll right -->
+  <!-- Row 2 ; scroll right -->
   <div class="flex whitespace-nowrap">
     <div class="flex gap-8 animate-scroll-right">
       @foreach(array_reverse($doubled) as $chain)

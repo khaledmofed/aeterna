@@ -24,7 +24,7 @@
         <tr>
           <td>{{ $item->label }}</td>
           <td class="text-muted-cell" style="font-family:monospace;font-size:.8rem">{{ $item->url }}</td>
-          <td class="text-muted-cell">{{ $item->parent?->label ?? '—' }}</td>
+          <td class="text-muted-cell">{{ $item->parent?->label ?? ';' }}</td>
           <td class="text-muted-cell">{{ $item->sort_order }}</td>
           <td>
             <span class="wise-badge {{ $item->is_active ? 'wise-badge-active' : 'wise-badge-inactive' }}">
