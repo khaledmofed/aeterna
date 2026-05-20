@@ -24,11 +24,25 @@
     <!-- Strategic partners -->
     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
       @foreach($strategic as $inv)
+      @php
+        $domain   = parse_url($inv->website_url ?? '', PHP_URL_HOST);
+        $domain   = $domain ? preg_replace('/^www\./', '', $domain) : null;
+        $logoSrc  = $inv->logo_url
+                      ?: ($domain ? 'https://logo.clearbit.com/' . $domain : null);
+      @endphp
       <a href="{{ $inv->website_url ?? '#' }}" target="_blank"
-        class="flex flex-col items-center justify-center p-5 rounded-2xl transition-all duration-300 aspect-square hover:shadow-md hover:border-[#9FE870]/60"
-        style="background:#FFFFFF;border:1px solid #D6D6D6;{{ $inv->glow_color ? 'box-shadow:0 0 20px '.$inv->glow_color.'10 inset' : '' }}" data-animate>
-        <div class="w-3 h-3 rounded-full mb-3" style="background:{{ $inv->glow_color ?? '#D6D6D6' }}"></div>
-        <span class="font-medium text-xs text-center" style="color:#454745">{{ $inv->name }}</span>
+        class="group flex flex-col items-center justify-center gap-3 p-5 rounded-2xl transition-all duration-300 hover:shadow-md hover:border-[#9FE870]/60"
+        style="background:#FFFFFF;border:1px solid #D6D6D6;aspect-ratio:1;{{ $inv->glow_color ? 'box-shadow:0 0 20px '.$inv->glow_color.'10 inset' : '' }}" data-animate>
+        @if($logoSrc)
+          <img src="{{ $logoSrc }}"
+               alt="{{ $inv->name }}"
+               class="h-8 w-auto object-contain transition-all duration-300 group-hover:scale-105"
+               onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+          <div class="w-3 h-3 rounded-full" style="background:{{ $inv->glow_color ?? '#D6D6D6' }};display:none"></div>
+        @else
+          <div class="w-3 h-3 rounded-full" style="background:{{ $inv->glow_color ?? '#D6D6D6' }}"></div>
+        @endif
+        <span class="font-medium text-xs text-center leading-tight" style="color:#454745">{{ $inv->name }}</span>
       </a>
       @endforeach
     </div>

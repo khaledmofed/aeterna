@@ -52,7 +52,7 @@
     @endforeach
 
     <!-- Stack diagram -->
-    <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 overflow-hidden" style="border:1px solid #D6D6D6;border-radius:16px;gap:1px;background:#D6D6D6" data-animate>
+    <!-- <div class="mt-16 grid sm:grid-cols-2 lg:grid-cols-4 overflow-hidden" style="border:1px solid #D6D6D6;border-radius:16px;gap:1px;background:#D6D6D6" data-animate>
       @foreach($layers->sortBy('layer_number') as $i => $layer)
       <div class="group relative flex flex-col overflow-hidden transition-all duration-300 card-spotlight"
            style="background:#FFFFFF">
@@ -71,6 +71,6 @@
         </div>
       </div>
       @endforeach
-    </div>
+    </div> -->
   </div>
 </section>
