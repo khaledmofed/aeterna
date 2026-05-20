@@ -10,11 +10,17 @@
     @php $leads = $investors->where('type','lead'); $strategic = $investors->where('type','strategic'); @endphp
     <div class="flex flex-wrap justify-center gap-5 mb-10">
       @foreach($leads as $inv)
+      @php
+        $leadDomain  = parse_url($inv->website_url ?? '', PHP_URL_HOST);
+        $leadDomain  = $leadDomain ? preg_replace('/^www\./', '', $leadDomain) : null;
+        $leadLogoSrc = $inv->logo_url
+                         ?: ($leadDomain ? 'https://logo.clearbit.com/' . $leadDomain : null);
+      @endphp
       <a href="{{ $inv->website_url ?? '#' }}" target="_blank"
         class="flex flex-col items-center justify-center p-8 rounded-3xl transition-all duration-300 w-48 h-36 hover:shadow-md"
         style="background:#FFFFFF;border:1px solid #D6D6D6;{{ $inv->glow_color ? 'box-shadow:0 0 30px '.$inv->glow_color.'10 inset' : '' }}" data-animate>
-        @if($inv->logo_url)
-          <img src="{{ $inv->logo_url }}" alt="{{ $inv->name }}" class="h-10 object-contain mb-3" onerror="this.style.display='none'">
+        @if($leadLogoSrc)
+          <img src="{{ $leadLogoSrc }}" alt="{{ $inv->name }}" class="h-10 object-contain mb-3" onerror="this.style.display='none'">
         @endif
         <span class="font-semibold text-sm text-center" style="color:#1A1A1A">{{ $inv->name }}</span>
       </a>

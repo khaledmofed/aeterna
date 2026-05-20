@@ -48,8 +48,8 @@
         @foreach($aeterna as $i => $step)
         <div class="flex items-start gap-4 {{ !$loop->last ? 'mb-4' : '' }}">
           <div class="flex flex-col items-center">
-            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:rgba(235,255,0,0.15);border:1px solid rgba(235,255,0,0.35);color:#0D0D0D">{{ $i+1 }}</div>
-            @if(!$loop->last)<div class="w-px h-8 my-1" style="background:rgba(235,255,0,0.2)"></div>@endif
+            <div class="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0" style="background:#FFFFFF;border:1px solid #1A1A1A;color:#1A1A1A;box-shadow:none">{{ $i+1 }}</div>
+            @if(!$loop->last)<div class="w-px h-8 my-1" style="background:rgba(26,26,26,0.15)"></div>@endif
           </div>
           <div class="pt-1.5">
             <div class="font-medium text-sm" style="color:#1A1A1A">{{ $step[0] }}</div>
