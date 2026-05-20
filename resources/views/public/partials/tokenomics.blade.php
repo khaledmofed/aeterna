@@ -93,7 +93,7 @@
       <div class="flex items-start gap-6">
         <div class="w-14 h-14 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0" style="background:rgba(235,255,0,0.15);border:1.5px solid rgba(235,255,0,0.4);color:#EBFF00">AIA</div>
         <div>
-          <h3 class="text-xl font-bold mb-2" style="color:#FFFFFF">{{ $tokenomics->lp_token_name ?? 'AIA' }} ; Liquidity Provider Token</h3>
+          <h3 class="text-xl font-bold mb-2" style="color:#FFFFFF">{{ $tokenomics->lp_token_name ?? 'AIA' }} - Liquidity Provider Token</h3>
           <p style="color:rgba(255,255,255,0.6);line-height:1.6">{{ $tokenomics->lp_token_description ?? '' }}</p>
         </div>
       </div>

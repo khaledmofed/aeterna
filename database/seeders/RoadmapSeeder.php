@@ -13,7 +13,7 @@ class RoadmapSeeder extends Seeder
             [
                 'stage_number'    => 1,
                 'name'            => 'Foundation',
-                'timeframe'       => 'Year 1 ; Q1 & Q2',
+                'timeframe'       => 'Year 1 - Q1 & Q2',
                 'status'          => 'active',
                 'milestones_json' => [
                     'Aeterna Core mainnet launch',
@@ -31,7 +31,7 @@ class RoadmapSeeder extends Seeder
             [
                 'stage_number'    => 2,
                 'name'            => 'AI Integration',
-                'timeframe'       => 'Year 1 ; Q3 & Q4',
+                'timeframe'       => 'Year 1 - Q3 & Q4',
                 'status'          => 'upcoming',
                 'milestones_json' => [
                     'Aeterna Inference mainnet (verifiable AI)',
@@ -49,7 +49,7 @@ class RoadmapSeeder extends Seeder
             [
                 'stage_number'    => 3,
                 'name'            => 'Chain Abstraction',
-                'timeframe'       => 'Year 2 ; Q1 & Q2',
+                'timeframe'       => 'Year 2 - Q1 & Q2',
                 'status'          => 'upcoming',
                 'milestones_json' => [
                     'Full Universal Address (15+ chains)',
@@ -67,7 +67,7 @@ class RoadmapSeeder extends Seeder
             [
                 'stage_number'    => 4,
                 'name'            => 'Ecosystem Expansion',
-                'timeframe'       => 'Year 2 ; Q3+',
+                'timeframe'       => 'Year 2 - Q3+',
                 'status'          => 'upcoming',
                 'milestones_json' => [
                     'Aeterna DAG v2 upgrade',

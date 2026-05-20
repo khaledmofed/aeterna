@@ -11,7 +11,6 @@
     <nav class="hidden md:flex items-center h-full">
       @foreach($navItems as $item)
         @if($item->children->count())
-          {{-- Items with children → simple scroll link to section, no dropdown --}}
           <div class="h-full flex items-center px-1">
             <a href="#architecture" data-nav-link
                class="relative px-4 py-1.5 text-sm font-semibold transition-all duration-200 rounded-full hover:bg-[#D6D6CF]"
@@ -41,11 +40,11 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </span>
       </a>
-      <a href="https://app.aeternaio.com/" target="_blank"
-         class="px-6 py-2.5 font-semibold text-sm transition-all duration-200"
+      <button onclick="openAppModal()"
+         class="px-6 py-2.5 font-semibold text-sm transition-all duration-200 cursor-pointer"
          style="background:#FFFFFF;color:#1A1A1A;border-radius:999px;letter-spacing:0.01em;border:1px solid #C8C8C2">
         Launch App
-      </a>
+      </button>
     </div>
 
     <!-- Mobile hamburger -->
@@ -92,7 +91,79 @@
   <div class="mt-6 flex flex-col gap-3">
     <a href="#" class="text-center py-3.5 font-bold uppercase tracking-wider text-sm"
        style="background:#9FE870;color:#1A1A1A;border-radius:999px">Start Building</a>
-    <a href="https://app.aeternaio.com/" target="_blank" class="text-center py-3.5 font-semibold uppercase tracking-wider text-sm"
-       style="background:#FFFFFF;color:#1A1A1A;border-radius:999px;border:1px solid #C8C8C2">Launch App</a>
+    <button onclick="openAppModal()" class="text-center py-3.5 font-semibold uppercase tracking-wider text-sm cursor-pointer w-full"
+       style="background:#FFFFFF;color:#1A1A1A;border-radius:999px;border:1px solid #C8C8C2">Launch App</button>
   </div>
 </div>
+
+<!-- ── App Modal with Phone Mockup ───────────────────────── -->
+<div id="app-modal" onclick="closeAppModal(event)"
+     style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.7);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:24px">
+
+  <div style="position:relative;display:flex;flex-direction:column;align-items:center;gap:20px" onclick="event.stopPropagation()">
+
+    <!-- Close button -->
+    <button onclick="closeAppModal()"
+            style="position:absolute;top:-12px;right:-12px;z-index:10;width:36px;height:36px;border-radius:50%;background:#FFFFFF;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 12px rgba(0,0,0,0.25)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="2.5" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+
+    <!-- URL bar -->
+    <div style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);border-radius:999px;padding:8px 18px;display:flex;align-items:center;gap-8px;gap:8px">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span style="font-size:13px;color:rgba(255,255,255,0.7);font-family:monospace">app.aeternaio.com</span>
+      <a href="https://app.aeternaio.com/" target="_blank"
+         style="margin-left:8px;font-size:11px;color:#9FE870;font-weight:600;text-decoration:none">
+        Open ↗
+      </a>
+    </div>
+
+    <!-- Phone mockup -->
+    <div style="position:relative;width:340px;height:680px;background:#0D0D0D;border-radius:50px;padding:10px;box-shadow:0 0 0 2px #2A2A2A,0 0 0 4px #1A1A1A,0 30px 80px rgba(0,0,0,0.6),inset 0 0 0 1px rgba(255,255,255,0.05)">
+
+      <!-- Side buttons -->
+      <div style="position:absolute;left:-3px;top:110px;width:3px;height:36px;background:#2A2A2A;border-radius:3px 0 0 3px"></div>
+      <div style="position:absolute;left:-3px;top:158px;width:3px;height:60px;background:#2A2A2A;border-radius:3px 0 0 3px"></div>
+      <div style="position:absolute;left:-3px;top:228px;width:3px;height:60px;background:#2A2A2A;border-radius:3px 0 0 3px"></div>
+      <div style="position:absolute;right:-3px;top:158px;width:3px;height:80px;background:#2A2A2A;border-radius:0 3px 3px 0"></div>
+
+      <!-- Screen -->
+      <div style="width:100%;height:100%;background:#000;border-radius:42px;overflow:hidden;position:relative">
+
+        <!-- Dynamic island -->
+        <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:110px;height:32px;background:#0D0D0D;border-radius:20px;z-index:10"></div>
+
+        <!-- iframe -->
+        <iframe src="https://app.aeternaio.com/"
+                style="width:100%;height:100%;border:none;display:block"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope"
+                loading="lazy"
+                title="Aeterna App">
+        </iframe>
+      </div>
+
+      <!-- Home indicator -->
+      <div style="position:absolute;bottom:6px;left:50%;transform:translateX(-50%);width:100px;height:4px;background:rgba(255,255,255,0.3);border-radius:4px"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+function openAppModal() {
+  var m = document.getElementById('app-modal');
+  m.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeAppModal(e) {
+  if (e && e.target !== document.getElementById('app-modal')) return;
+  document.getElementById('app-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.getElementById('app-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+});
+</script>

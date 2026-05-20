@@ -42,7 +42,7 @@
 
           {{-- Eyebrow + LIVE badge --}}
           <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-            <span class="eyebrow">{{ $statusLabel }} ; {{ $stage->timeframe }}</span>
+            <span class="eyebrow">{{ $statusLabel }} - {{ $stage->timeframe }}</span>
             <span style="background:#9FE870;color:#1A1A1A;font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:0.05em;display:inline-flex;align-items:center;gap:4px">
               <span class="animate-pulse" style="width:6px;height:6px;border-radius:50%;background:#1A1A1A;display:inline-block"></span>
               LIVE
@@ -99,9 +99,9 @@
 
         {{-- Eyebrow --}}
         @if($cardType === 'green')
-          <span class="eyebrow" style="color:#2D7A0F">{{ $statusLabel }} ; {{ $stage->timeframe }}</span>
+          <span class="eyebrow" style="color:#2D7A0F">{{ $statusLabel }} - {{ $stage->timeframe }}</span>
         @else
-          <span class="eyebrow">{{ $statusLabel }} ; {{ $stage->timeframe }}</span>
+          <span class="eyebrow">{{ $statusLabel }} - {{ $stage->timeframe }}</span>
         @endif
 
         {{-- Icon + Title --}}
