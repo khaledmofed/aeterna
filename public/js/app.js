@@ -231,16 +231,15 @@ function initHeroCanvas() {
             }
         }
 
-        // Edge density function — high on edges, near-zero in center
+        // Density: avoid only the immediate text area (center ~15%), high elsewhere
         const edgeDensity = (x, y) => {
-            const cx = Math.abs(x / W - 0.5) * 2;   // 0 = center, 1 = edge
+            const cx = Math.abs(x / W - 0.5) * 2;   // 0=center, 1=edge
             const cy = Math.abs(y / H - 0.5) * 2;
-            const d  = Math.max(cx, cy);              // box distance from center
-            // Dense on edges (d>0.55), sparse in center (d<0.35)
-            if (d > 0.65) return 0.80;
-            if (d > 0.45) return 0.50;
-            if (d > 0.30) return 0.15;
-            return 0.02;
+            const d  = Math.max(cx, cy);
+            if (d < 0.12) return 0.03;  // text core — almost empty
+            if (d < 0.28) return 0.30;  // close ring around text
+            if (d < 0.60) return 0.65;  // main visible ring (where gradient is transparent)
+            return 0.45;                 // outer (gradient will fade these out)
         };
 
         // Horizontal segments

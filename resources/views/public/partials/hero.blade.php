@@ -3,7 +3,7 @@
   <div id="hero-canvas-wrapper" class="absolute inset-0 w-full h-full pointer-events-none will-change-transform">
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <canvas id="hero-canvas" class="block w-full h-full"></canvas>
-      <div class="absolute inset-0" style="background:radial-gradient(ellipse 60% 65% at center,#E8E8E3 20%,transparent 70%)"></div>
+      <div class="absolute inset-0" style="background:radial-gradient(ellipse 75% 80% at center,transparent 0%,#E8E8E3 82%)"></div>
     </div>
   </div>
 
