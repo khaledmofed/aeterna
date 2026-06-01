@@ -568,12 +568,9 @@ html.dark #hero h1 {
 html.dark #hero p {
     color: rgba(255, 255, 255, 0.55) !important;
 }
-html.dark #hero [style*="color:#1A1A1A"]:not([style*="background:#9FE870"]):not(.shimmer-btn) {
+html.dark #hero [style*="color:#1A1A1A"] {
     color: #ffffff !important;
 }
-/* Badge + Start Building button: keep black text on green bg */
-html.dark #hero [style*="background:#9FE870"][style*="color:#1A1A1A"],
-html.dark #hero .shimmer-btn { color: #1A1A1A !important; }
 html.dark #hero [style*="color:#6B6B68"] {
     color: rgba(255, 255, 255, 0.4) !important;
 }
@@ -674,7 +671,7 @@ html.dark
     p {
     color: rgba(255, 255, 255, 0.55) !important;
 }
-html.dark [style*="color:#1A1A1A"]:not(#main-nav *):not(.active-tab) {
+html.dark [style*="color:#1A1A1A"]:not(#main-nav *):not(.active-tab):not([style*="background:#9FE870"]):not(.shimmer-btn) {
     color: #ffffff !important;
 }
 html.dark [style*="color:#454745"] {
@@ -1050,3 +1047,8 @@ html.dark #use-cases .use-case-card:hover {
         grid-template-columns: 1fr;
     }
 }
+
+/* ── FINAL OVERRIDES: green-bg elements always keep black text ── */
+html.dark [style*="background:#9FE870"] { color: #1A1A1A !important; }
+html.dark [style*="background:#9FE870"] * { color: #1A1A1A !important; }
+html.dark #hero .shimmer-btn { color: #1A1A1A !important; }
