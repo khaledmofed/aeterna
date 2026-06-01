@@ -12,7 +12,7 @@ class HeroSeeder extends Seeder
         HeroSection::updateOrCreate(['id' => 1], [
             'badge_text'         => 'AI Native Layer 1 ; Now Live',
             'headline'           => 'The Future is Chainless.',
-            'subheadline'        => 'Deploy your first AI Agent on Aeterna today. Access liquidity and data across 15+ chains with a single Universal Address.',
+            'subheadline'        => 'Building the infrastructure layer for a chainless, autonomous AI economy.',
             'cta_primary_text'   => 'Start Building',
             'cta_primary_url'    => '#',
             'cta_secondary_text' => 'Join Discord',

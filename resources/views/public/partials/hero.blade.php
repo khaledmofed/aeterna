@@ -3,7 +3,7 @@
   <div id="hero-canvas-wrapper" class="absolute inset-0 w-full h-full pointer-events-none will-change-transform">
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <canvas id="hero-canvas" class="block w-full h-full"></canvas>
-      <div class="absolute inset-0" style="background:radial-gradient(circle at center,transparent 0%,#E8E8E3 88%)"></div>
+      <div class="absolute inset-0" style="background:radial-gradient(ellipse 60% 65% at center,#E8E8E3 20%,transparent 70%)"></div>
     </div>
   </div>
 
@@ -23,7 +23,7 @@
 
     <!-- Subheadline -->
     <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 animate-hero-pop" style="color:#454745;animation-delay:.3s;line-height:1.6">
-      {{ $hero->subheadline ?? 'Deploy your first AI Agent on Aeterna today.' }}
+      {{ $hero->subheadline ?? 'Building the infrastructure layer for a chainless,' }}
     </p>
 
     <!-- CTAs -->
@@ -44,10 +44,12 @@
     @if($hero->stats_json)
     <div class="flex flex-wrap justify-center gap-8 md:gap-16 mb-14">
       @foreach($hero->stats_json as $i => $stat)
-      <div class="text-center animate-fade-in-up" style="animation-delay:{{ 0.6 + $i * 0.1 }}s" data-animate>
-        <div class="text-3xl md:text-4xl font-black" style="color:#1A1A1A;letter-spacing:-0.03em">{{ $stat['value'] }}</div>
-        <div class="text-sm mt-1" style="color:#6B6B68">{{ $stat['label'] }}</div>
-      </div>
+        @if(!empty($stat['value']))
+        <div class="text-center animate-fade-in-up" style="animation-delay:{{ 0.6 + $i * 0.1 }}s" data-animate>
+          <div class="text-3xl md:text-4xl font-black" style="color:#1A1A1A;letter-spacing:-0.03em">{{ $stat['value'] }}</div>
+          <div class="text-sm mt-1" style="color:#6B6B68">{{ $stat['label'] ?? '' }}</div>
+        </div>
+        @endif
       @endforeach
     </div>
     @endif

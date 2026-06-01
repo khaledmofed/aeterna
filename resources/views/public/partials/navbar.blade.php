@@ -40,11 +40,11 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </span>
       </a>
-      <button onclick="openAppModal()"
+      <!-- <button onclick="openAppModal()"
          class="px-6 py-2.5 font-semibold text-sm transition-all duration-200 cursor-pointer"
          style="background:#FFFFFF;color:#1A1A1A;border-radius:999px;letter-spacing:0.01em;border:1px solid #C8C8C2">
         Launch App
-      </button>
+      </button> -->
     </div>
 
     <!-- Mobile hamburger -->

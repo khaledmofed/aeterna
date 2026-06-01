@@ -12,8 +12,8 @@ class NavSeeder extends Seeder
         NavItem::truncate();
 
         $arch = NavItem::create(['label' => 'Architecture', 'url' => '#architecture', 'sort_order' => 1, 'is_active' => true]);
-        NavItem::create(['label' => 'Exchange',    'url' => '#exchange',    'sort_order' => 2, 'is_active' => true]);
-        NavItem::create(['label' => 'Tokenomics',  'url' => '#tokenomics',  'sort_order' => 3, 'is_active' => true]);
+        NavItem::create(['label' => 'Solutions',   'url' => '#solutions',   'sort_order' => 2, 'is_active' => true]);
+        NavItem::create(['label' => 'Exchange',    'url' => '#exchange',    'sort_order' => 3, 'is_active' => true]);
         NavItem::create(['label' => 'Use Cases',   'url' => '#use-cases',   'sort_order' => 4, 'is_active' => true]);
 
         $children = [

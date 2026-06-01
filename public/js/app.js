@@ -186,81 +186,217 @@ function initBackToTop() {
     );
 }
 
-// 8. Hero canvas particle network
+// 8. Hero canvas — ON-CHAIN AI circuit board animation
 function initHeroCanvas() {
     const canvas = document.getElementById("hero-canvas");
     if (!canvas) return;
 
     const ctx = canvas.getContext("2d");
-    let W, H;
+    let W = 0, H = 0, raf;
 
-    const resize = () => {
-        W = canvas.clientWidth;
-        H = canvas.clientHeight;
-        canvas.width = W;
-        canvas.height = H;
-    };
-    resize();
-    window.addEventListener("resize", resize, { passive: true });
+    // ── Config (light mode) ──────────────────────────────────
+    const LINE_COLOR  = "rgba(26,26,26,0.13)";
+    const NODE_COLOR  = "rgba(26,26,26,0.22)";
+    const LINE_W      = 1.2;
+    const COLS        = 11;
+    const ROWS        = 7;
+    const P_COUNT     = 32;   // particles
+    const P_COLORS    = [
+        { rgb: "100,180,60",  hex: "#64B43C" },  // green (saturated for light bg) ×3
+        { rgb: "100,180,60",  hex: "#64B43C" },
+        { rgb: "100,180,60",  hex: "#64B43C" },
+        { rgb: "26,26,26",    hex: "#1A1A1A" },  // dark
+    ];
 
-    const COUNT = 110;
-    const CONNECT = 130;
-    const particles = Array.from({ length: COUNT }, () => ({
-        x: Math.random() * (W || 1440),
-        y: Math.random() * (H || 900),
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-        r: Math.random() * 1.4 + 0.3,
-        o: Math.random() * 0.55 + 0.1,
-    }));
+    let segs = [];      // [{x1,y1,x2,y2}]
+    let nodes = [];     // [{x,y}]
+    let particles = [];
 
-    // Scroll parallax on wrapper
-    const wrapper = document.getElementById("hero-canvas-wrapper");
-    window.addEventListener(
-        "scroll",
-        () => {
-            if (wrapper)
-                wrapper.style.transform = `translateY(${window.scrollY * 0.35}px)`;
-        },
-        { passive: true },
-    );
+    // ── Build circuit grid ───────────────────────────────────
+    function buildGrid() {
+        segs  = [];
+        nodes = [];
+        const cw = W / COLS;
+        const rh = H / ROWS;
 
-    let raf;
-    function draw() {
-        ctx.clearRect(0, 0, W, H);
-
-        for (const p of particles) {
-            p.x += p.vx;
-            p.y += p.vy;
-            if (p.x < 0) p.x = W;
-            if (p.x > W) p.x = 0;
-            if (p.y < 0) p.y = H;
-            if (p.y > H) p.y = 0;
-
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(0,0,0,${p.o * 0.4})`;
-            ctx.fill();
+        // Grid points with organic jitter
+        const pts = [];
+        for (let r = 0; r <= ROWS + 1; r++) {
+            pts[r] = [];
+            for (let c = 0; c <= COLS + 1; c++) {
+                const edge = (r === 0 || r === ROWS || c === 0 || c === COLS);
+                const jx = edge ? 0 : (Math.random() - 0.5) * cw * 0.4;
+                const jy = edge ? 0 : (Math.random() - 0.5) * rh * 0.4;
+                pts[r][c] = { x: (c - 0.5) * cw + jx, y: (r - 0.5) * rh + jy };
+            }
         }
 
-        ctx.lineWidth = 0.6;
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dx = particles[i].x - particles[j].x;
-                const dy = particles[i].y - particles[j].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                if (dist < CONNECT) {
-                    ctx.beginPath();
-                    ctx.strokeStyle = `rgba(0,0,0,${(1 - dist / CONNECT) * 0.08})`;
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
+        // Edge density function — high on edges, near-zero in center
+        const edgeDensity = (x, y) => {
+            const cx = Math.abs(x / W - 0.5) * 2;   // 0 = center, 1 = edge
+            const cy = Math.abs(y / H - 0.5) * 2;
+            const d  = Math.max(cx, cy);              // box distance from center
+            // Dense on edges (d>0.55), sparse in center (d<0.35)
+            if (d > 0.65) return 0.80;
+            if (d > 0.45) return 0.50;
+            if (d > 0.30) return 0.15;
+            return 0.02;
+        };
+
+        // Horizontal segments
+        for (let r = 0; r <= ROWS + 1; r++) {
+            for (let c = 0; c < COLS + 1; c++) {
+                const a = pts[r][c], b = pts[r][c + 1];
+                const density = edgeDensity((a.x + b.x) / 2, (a.y + b.y) / 2);
+                if (Math.random() < density) {
+                    segs.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y });
+                    nodes.push(a, b);
                 }
             }
         }
 
+        // Vertical segments
+        for (let r = 0; r < ROWS + 1; r++) {
+            for (let c = 0; c <= COLS + 1; c++) {
+                const a = pts[r][c], b = pts[r + 1][c];
+                const density = edgeDensity((a.x + b.x) / 2, (a.y + b.y) / 2);
+                if (Math.random() < density) {
+                    segs.push({ x1: a.x, y1: a.y, x2: b.x, y2: b.y });
+                    nodes.push(a, b);
+                }
+            }
+        }
+
+        // Deduplicate nodes (keep unique positions)
+        const seen = new Set();
+        nodes = nodes.filter(n => {
+            const k = `${Math.round(n.x)},${Math.round(n.y)}`;
+            if (seen.has(k)) return false;
+            seen.add(k);
+            return true;
+        });
+
+        // Spawn particles
+        particles = [];
+        for (let i = 0; i < P_COUNT; i++) spawnParticle();
+    }
+
+    function spawnParticle(existingSeg) {
+        if (!segs.length) return;
+        const s = existingSeg || segs[Math.floor(Math.random() * segs.length)];
+        const col = P_COLORS[Math.floor(Math.random() * P_COLORS.length)];
+        particles.push({
+            s,
+            t:     Math.random(),
+            dir:   Math.random() > 0.5 ? 1 : -1,
+            speed: Math.random() * 0.0015 + 0.0006,
+            rgb:   col.rgb,
+            hex:   col.hex,
+            size:  Math.random() * 2.0 + 1.8,
+            phase: Math.random() * Math.PI * 2,
+        });
+    }
+
+    // ── Resize ───────────────────────────────────────────────
+    const resize = () => {
+        W = canvas.clientWidth  || window.innerWidth;
+        H = canvas.clientHeight || window.innerHeight;
+        canvas.width  = W;
+        canvas.height = H;
+        buildGrid();
+    };
+
+    window.addEventListener("resize", () => {
+        cancelAnimationFrame(raf);
+        resize();
+        raf = requestAnimationFrame(draw);
+    }, { passive: true });
+
+    // Scroll parallax
+    const wrapper = document.getElementById("hero-canvas-wrapper");
+    window.addEventListener("scroll", () => {
+        if (wrapper) wrapper.style.transform = `translateY(${window.scrollY * 0.28}px)`;
+    }, { passive: true });
+
+    // ── Draw loop ────────────────────────────────────────────
+    function draw() {
+        ctx.clearRect(0, 0, W, H);
+        const now = performance.now() * 0.001;
+
+        // Circuit lines
+        ctx.lineWidth = LINE_W;
+        ctx.lineCap   = "round";
+        ctx.strokeStyle = LINE_COLOR;
+        for (const seg of segs) {
+            ctx.beginPath();
+            ctx.moveTo(seg.x1, seg.y1);
+            ctx.lineTo(seg.x2, seg.y2);
+            ctx.stroke();
+        }
+
+        // Junction nodes
+        ctx.fillStyle = NODE_COLOR;
+        for (const n of nodes) {
+            ctx.beginPath();
+            ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        // Particles
+        for (const p of particles) {
+            p.t += p.speed * p.dir;
+
+            // At end: pick a new random segment (simulate routing)
+            if (p.t >= 1 || p.t <= 0) {
+                const newSeg = segs[Math.floor(Math.random() * segs.length)];
+                p.s   = newSeg;
+                p.t   = p.dir > 0 ? 0 : 1;
+                p.dir = Math.random() > 0.5 ? 1 : -1;
+            }
+
+            const x = p.s.x1 + (p.s.x2 - p.s.x1) * p.t;
+            const y = p.s.y1 + (p.s.y2 - p.s.y1) * p.t;
+            const pulse = 0.85 + Math.sin(now * 2.8 + p.phase) * 0.15;
+            const glowR = p.size * 16 * pulse;
+
+            // Outer glow halo
+            const grd = ctx.createRadialGradient(x, y, 0, x, y, glowR);
+            grd.addColorStop(0,    `rgba(${p.rgb},0.55)`);
+            grd.addColorStop(0.3,  `rgba(${p.rgb},0.20)`);
+            grd.addColorStop(0.7,  `rgba(${p.rgb},0.06)`);
+            grd.addColorStop(1,    `rgba(${p.rgb},0)`);
+            ctx.fillStyle = grd;
+            ctx.beginPath();
+            ctx.arc(x, y, glowR, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Core dot
+            ctx.beginPath();
+            ctx.arc(x, y, p.size * 1.4 * pulse, 0, Math.PI * 2);
+            ctx.fillStyle = p.hex;
+            ctx.fill();
+
+            // Trailing tail
+            const dx = (p.s.x2 - p.s.x1);
+            const dy = (p.s.y2 - p.s.y1);
+            const len = Math.sqrt(dx * dx + dy * dy) || 1;
+            const tx = -(dx / len) * p.dir * 28;
+            const ty = -(dy / len) * p.dir * 28;
+            const tail = ctx.createLinearGradient(x, y, x + tx, y + ty);
+            tail.addColorStop(0, `rgba(${p.rgb},0.35)`);
+            tail.addColorStop(1, `rgba(${p.rgb},0)`);
+            ctx.lineWidth = p.size * 1.4;
+            ctx.strokeStyle = tail;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + tx, y + ty);
+            ctx.stroke();
+        }
+
         raf = requestAnimationFrame(draw);
     }
+
+    resize();
     draw();
 }
 

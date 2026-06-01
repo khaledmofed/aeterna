@@ -61,13 +61,17 @@
           <h6 class="fw-semibold mb-0" style="color:var(--wise-ink)">Stats</h6>
           <button type="button" id="add-stat" class="btn btn-wise-secondary btn-sm">+ Add Stat</button>
         </div>
+        <p class="text-muted small mb-3" style="font-size:12px">Drag ≡ to reorder</p>
         <div id="stats-container">
           @foreach(old('stats', $hero->stats_json ?? []) as $i => $stat)
-          <div class="row g-2 mb-2 stat-row">
-            <div class="col-5"><input type="text" name="stats[{{ $i }}][value]" class="form-control form-control-sm" placeholder="160K+" value="{{ $stat['value'] ?? '' }}"></div>
-            <div class="col-5"><input type="text" name="stats[{{ $i }}][label]" class="form-control form-control-sm" placeholder="TPS" value="{{ $stat['label'] ?? '' }}"></div>
-            <div class="col-2"><button type="button" class="btn btn-wise-danger btn-sm w-100 remove-row">✕</button></div>
+          @if(!empty($stat['value']))
+          <div class="row g-2 mb-2 stat-row align-items-center">
+            <div class="col-auto drag-handle" style="cursor:grab;color:#aaa;font-size:18px;line-height:1">≡</div>
+            <div class="col"><input type="text" name="stats[{{ $i }}][value]" class="form-control form-control-sm stat-value" placeholder="160K+" value="{{ $stat['value'] ?? '' }}"></div>
+            <div class="col"><input type="text" name="stats[{{ $i }}][label]" class="form-control form-control-sm stat-label" placeholder="TPS" value="{{ $stat['label'] ?? '' }}"></div>
+            <div class="col-auto"><button type="button" class="btn btn-wise-danger btn-sm remove-row">✕</button></div>
           </div>
+          @endif
           @endforeach
         </div>
       </div>
@@ -88,17 +92,43 @@
 @endsection
 
 @section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.2/Sortable.min.js"></script>
 <script>
-let statIdx = {{ count($hero->stats_json ?? []) }};
+function reindex() {
+  document.querySelectorAll('#stats-container .stat-row').forEach((row, i) => {
+    const v = row.querySelector('.stat-value');
+    const l = row.querySelector('.stat-label');
+    if (v) v.name = `stats[${i}][value]`;
+    if (l) l.name = `stats[${i}][label]`;
+  });
+}
+
+// Drag & drop — reindex after each drop
+Sortable.create(document.getElementById('stats-container'), {
+  handle: '.drag-handle',
+  animation: 150,
+  ghostClass: 'bg-light',
+  onEnd: reindex,
+});
+
+// Add new stat row
 document.getElementById('add-stat').addEventListener('click', () => {
   const c = document.getElementById('stats-container');
-  c.insertAdjacentHTML('beforeend', `<div class="row g-2 mb-2 stat-row">
-    <div class="col-5"><input type="text" name="stats[${statIdx}][value]" class="form-control form-control-sm" placeholder="160K+"></div>
-    <div class="col-5"><input type="text" name="stats[${statIdx}][label]" class="form-control form-control-sm" placeholder="TPS"></div>
-    <div class="col-2"><button type="button" class="btn btn-wise-danger btn-sm w-100 remove-row">✕</button></div>
+  const i = c.querySelectorAll('.stat-row').length;
+  c.insertAdjacentHTML('beforeend', `<div class="row g-2 mb-2 stat-row align-items-center">
+    <div class="col-auto drag-handle" style="cursor:grab;color:#aaa;font-size:18px;line-height:1">≡</div>
+    <div class="col"><input type="text" name="stats[${i}][value]" class="form-control form-control-sm stat-value" placeholder="160K+"></div>
+    <div class="col"><input type="text" name="stats[${i}][label]" class="form-control form-control-sm stat-label" placeholder="TPS"></div>
+    <div class="col-auto"><button type="button" class="btn btn-wise-danger btn-sm remove-row">✕</button></div>
   </div>`);
-  statIdx++;
 });
-document.addEventListener('click', e => { if (e.target.classList.contains('remove-row')) e.target.closest('.stat-row').remove(); });
+
+// Remove row — reindex after removal
+document.addEventListener('click', e => {
+  if (e.target.classList.contains('remove-row')) {
+    e.target.closest('.stat-row').remove();
+    reindex();
+  }
+});
 </script>
 @endsection

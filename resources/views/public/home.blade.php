@@ -4,6 +4,7 @@
   @include('public.partials.hero')
   @include('public.partials.ticker')
   @include('public.partials.architecture')
+  @include('public.partials.solutions')
   @include('public.partials.exchange')
   @include('public.partials.tokenomics')
   @include('public.partials.roadmap')

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\ArchitectureController;
+use App\Http\Controllers\Admin\SolutionsController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FooterLinksController;
 use App\Http\Controllers\Admin\HeroController;
@@ -37,6 +38,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(
     Route::put('/navigation/{navigation}', [NavigationController::class, 'update'])->name('navigation.update');
     Route::delete('/navigation/{navigation}', [NavigationController::class, 'destroy'])->name('navigation.destroy');
     Route::post('/navigation/reorder',     [NavigationController::class, 'reorder'])->name('navigation.reorder');
+
+    Route::get('/solutions',                 [SolutionsController::class, 'index'])->name('solutions.index');
+    Route::get('/solutions/create',          [SolutionsController::class, 'create'])->name('solutions.create');
+    Route::post('/solutions',                [SolutionsController::class, 'store'])->name('solutions.store');
+    Route::get('/solutions/{solution}/edit', [SolutionsController::class, 'edit'])->name('solutions.edit');
+    Route::put('/solutions/{solution}',      [SolutionsController::class, 'update'])->name('solutions.update');
+    Route::delete('/solutions/{solution}',   [SolutionsController::class, 'destroy'])->name('solutions.destroy');
+    Route::post('/solutions/reorder',        [SolutionsController::class, 'reorder'])->name('solutions.reorder');
 
     Route::get('/architecture',                    [ArchitectureController::class, 'index'])->name('architecture.index');
     Route::get('/architecture/{architecture}/edit',[ArchitectureController::class, 'edit'])->name('architecture.edit');

@@ -12,6 +12,7 @@ class DatabaseSeeder extends Seeder
             AdminUserSeeder::class,
             SiteSettingsSeeder::class,
             NavSeeder::class,
+            SolutionsSeeder::class,
             HeroSeeder::class,
             ArchitectureSeeder::class,
             TokenomicsSeeder::class,

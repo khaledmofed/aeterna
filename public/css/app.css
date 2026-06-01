@@ -174,7 +174,7 @@ section:not(#hero) p {
 
 /* ── Navbar ── */
 #main-nav {
-    background: var(--wise-bg) !important;
+    background: #e8e8e300 !important;
     border-bottom: 1px solid transparent !important;
     backdrop-filter: none !important;
     -webkit-backdrop-filter: none !important;
@@ -517,8 +517,14 @@ a[href="https://app.aeternaio.com/"]:hover {
     animation: ucFadeIn 0.35s ease 0.2s both;
 }
 @keyframes ucFadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 .uc-exp-top {
     display: flex;
@@ -535,7 +541,10 @@ a[href="https://app.aeternaio.com/"]:hover {
     justify-content: center;
     flex-shrink: 0;
 }
-.uc-icon svg { width: 24px; height: 24px; }
+.uc-icon svg {
+    width: 24px;
+    height: 24px;
+}
 .uc-exp-num {
     font-size: 52px;
     font-weight: 900;

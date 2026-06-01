@@ -9,6 +9,7 @@ use App\Models\HeroSection;
 use App\Models\Investor;
 use App\Models\NavItem;
 use App\Models\RoadmapStage;
+use App\Models\Solution;
 use App\Models\Tokenomic;
 use App\Models\UseCase;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class HomeController extends Controller
     {
         $hero = HeroSection::where('is_active', true)->first();
         $layers = ArchitectureLayer::active()->get();
+        $solutions = Solution::active()->orderBy('sort_order')->get();
         $tokenomics = Tokenomic::first();
         $investors = Investor::active()->get();
         $roadmap = RoadmapStage::active()->get();
@@ -38,7 +40,7 @@ class HomeController extends Controller
         );
 
         return view('public.home', compact(
-            'hero', 'layers', 'tokenomics', 'investors',
+            'hero', 'layers', 'solutions', 'tokenomics', 'investors',
             'roadmap', 'useCases', 'navItems', 'footerLinks'
         ));
     }

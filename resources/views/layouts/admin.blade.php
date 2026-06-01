@@ -384,6 +384,9 @@ body {
     <a href="{{ route('admin.architecture.index') }}" class="{{ request()->routeIs('admin.architecture*') ? 'active' : '' }}">
       <i class="bi bi-layers"></i> Architecture
     </a>
+    <a href="{{ route('admin.solutions.index') }}" class="{{ request()->routeIs('admin.solutions*') ? 'active' : '' }}">
+      <i class="bi bi-table"></i> Solutions
+    </a>
     <a href="{{ route('admin.tokenomics') }}" class="{{ request()->routeIs('admin.tokenomics*') ? 'active' : '' }}">
       <i class="bi bi-coin"></i> Tokenomics
     </a>
