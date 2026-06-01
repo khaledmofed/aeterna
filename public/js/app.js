@@ -231,15 +231,16 @@ function initHeroCanvas() {
             }
         }
 
-        // Density: avoid only the immediate text area (center ~15%), high elsewhere
+        // Density matches the visible donut ring (center hidden by gradient, edges hidden by gradient)
         const edgeDensity = (x, y) => {
             const cx = Math.abs(x / W - 0.5) * 2;   // 0=center, 1=edge
             const cy = Math.abs(y / H - 0.5) * 2;
             const d  = Math.max(cx, cy);
-            if (d < 0.12) return 0.03;  // text core — almost empty
-            if (d < 0.28) return 0.30;  // close ring around text
-            if (d < 0.60) return 0.65;  // main visible ring (where gradient is transparent)
-            return 0.45;                 // outer (gradient will fade these out)
+            if (d < 0.22) return 0.01;  // text core — empty (hidden by center gradient)
+            if (d < 0.38) return 0.55;  // inner ring — visible donut starts
+            if (d < 0.65) return 0.75;  // main ring — most animation here
+            if (d < 0.80) return 0.45;  // outer ring — fading by edge gradient
+            return 0.10;                 // far edges — mostly hidden
         };
 
         // Horizontal segments
