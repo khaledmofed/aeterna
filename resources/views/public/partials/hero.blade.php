@@ -3,10 +3,8 @@
   <div id="hero-canvas-wrapper" class="absolute inset-0 w-full h-full pointer-events-none will-change-transform">
     <div class="absolute inset-0 overflow-hidden pointer-events-none">
       <canvas id="hero-canvas" class="block w-full h-full"></canvas>
-      <!-- Hides far edges -->
-      <div class="absolute inset-0" style="background:radial-gradient(ellipse 90% 95% at center,transparent 60%,#E8E8E3 88%)"></div>
-      <!-- Hides text center -->
-      <div class="absolute inset-0" style="background:radial-gradient(ellipse 42% 48% at center,#E8E8E3 55%,transparent 100%)"></div>
+      <div class="hero-edge-gradient absolute inset-0" style="background:radial-gradient(ellipse 90% 95% at center,transparent 60%,#E8E8E3 88%)"></div>
+      <div class="hero-center-mask absolute inset-0" style="background:radial-gradient(ellipse 42% 48% at center,#E8E8E3 55%,transparent 100%)"></div>
     </div>
   </div>
 

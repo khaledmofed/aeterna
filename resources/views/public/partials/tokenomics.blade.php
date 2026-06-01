@@ -68,7 +68,7 @@
     <!-- Mechanics -->
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 overflow-hidden mb-12" style="border:1px solid #D6D6D6;border-radius:16px;gap:1px;background:#D6D6D6">
       @foreach($tokenomics->mechanics_json ?? [] as $i => $mech)
-      <div class="group relative flex flex-col overflow-hidden transition-all duration-500 card-spotlight" style="background:#FFFFFF" data-animate style="animation-delay:{{ $i * 50 }}ms">
+      <div class="group relative flex flex-col overflow-hidden transition-all duration-500 card-spotlight" style="background:#FFFFFF;animation-delay:{{ $i * 50 }}ms" data-animate>
         <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style="background:linear-gradient(135deg,rgba(235,255,0,0.08) 0%,transparent 60%)"></div>
         <div class="p-7 flex flex-col h-full relative z-10">
           <div class="flex justify-between items-start mb-5">

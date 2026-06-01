@@ -34,8 +34,7 @@
       </div>
 
       <!-- Aeterna flow -->
-      <div class="rounded-2xl p-8" style="background: linear-gradient(135deg, rgb(159 232 112 / 16%) 0%, #eeecea 60%);
-    border: 1px solid rgb(159 232 112);">
+      <div class="aeterna-flow-card rounded-2xl p-8" style="background:linear-gradient(135deg,rgba(159,232,112,0.16) 0%,#EEECEA 60%);border:1px solid rgb(159,232,112)">
         <h3 class="text-lg font-bold mb-6 flex items-center gap-2" style="color:#59d807">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="color:#59d807"><path d="M20 6 9 17l-5-5"/></svg>
           Aeterna Value Flow

@@ -1,6 +1,7 @@
 /* AeternaX ; Main JS */
 
 document.addEventListener("DOMContentLoaded", () => {
+    initTheme();
     initNavbar();
     initMobileMenu();
     initScrollReveal();
@@ -11,6 +12,45 @@ document.addEventListener("DOMContentLoaded", () => {
     initHeroCanvas();
     initCardSpotlight();
 });
+
+// 0. Dark / Light mode
+function initTheme() {
+    const html   = document.documentElement;
+    const btn    = document.getElementById("theme-toggle");
+    const moon   = document.getElementById("icon-moon");
+    const sun    = document.getElementById("icon-sun");
+    const stored = localStorage.getItem("theme");
+
+    // Default = dark
+    const isDark = stored !== "light";
+    applyTheme(isDark);
+
+    if (btn) {
+        btn.addEventListener("click", () => {
+            const nowDark = !html.classList.contains("dark");
+            localStorage.setItem("theme", nowDark ? "dark" : "light");
+            applyTheme(nowDark);
+        });
+    }
+
+    function applyTheme(dark) {
+        if (dark) {
+            html.classList.add("dark");
+        } else {
+            html.classList.remove("dark");
+        }
+        // Swap icons
+        if (moon && sun) {
+            moon.classList.toggle("hidden", dark);
+            sun.classList.toggle("hidden", !dark);
+        }
+        // Update navbar inline bg
+        const nav = document.getElementById("main-nav");
+        if (nav) {
+            nav.style.background = dark ? "#0D0D0D" : "#E8E8E3";
+        }
+    }
+}
 
 // 1. Navbar scroll effect
 function initNavbar() {
@@ -194,19 +234,32 @@ function initHeroCanvas() {
     const ctx = canvas.getContext("2d");
     let W = 0, H = 0, raf;
 
-    // ── Config (light mode) ──────────────────────────────────
-    const LINE_COLOR  = "rgba(26,26,26,0.13)";
-    const NODE_COLOR  = "rgba(26,26,26,0.22)";
-    const LINE_W      = 1.2;
-    const COLS        = 11;
-    const ROWS        = 7;
-    const P_COUNT     = 32;   // particles
-    const P_COLORS    = [
-        { rgb: "100,180,60",  hex: "#64B43C" },  // green (saturated for light bg) ×3
-        { rgb: "100,180,60",  hex: "#64B43C" },
-        { rgb: "100,180,60",  hex: "#64B43C" },
-        { rgb: "26,26,26",    hex: "#1A1A1A" },  // dark
-    ];
+    // ── Config — adapts to current theme ─────────────────────
+    const isDarkMode = () => document.documentElement.classList.contains("dark");
+
+    const LIGHT_CFG = {
+        line: "rgba(26,26,26,0.13)", node: "rgba(26,26,26,0.22)", lw: 1.2,
+        colors: [
+            { rgb:"100,180,60", hex:"#64B43C" },
+            { rgb:"100,180,60", hex:"#64B43C" },
+            { rgb:"100,180,60", hex:"#64B43C" },
+            { rgb:"26,26,26",   hex:"#1A1A1A" },
+        ],
+    };
+    const DARK_CFG = {
+        line: "rgba(255,255,255,0.18)", node: "rgba(255,255,255,0.30)", lw: 1.2,
+        colors: [
+            { rgb:"159,232,112", hex:"#9FE870" },
+            { rgb:"159,232,112", hex:"#9FE870" },
+            { rgb:"159,232,112", hex:"#9FE870" },
+            { rgb:"235,255,0",   hex:"#EBFF00" },
+        ],
+    };
+
+    const LINE_W  = 1.2;
+    const COLS    = 11;
+    const ROWS    = 7;
+    const P_COUNT = 32;
 
     let segs = [];      // [{x1,y1,x2,y2}]
     let nodes = [];     // [{x,y}]
@@ -284,7 +337,8 @@ function initHeroCanvas() {
     function spawnParticle(existingSeg) {
         if (!segs.length) return;
         const s = existingSeg || segs[Math.floor(Math.random() * segs.length)];
-        const col = P_COLORS[Math.floor(Math.random() * P_COLORS.length)];
+        const cfg = isDarkMode() ? DARK_CFG : LIGHT_CFG;
+        const col = cfg.colors[Math.floor(Math.random() * cfg.colors.length)];
         particles.push({
             s,
             t:     Math.random(),
@@ -324,9 +378,10 @@ function initHeroCanvas() {
         const now = performance.now() * 0.001;
 
         // Circuit lines
-        ctx.lineWidth = LINE_W;
+        const cfg = isDarkMode() ? DARK_CFG : LIGHT_CFG;
+        ctx.lineWidth = cfg.lw;
         ctx.lineCap   = "round";
-        ctx.strokeStyle = LINE_COLOR;
+        ctx.strokeStyle = cfg.line;
         for (const seg of segs) {
             ctx.beginPath();
             ctx.moveTo(seg.x1, seg.y1);
@@ -335,7 +390,7 @@ function initHeroCanvas() {
         }
 
         // Junction nodes
-        ctx.fillStyle = NODE_COLOR;
+        ctx.fillStyle = cfg.node;
         for (const n of nodes) {
             ctx.beginPath();
             ctx.arc(n.x, n.y, 2, 0, Math.PI * 2);
