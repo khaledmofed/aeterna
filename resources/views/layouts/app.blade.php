@@ -29,8 +29,8 @@ tailwind = { config: {
 <link href="/site-assets/css2" rel="stylesheet">
 <link href="/site-assets/prism-tomorrow.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
-<link rel="stylesheet" href="/css/animations.css">
-<link rel="stylesheet" href="/css/app.css">
+<link rel="stylesheet" href="/css/animations.css?v={{ filemtime(public_path('css/animations.css')) }}">
+<link rel="stylesheet" href="/css/app.css?v={{ filemtime(public_path('css/app.css')) }}">
 
 <style>
 body{background:#F5F4F0;color:#1A1A1A;font-family:'Inter',sans-serif;}
@@ -64,7 +64,7 @@ body{background:#F5F4F0;color:#1A1A1A;font-family:'Inter',sans-serif;}
 
 <script src="/site-assets/prism.min.js.download"></script>
 <script src="/site-assets/prism-typescript.min.js.download"></script>
-<script src="/js/app.js"></script>
+<script src="/js/app.js?v={{ filemtime(public_path('js/app.js')) }}"></script>
 @yield('scripts')
 @stack('scripts')
 @php $customJs = \App\Models\SiteSetting::get('custom_js',''); @endphp
