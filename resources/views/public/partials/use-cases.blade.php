@@ -62,12 +62,23 @@
 </section>
 
 <script>
-document.querySelectorAll('#ucAccordion .uc-item').forEach(function(item) {
-  item.addEventListener('mouseenter', function() {
+(function() {
+  function activateItem(el) {
     document.querySelectorAll('#ucAccordion .uc-item').forEach(function(i) {
       i.classList.remove('uc-active');
     });
-    this.classList.add('uc-active');
+    el.classList.add('uc-active');
+  }
+
+  document.querySelectorAll('#ucAccordion .uc-item').forEach(function(item) {
+    // Desktop: hover
+    item.addEventListener('mouseenter', function() {
+      if (window.innerWidth > 1024) activateItem(this);
+    });
+    // Tablet / mobile: tap to expand
+    item.addEventListener('click', function() {
+      if (!this.classList.contains('uc-active')) activateItem(this);
+    });
   });
-});
+})();
 </script>

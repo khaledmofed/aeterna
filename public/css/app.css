@@ -1052,3 +1052,176 @@ html.dark #use-cases .use-case-card:hover {
 html.dark [style*="background:#9FE870"] { color: #1A1A1A !important; }
 html.dark [style*="background:#9FE870"] * { color: #1A1A1A !important; }
 html.dark #hero .shimmer-btn { color: #1A1A1A !important; }
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE — Tablet (max 1024px) + Mobile (max 768px)
+   ══════════════════════════════════════════════════════ */
+
+/* ── Use Cases: stack vertically on tablet too ── */
+@media (max-width: 1024px) {
+    .uc-accordion {
+        flex-direction: column;
+        height: auto;
+    }
+    .uc-item {
+        flex: none !important;
+        min-width: 0;
+        min-height: 72px;
+    }
+    .uc-item.uc-active {
+        min-height: auto;
+    }
+    .uc-collapsed {
+        flex-direction: row;
+        padding: 18px 24px;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 14px;
+    }
+    .uc-vtitle {
+        writing-mode: horizontal-tb;
+        transform: none;
+        font-size: 15px;
+    }
+    .uc-num {
+        position: static;
+        font-size: 40px;
+        flex-shrink: 0;
+    }
+    .uc-features {
+        grid-template-columns: 1fr 1fr;
+    }
+    .uc-expanded {
+        padding: 24px;
+    }
+}
+
+/* ── Roadmap: Phase 1 two-col interior → one-col on tablet ── */
+@media (max-width: 1024px) {
+    .roadmap-card-grid {
+        grid-template-columns: 1fr;
+    }
+    .feat-card.phase-current {
+        grid-template-columns: 1fr !important;
+        gap: 24px;
+    }
+    .milestone-list {
+        border-left: none !important;
+        padding-left: 0 !important;
+    }
+}
+
+/* ── Solutions table: stacked cards on tablet/mobile ── */
+@media (max-width: 900px) {
+    .solutions-header-row {
+        display: none !important;
+    }
+    .solutions-data-row {
+        display: flex !important;
+        flex-direction: column;
+        gap: 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+    }
+    .solutions-data-row > div {
+        border-left: none !important;
+        padding: 10px 20px !important;
+        position: relative;
+    }
+    .solutions-data-row > div::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.3);
+        margin-bottom: 4px;
+    }
+    .solutions-data-row > div:first-child {
+        padding-top: 18px !important;
+    }
+    .solutions-data-row > div:last-child {
+        padding-bottom: 18px !important;
+    }
+}
+
+/* ── Architecture tabs: scroll on mobile ── */
+@media (max-width: 768px) {
+    #architecture .flex.flex-wrap.justify-center.gap-2 {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    #architecture .flex.flex-wrap.justify-center.gap-2::-webkit-scrollbar {
+        display: none;
+    }
+    #architecture [data-arch-tab] {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+}
+
+/* ── General mobile refinements ── */
+@media (max-width: 768px) {
+    /* Section headings smaller on phones */
+    .text-4xl { font-size: 1.875rem !important; }
+    .md\:text-5xl { font-size: 2.25rem; }
+
+    /* Hero headline */
+    #hero h1 { font-size: 2.5rem !important; line-height: 1.08 !important; }
+
+    /* Hero stats: smaller gap */
+    #hero .flex.flex-wrap.justify-center.gap-8 { gap: 1.5rem !important; }
+
+    /* Hero CTA buttons: stack on very small phones */
+    #hero .flex.flex-wrap.justify-center.gap-4 { gap: 0.75rem !important; }
+
+    /* Sections: reduce vertical padding on mobile */
+    section.py-24 { padding-top: 4rem; padding-bottom: 4rem; }
+
+    /* Exchange code block: horizontal scroll */
+    #exchange pre { overflow-x: auto; font-size: 12px; }
+
+    /* Tokenomics stats grid: 2 cols fine, just reduce padding */
+    #tokenomics .grid.grid-cols-2 .rounded-xl { padding: 1rem; }
+
+    /* Thesis grid: already md:grid-cols-2, fine */
+
+    /* Investors lead cards: smaller */
+    #investors .w-48 { width: 10rem; }
+    #investors .h-36 { height: 8rem; }
+
+    /* Features grids single column on mobile */
+    .uc-features { grid-template-columns: 1fr !important; }
+
+    /* Mobile menu hamburger bars dark mode */
+    .menu-bar { background: currentColor; }
+}
+
+/* ── Hamburger + mobile toggle: dark mode ── */
+html.dark .menu-bar { background: #ffffff; }
+html.dark #menu-toggle { color: #ffffff; }
+.menu-bar { background: #1A1A1A; }
+
+/* ── Dark mode mobile menu bottom buttons ── */
+html.dark #mobile-menu .mt-6 a[style*="background:#9FE870"] { color: #1A1A1A !important; }
+html.dark #mobile-menu .mt-6 button { background: rgba(255,255,255,0.06) !important; color: #ffffff !important; border-color: rgba(255,255,255,0.12) !important; }
+
+/* ── Dark mode: mobile toggle button correct styling on initial load ── */
+html.dark #theme-toggle-mobile {
+    background: #1a1a1a !important;
+    border-color: #2a2a2a !important;
+    color: #ffffff !important;
+}
+
+/* ── Tablet nav: ensure items don't overflow at md ── */
+@media (max-width: 900px) and (min-width: 769px) {
+    #main-nav nav a {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        font-size: 13px;
+    }
+}

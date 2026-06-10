@@ -17,21 +17,24 @@ document.addEventListener("DOMContentLoaded", () => {
 function initTheme() {
     const html   = document.documentElement;
     const btn    = document.getElementById("theme-toggle");
-    const moon   = document.getElementById("icon-moon");
-    const sun    = document.getElementById("icon-sun");
-    const stored = localStorage.getItem("theme");
+    const moon       = document.getElementById("icon-moon");
+    const sun        = document.getElementById("icon-sun");
+    const moonMobile = document.getElementById("icon-moon-mobile");
+    const sunMobile  = document.getElementById("icon-sun-mobile");
+    const btnMobile  = document.getElementById("theme-toggle-mobile");
+    const stored     = localStorage.getItem("theme");
 
     // Default = dark
     const isDark = stored !== "light";
     applyTheme(isDark);
 
-    if (btn) {
-        btn.addEventListener("click", () => {
-            const nowDark = !html.classList.contains("dark");
-            localStorage.setItem("theme", nowDark ? "dark" : "light");
-            applyTheme(nowDark);
-        });
-    }
+    const toggle = () => {
+        const nowDark = !html.classList.contains("dark");
+        localStorage.setItem("theme", nowDark ? "dark" : "light");
+        applyTheme(nowDark);
+    };
+    if (btn)       btn.addEventListener("click", toggle);
+    if (btnMobile) btnMobile.addEventListener("click", toggle);
 
     function applyTheme(dark) {
         if (dark) {
@@ -39,15 +42,26 @@ function initTheme() {
         } else {
             html.classList.remove("dark");
         }
-        // Swap icons
+        // Swap desktop icons
         if (moon && sun) {
             moon.classList.toggle("hidden", dark);
             sun.classList.toggle("hidden", !dark);
+        }
+        // Swap mobile icons
+        if (moonMobile && sunMobile) {
+            moonMobile.classList.toggle("hidden", dark);
+            sunMobile.classList.toggle("hidden", !dark);
         }
         // Update navbar inline bg
         const nav = document.getElementById("main-nav");
         if (nav) {
             nav.style.background = dark ? "#0D0D0D" : "#E8E8E3";
+        }
+        // Update mobile toggle button styling
+        if (btnMobile) {
+            btnMobile.style.background = dark ? "#1a1a1a" : "#FFFFFF";
+            btnMobile.style.borderColor = dark ? "#2a2a2a" : "#C8C8C2";
+            btnMobile.style.color = dark ? "#FFFFFF" : "#1A1A1A";
         }
     }
 }
