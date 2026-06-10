@@ -72,7 +72,7 @@
     <div class="rounded-2xl p-8" style="background:#FFFFFF;border:1px solid #D6D6D6" data-animate>
       <h3 class="text-xl font-bold mb-6" style="color:#1A1A1A">See Chain Abstraction in Action</h3>
       <div class="grid lg:grid-cols-2 gap-8 items-center">
-        <div>
+        <div style="overflow:auto">
           <pre class="rounded-xl overflow-auto text-sm" style="background:#1A1A1A"><code class="language-typescript">// Aeterna Intent SDK
 const intent = await aeterna.createIntent({
   from: { chain: 'arbitrum', token: 'USDC', amount: 1000 },
