@@ -31,7 +31,8 @@ class SiteSettingsSeeder extends Seeder
         ];
 
         foreach ($settings as $setting) {
-            SiteSetting::updateOrCreate(['key' => $setting['key']], $setting);
+            // firstOrCreate: creates if missing, never overwrites admin changes
+            SiteSetting::firstOrCreate(['key' => $setting['key']], $setting);
         }
     }
 }

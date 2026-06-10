@@ -44,6 +44,10 @@ body{background:#F5F4F0;color:#1A1A1A;font-family:'Inter',sans-serif;}
 [data-animate].animated{opacity:1;transform:translateY(0);}
 </style>
 @yield('head')
+@php $customCss = \App\Models\SiteSetting::get('custom_css',''); @endphp
+@if($customCss)
+<style id="custom-css">{!! $customCss !!}</style>
+@endif
 </head>
 <body class="dark">
 
@@ -63,5 +67,9 @@ body{background:#F5F4F0;color:#1A1A1A;font-family:'Inter',sans-serif;}
 <script src="/js/app.js"></script>
 @yield('scripts')
 @stack('scripts')
+@php $customJs = \App\Models\SiteSetting::get('custom_js',''); @endphp
+@if($customJs)
+<script id="custom-js">{!! $customJs !!}</script>
+@endif
 </body>
 </html>

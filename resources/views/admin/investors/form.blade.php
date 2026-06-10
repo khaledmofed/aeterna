@@ -9,16 +9,27 @@
 <div class="mb-4"><h1 class="admin-section-title">{{ isset($investor) ? 'Edit Investor' : 'New Investor' }}</h1></div>
 
 <div class="row"><div class="col-lg-6">
-<form method="POST" action="{{ isset($investor) ? route('admin.investors.update', $investor) : route('admin.investors.store') }}">
+<form method="POST" action="{{ isset($investor) ? route('admin.investors.update', $investor) : route('admin.investors.store') }}" enctype="multipart/form-data">
   @csrf @if(isset($investor)) @method('PUT') @endif
   <div class="admin-card p-4">
     <div class="mb-3">
       <label class="form-label">Name</label>
       <input type="text" name="name" class="form-control" required value="{{ old('name', $investor->name ?? '') }}">
     </div>
+
     <div class="mb-3">
-      <label class="form-label">Logo URL</label>
+      <label class="form-label">Logo</label>
+      {{-- Show current logo preview --}}
+      @if(!empty($investor->logo_url ?? ''))
+        <div class="mb-2 p-2 rounded" style="background:#1a1a1a;display:inline-block">
+          <img src="{{ $investor->logo_url }}" alt="Current logo" style="height:40px;object-fit:contain;filter:brightness(0) invert(1)" onerror="this.style.display='none'">
+        </div>
+      @endif
+      {{-- Upload file --}}
+      <input type="file" name="logo_file" class="form-control mb-2" accept="image/*">
+      <label class="form-label text-muted small">Or paste a URL:</label>
       <input type="text" name="logo_url" class="form-control" placeholder="https://..." value="{{ old('logo_url', $investor->logo_url ?? '') }}">
+      <div class="form-text">Upload an image OR enter a URL. Upload takes priority.</div>
     </div>
     <div class="mb-3">
       <label class="form-label">Website URL</label>

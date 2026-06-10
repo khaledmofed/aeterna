@@ -81,6 +81,32 @@
     </div>
   </div>
 
+  <!-- Custom Code -->
+  <div class="row g-4 mt-0">
+    <div class="col-12">
+      <div class="admin-card p-4">
+        <h6 class="fw-semibold mb-1" style="color:var(--wise-ink)">
+          <i class="bi bi-code-slash me-2" style="color:var(--wise-mute)"></i>Custom Code
+        </h6>
+        <p class="text-muted small mb-4">Injected into every page. CSS goes inside &lt;style&gt;, JS inside &lt;script&gt;.</p>
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <label class="form-label fw-semibold">Custom CSS</label>
+            <textarea name="custom_css" id="custom_css_editor" class="form-control font-monospace" rows="12"
+              placeholder="/* your custom CSS */"
+              style="font-size:13px;resize:vertical">{{ old('custom_css', $settings['custom_css']->value ?? '') }}</textarea>
+          </div>
+          <div class="col-lg-6">
+            <label class="form-label fw-semibold">Custom JavaScript</label>
+            <textarea name="custom_js" id="custom_js_editor" class="form-control font-monospace" rows="12"
+              placeholder="// your custom JS (no script tags needed)"
+              style="font-size:13px;resize:vertical">{{ old('custom_js', $settings['custom_js']->value ?? '') }}</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="mt-4">
     <button type="submit" class="btn btn-accent px-5">Save All Settings</button>
   </div>

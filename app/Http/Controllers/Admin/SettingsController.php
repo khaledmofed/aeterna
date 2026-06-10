@@ -21,7 +21,7 @@ class SettingsController extends Controller
             'site_name', 'site_tagline', 'logo_url', 'favicon_url',
             'meta_title', 'meta_description', 'og_image_url',
             'twitter_url', 'discord_url', 'telegram_url', 'github_url',
-            'ga_id', 'maintenance_mode',
+            'ga_id', 'maintenance_mode', 'custom_css', 'custom_js',
         ];
 
         foreach ($keys as $key) {

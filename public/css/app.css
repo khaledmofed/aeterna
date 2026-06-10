@@ -1217,6 +1217,18 @@ html.dark #theme-toggle-mobile {
     color: #ffffff !important;
 }
 
+/* ── Investors: white logos in dark mode ── */
+html.dark #investors .investor-logo {
+    filter: brightness(0) invert(1);
+}
+html.dark #investors .investor-name {
+    color: rgba(255,255,255,0.5) !important;
+}
+html.dark #investors a[class*="rounded"] {
+    background: rgba(255,255,255,0.04) !important;
+    border-color: rgba(255,255,255,0.08) !important;
+}
+
 /* ── Tablet nav: ensure items don't overflow at md ── */
 @media (max-width: 900px) and (min-width: 769px) {
     #main-nav nav a {

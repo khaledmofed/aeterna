@@ -14,10 +14,13 @@ php artisan view:cache    || true
 # Run migrations — non-fatal so Apache still starts if DB is unavailable
 php artisan migrate --force || echo "[startup] migrate skipped — DB not reachable"
 
+# Ensure storage symlink exists for uploaded investor logos
+php artisan storage:link --force || true
+
 # Seed admin user first (critical — runs alone so other seeders can't block it)
 php artisan db:seed --class=AdminUserSeeder --force || echo "[startup] admin seeder skipped"
 
-# Seed remaining data — non-fatal
+# Seed remaining data — DatabaseSeeder checks _content_seeded flag, skips if DB already populated
 php artisan db:seed --force || echo "[startup] full seed skipped"
 
 echo "Startup complete. Starting Apache on port $PORT..."
