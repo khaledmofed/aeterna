@@ -28,6 +28,13 @@
           </div>
         @endif
       @endforeach
+      <div class="h-full flex items-center px-1">
+        <a href="{{ request()->routeIs('home') ? '#explorer' : route('home').'#explorer' }}" data-nav-link
+           class="relative px-4 py-1.5 text-sm font-semibold transition-all duration-200 rounded-full hover:bg-[#D6D6CF]"
+           style="color:#1A1A1A">
+          Explorer
+        </a>
+      </div>
     </nav>
 
     <!-- Right CTAs -->
@@ -107,6 +114,11 @@
         </div>
       @endif
     @endforeach
+    <a href="{{ request()->routeIs('home') ? '#explorer' : route('home').'#explorer' }}"
+       class="text-base font-bold uppercase tracking-wider py-3.5 transition"
+       style="color:#1A1A1A;border-bottom:1px solid #D6D6CF">
+      Explorer
+    </a>
   </nav>
 
   <div class="mt-6 flex flex-col gap-3">

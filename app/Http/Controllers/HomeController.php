@@ -11,6 +11,7 @@ use App\Models\NavItem;
 use App\Models\RoadmapStage;
 use App\Models\Solution;
 use App\Models\Tokenomic;
+use App\Models\ExplorerPage;
 use App\Models\UseCase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
@@ -26,6 +27,7 @@ class HomeController extends Controller
         $investors = Investor::active()->get();
         $roadmap = RoadmapStage::active()->get();
         $useCases = UseCase::active()->get();
+        $explorerPages = ExplorerPage::active()->orderBy('sort_order')->get();
 
         $navItems = Cache::remember('nav_items', 3600, fn() =>
             NavItem::with('children')
@@ -41,7 +43,7 @@ class HomeController extends Controller
 
         return view('public.home', compact(
             'hero', 'layers', 'solutions', 'tokenomics', 'investors',
-            'roadmap', 'useCases', 'navItems', 'footerLinks'
+            'roadmap', 'useCases', 'navItems', 'footerLinks', 'explorerPages'
         ));
     }
 

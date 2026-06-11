@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ExplorerController;
 use App\Http\Controllers\Admin\ArchitectureController;
 use App\Http\Controllers\Admin\SolutionsController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -9,6 +10,7 @@ use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\InvestorsController;
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\RoadmapController;
+use App\Http\Controllers\Admin\ExplorerController as AdminExplorerController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SubscribersController;
 use App\Http\Controllers\Admin\TokenomicsController;
@@ -22,6 +24,7 @@ Route::get('/dashboard', fn() => redirect()->route('admin.dashboard'))->middlewa
 Route::get('/',           [HomeController::class, 'index'])->name('home');
 Route::post('/subscribe', [HomeController::class, 'subscribe'])->name('subscribe');
 Route::get('/whitepaper', fn() => redirect('https://aeternaio.com/whitepaper'))->name('whitepaper');
+Route::get('/explorer/{slug}', [ExplorerController::class, 'show'])->name('explorer.show');
 
 // Admin
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(function () {
@@ -85,6 +88,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(
     Route::get('/subscribers',              [SubscribersController::class, 'index'])->name('subscribers.index');
     Route::get('/subscribers/export',       [SubscribersController::class, 'export'])->name('subscribers.export');
     Route::delete('/subscribers/{subscriber}', [SubscribersController::class, 'destroy'])->name('subscribers.destroy');
+
+    Route::get('/explorer',                        [AdminExplorerController::class, 'index'])->name('explorer.index');
+    Route::get('/explorer/{explorer}/edit',        [AdminExplorerController::class, 'edit'])->name('explorer.edit');
+    Route::put('/explorer/{explorer}',             [AdminExplorerController::class, 'update'])->name('explorer.update');
 
     Route::get('/settings',  [SettingsController::class, 'index'])->name('settings');
     Route::post('/settings', [SettingsController::class, 'update'])->name('settings.update');

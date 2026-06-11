@@ -10,6 +10,7 @@
   @include('public.partials.roadmap')
   @include('public.partials.use-cases')
   @include('public.partials.investors')
+  @include('public.partials.explorer-section')
   @include('public.partials.thesis')
 @endsection
 

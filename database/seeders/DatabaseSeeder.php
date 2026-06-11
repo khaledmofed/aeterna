@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             RoadmapSeeder::class,
             UseCasesSeeder::class,
             FooterSeeder::class,
+            ExplorerSeeder::class,
         ]);
 
         // Mark as seeded so subsequent deploys skip content seeders

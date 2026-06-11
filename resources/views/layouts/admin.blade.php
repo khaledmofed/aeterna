@@ -402,6 +402,9 @@ body {
     <a href="{{ route('admin.footer-links.index') }}" class="{{ request()->routeIs('admin.footer-links*') ? 'active' : '' }}">
       <i class="bi bi-link-45deg"></i> Footer Links
     </a>
+    <a href="{{ route('admin.explorer.index') }}" class="{{ request()->routeIs('admin.explorer*') ? 'active' : '' }}">
+      <i class="bi bi-search"></i> Explorer Pages
+    </a>
     <div class="nav-label">System</div>
     <a href="{{ route('admin.subscribers.index') }}" class="{{ request()->routeIs('admin.subscribers*') ? 'active' : '' }}">
       <i class="bi bi-envelope-at"></i> Subscribers
