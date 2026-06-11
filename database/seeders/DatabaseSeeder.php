@@ -15,6 +15,9 @@ class DatabaseSeeder extends Seeder
         // Always ensure site_settings keys exist (uses firstOrCreate — won't overwrite admin changes)
         $this->call([SiteSettingsSeeder::class]);
 
+        // Always run seeders that use firstOrCreate (safe to re-run, won't overwrite admin changes)
+        $this->call([ExplorerSeeder::class]);
+
         // Skip content seeders if DB was previously seeded to preserve admin changes
         if (SiteSetting::where('key', '_content_seeded')->exists()) {
             $this->command->info('Content already seeded — skipping to preserve admin panel data.');
@@ -31,7 +34,6 @@ class DatabaseSeeder extends Seeder
             RoadmapSeeder::class,
             UseCasesSeeder::class,
             FooterSeeder::class,
-            ExplorerSeeder::class,
         ]);
 
         // Mark as seeded so subsequent deploys skip content seeders
