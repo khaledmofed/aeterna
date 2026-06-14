@@ -51,14 +51,24 @@
     </div>
 
     <!-- Flywheel -->
-    <div class="rounded-3xl p-8 mb-12" style="background:#FFFFFF;border:1px solid #D6D6D6" data-animate>
+    <div class="rounded-3xl p-8 mb-12" style="background:#FFFFFF;border:1px solid #D6D6D6;position:relative;overflow:hidden" data-animate>
+
+      <!-- Gear background top-right -->
+      <div style="position:absolute;top:-20px;right:-20px;opacity:0.08;pointer-events:none;animation:gear-spin 12s linear infinite" class="flywheel-gear">
+        <img src="/images/780457.png" width="160" height="160" alt="">
+      </div>
+      <style>
+        @keyframes gear-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+        html.dark .flywheel-gear { filter: invert(1); }
+      </style>
+
       <h3 class="text-xl font-bold mb-6 text-center" style="color:#1A1A1A;letter-spacing:-0.02em">Economic Flywheel</h3>
       <div class="flex flex-wrap justify-center items-center gap-2">
         @foreach($tokenomics->flywheel_steps_json ?? [] as $i => $step)
           <div class="flex items-center gap-2">
             <div class="px-4 py-2 rounded-full text-xs font-semibold text-center" style="background:rgba(159,232,112,0.18);border:1px solid rgba(159,232,112,0.5);color:#1A1A1A;letter-spacing:0.01em">{{ $step }}</div>
             @if(!$loop->last)
-              <svg class="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="color:#D6D6D6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              <span style="color:#D6D6D6;font-size:1rem;line-height:1;flex-shrink:0">→</span>
             @endif
           </div>
         @endforeach
@@ -89,7 +99,7 @@
     </div>
 
     <!-- AIA Token card ; stays dark for contrast -->
-    <div class="rounded-3xl p-8" style="background:#1A1A1A;border:1px solid rgba(235,255,0,0.2)" data-animate>
+    <!-- <div class="rounded-3xl p-8" style="background:#1A1A1A;border:1px solid rgba(235,255,0,0.2)" data-animate>
       <div class="flex items-start gap-6">
         <div class="w-14 h-14 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0" style="background:rgba(235,255,0,0.15);border:1.5px solid rgba(235,255,0,0.4);color:#EBFF00">AIA</div>
         <div>
@@ -97,7 +107,7 @@
           <p style="color:rgba(255,255,255,0.6);line-height:1.6">{{ $tokenomics->lp_token_description ?? '' }}</p>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </section>
 
