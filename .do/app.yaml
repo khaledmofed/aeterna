@@ -61,3 +61,4 @@ databases:
     engine: PG
     version: "16"
     production: true
+    cluster_name: aeterna-db
