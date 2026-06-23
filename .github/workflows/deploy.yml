@@ -1,0 +1,70 @@
+name: Deploy to DigitalOcean
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+env:
+  IMAGE: registry.digitalocean.com/aeterna/aeterna
+  APP_NAME: aeterna
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DO_API_TOKEN }}
+
+      - name: Log in to Container Registry
+        run: doctl registry login
+
+      - name: Build and push Docker image
+        run: |
+          docker build -t ${{ env.IMAGE }}:${{ github.sha }} .
+          docker tag ${{ env.IMAGE }}:${{ github.sha }} ${{ env.IMAGE }}:latest
+          docker push ${{ env.IMAGE }}:${{ github.sha }}
+          docker push ${{ env.IMAGE }}:latest
+
+      - name: Inject APP_KEY into app spec
+        run: |
+          python3 <<'PY'
+          from pathlib import Path
+          import os
+          key = os.environ["APP_KEY"].strip()
+          p = Path(".do/app.yaml")
+          text = p.read_text()
+          needle = "      - key: APP_KEY\n        scope: RUN_AND_BUILD_TIME\n        type: SECRET"
+          replacement = f"      - key: APP_KEY\n        scope: RUN_AND_BUILD_TIME\n        type: SECRET\n        value: {key}"
+          if needle not in text:
+              raise SystemExit("APP_KEY block not found in .do/app.yaml")
+          p.write_text(text.replace(needle, replacement, 1))
+          PY
+        env:
+          APP_KEY: ${{ secrets.APP_KEY }}
+
+      - name: Create or update App Platform app
+        id: app
+        run: |
+          APP_ID=$(doctl apps list --format ID,Spec.Name --no-header | awk -v n="${{ env.APP_NAME }}" '$2==n{print $1; exit}')
+          if [ -z "$APP_ID" ]; then
+            echo "Creating app ${{ env.APP_NAME }}..."
+            APP_ID=$(doctl apps create --spec .do/app.yaml --format ID --no-header)
+            echo "created=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "Updating app $APP_ID..."
+            doctl apps update "$APP_ID" --spec .do/app.yaml
+            echo "created=false" >> "$GITHUB_OUTPUT"
+          fi
+          echo "app_id=$APP_ID" >> "$GITHUB_OUTPUT"
+
+      - name: Trigger deployment
+        run: doctl apps create-deployment ${{ steps.app.outputs.app_id }}
+
+      - name: App URL
+        run: |
+          doctl apps get ${{ steps.app.outputs.app_id }} --format DefaultIngress --no-header

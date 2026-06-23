@@ -1,0 +1,64 @@
+# DigitalOcean App Platform — deploys from Container Registry (no GitHub link on DO needed)
+# GitHub Actions builds Docker, pushes to DOCR, triggers deploy on push to main.
+
+name: aeterna
+region: lon
+
+services:
+  - name: web
+    image:
+      registry_type: DOCR
+      registry: aeterna
+      repository: aeterna
+      tag: latest
+      deploy_on_push:
+        enabled: true
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    routes:
+      - path: /
+    health_check:
+      http_path: /
+      initial_delay_seconds: 30
+      period_seconds: 10
+      timeout_seconds: 5
+      success_threshold: 1
+      failure_threshold: 3
+    envs:
+      - key: APP_NAME
+        value: AeternaX
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+      - key: APP_URL
+        scope: RUN_AND_BUILD_TIME
+        value: ${_self.URL}
+      - key: DB_CONNECTION
+        value: pgsql
+      - key: DATABASE_URL
+        scope: RUN_TIME
+        value: ${db.DATABASE_URL}
+      - key: SESSION_DRIVER
+        value: cookie
+      - key: SESSION_LIFETIME
+        value: "120"
+      - key: CACHE_STORE
+        value: array
+      - key: QUEUE_CONNECTION
+        value: sync
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: error
+
+databases:
+  - name: db
+    engine: PG
+    version: "16"
+    production: true
+    cluster_name: aeterna-db
