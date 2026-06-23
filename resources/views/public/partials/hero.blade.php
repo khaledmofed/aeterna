@@ -19,7 +19,7 @@
     <!-- Headline -->
     <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 animate-hero-title"
         style="color:#1A1A1A;letter-spacing:-0.03em;line-height:1.04">
-      {!! nl2br(e($hero->headline ?? 'Future is Chainless.')) !!}
+      {!! nl2br(e($hero->headline ?? 'The Future is Chainless.')) !!}
     </h1>
 
     <!-- Subheadline -->
