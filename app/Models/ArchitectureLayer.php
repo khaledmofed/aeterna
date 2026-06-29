@@ -3,17 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class ArchitectureLayer extends Model
 {
+    use HasTranslations;
+
+    public array $translatable = ['name', 'description', 'features_json'];
+
     protected $fillable = [
         'layer_number', 'name', 'slug', 'description',
         'icon_svg', 'features_json', 'sort_order', 'is_active',
     ];
 
     protected $casts = [
-        'features_json' => 'array',
-        'is_active'     => 'boolean',
+        'is_active' => 'boolean',
     ];
 
     public function scopeActive($query)

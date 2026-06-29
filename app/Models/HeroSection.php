@@ -3,9 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class HeroSection extends Model
 {
+    use HasTranslations;
+
+    public array $translatable = [
+        'badge_text', 'headline', 'subheadline',
+        'cta_primary_text', 'cta_secondary_text',
+        'email_placeholder', 'email_cta',
+        'stats_json',
+    ];
+
     protected $fillable = [
         'badge_text', 'headline', 'subheadline',
         'cta_primary_text', 'cta_primary_url',
@@ -14,7 +24,6 @@ class HeroSection extends Model
     ];
 
     protected $casts = [
-        'stats_json' => 'array',
-        'is_active'  => 'boolean',
+        'is_active' => 'boolean',
     ];
 }

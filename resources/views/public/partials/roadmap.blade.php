@@ -2,8 +2,8 @@
   <div class="max-w-7xl mx-auto">
 
     <div class="text-center mb-14" data-animate>
-      <div class="section-label mb-4">Roadmap</div>
-      <h2 class="text-4xl md:text-5xl mb-4" style="color:#1A1A1A;font-weight:900;letter-spacing:-0.03em">Building the Future, Step by Step</h2>
+      <div class="section-label mb-4">{{ __('messages.roadmap.badge') }}</div>
+      <h2 class="text-4xl md:text-5xl mb-4" style="color:#1A1A1A;font-weight:900;letter-spacing:-0.03em">{{ __('messages.roadmap.title') }}</h2>
     </div>
 
     @php
@@ -23,10 +23,12 @@
         $num      = $stage->stage_number;
         $cardType = $cardTypes[$num] ?? 'content';
         $icon     = $phaseIcons[$num] ?? $phaseIcons[1];
-        $milestones = $stage->milestones_json ?? [];
+        $milestones = json_decode($stage->milestones_json ?? '[]', true) ?? [];
         $isActive    = $stage->status === 'active';
         $isCompleted = $stage->status === 'completed';
-        $statusLabel = $isActive ? 'Current' : ($isCompleted ? 'Completed' : 'Upcoming');
+        $statusLabel = $isActive
+            ? __('messages.roadmap.status_current')
+            : ($isCompleted ? __('messages.roadmap.status_completed') : __('messages.roadmap.status_upcoming'));
       @endphp
 
       @if($num === 1)
@@ -45,7 +47,7 @@
             <span class="eyebrow">{{ $statusLabel }} - {{ $stage->timeframe }}</span>
             <span style="background:#9FE870;color:#1A1A1A;font-size:10px;font-weight:700;padding:2px 8px;border-radius:999px;letter-spacing:0.05em;display:inline-flex;align-items:center;gap:4px">
               <span class="animate-pulse" style="width:6px;height:6px;border-radius:50%;background:#1A1A1A;display:inline-block"></span>
-              LIVE
+              {{ __('messages.roadmap.live') }}
             </span>
           </div>
 
@@ -55,19 +57,19 @@
               <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{!! $icon !!}</svg>
             </div>
             <h3 style="font-size:26px;font-weight:800;letter-spacing:-0.02em;margin:0;color:#9FE870;line-height:1.2">
-              Phase {{ $num }}: {{ $stage->name }}
+              {{ __('messages.roadmap.phase') }} {{ $num }}: {{ $stage->name }}
             </h3>
           </div>
 
           {{-- Short description --}}
           <p style="color:rgba(255,255,255,0.5);font-size:14px;line-height:1.6;margin:0">
-            The foundation is live. Core infrastructure, AI engine, and chain abstraction layers are being deployed across the network.
+            {{ __('messages.roadmap.phase_description') }}
           </p>
 
           {{-- Progress bar --}}
           <div style="margin-top:4px">
             <div style="display:flex;justify-content:space-between;margin-bottom:8px">
-              <span style="font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;letter-spacing:0.05em">DEPLOYMENT PROGRESS</span>
+              <span style="font-size:12px;color:rgba(255,255,255,0.4);font-weight:600;letter-spacing:0.05em">{{ __('messages.roadmap.deployment_progress') }}</span>
               <span style="font-size:12px;color:#9FE870;font-weight:700">65%</span>
             </div>
             <div style="height:4px;background:rgba(255,255,255,0.1);border-radius:999px;overflow:hidden">
@@ -77,8 +79,8 @@
 
           {{-- Mini stat pills --}}
           <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <span style="background:rgba(159,232,112,0.1);border:1px solid rgba(159,232,112,0.2);color:#9FE870;font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px">✓ Mainnet Live</span>
-            <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px">{{ count($milestones) }} Milestones</span>
+            <span style="background:rgba(159,232,112,0.1);border:1px solid rgba(159,232,112,0.2);color:#9FE870;font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px">{{ __('messages.roadmap.mainnet_live') }}</span>
+            <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px">{{ count($milestones) }} {{ __('messages.roadmap.milestones') }}</span>
             <span style="background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.5);font-size:12px;font-weight:600;padding:6px 14px;border-radius:999px">{{ $stage->timeframe }}</span>
           </div>
 
@@ -116,7 +118,7 @@
             </div>
           @endif
           <h3 style="font-size:18px;font-weight:800;letter-spacing:-0.02em;margin:0;color:#1A1A1A;line-height:1.25">
-            Phase {{ $num }}: {{ $stage->name }}
+            {{ __('messages.roadmap.phase') }} {{ $num }}: {{ $stage->name }}
           </h3>
         </div>
 
@@ -134,8 +136,11 @@
               <li>{{ $milestone }}</li>
             @endforeach
           </ul>
-          <button class="view-all-btn" onclick="toggleRoadmapPhase({{ $num }}, this)" aria-expanded="false">
-            View all ({{ count($milestones) - 4 }} more) →
+          <button class="view-all-btn"
+            data-view-all="{{ __('messages.roadmap.view_all', ['count' => count($milestones) - 4]) }}"
+            data-show-less="{{ __('messages.roadmap.show_less') }}"
+            onclick="toggleRoadmapPhase({{ $num }}, this)" aria-expanded="false">
+            {{ __('messages.roadmap.view_all', ['count' => count($milestones) - 4]) }}
           </button>
         @endif
 
@@ -151,18 +156,18 @@
 
 <script>
 function toggleRoadmapPhase(num, btn) {
-  var extra = document.getElementById('extra-phase-' + num);
+  var extra    = document.getElementById('extra-phase-' + num);
   var expanded = btn.getAttribute('aria-expanded') === 'true';
   if (expanded) {
     extra.style.display = 'none';
     btn.setAttribute('aria-expanded', 'false');
-    btn.textContent = 'View all (' + extra.querySelectorAll('li').length + ' more) →';
+    btn.textContent = btn.getAttribute('data-view-all');
   } else {
     extra.style.display = 'flex';
     extra.style.flexDirection = 'column';
     extra.style.gap = '10px';
     btn.setAttribute('aria-expanded', 'true');
-    btn.textContent = 'Show less ↑';
+    btn.textContent = btn.getAttribute('data-show-less');
   }
 }
 </script>

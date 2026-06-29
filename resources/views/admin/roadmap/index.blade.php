@@ -26,7 +26,7 @@
         <span class="wise-badge {{ $statusClass }}">{{ ucfirst($stage->status) }}</span>
       </div>
       <div style="font-size:.82rem;color:var(--wise-mute)" class="mb-2">{{ $stage->timeframe }}</div>
-      <div style="font-size:.78rem;color:var(--wise-mute)" class="mb-3">{{ count($stage->milestones_json ?? []) }} milestones</div>
+      <div style="font-size:.78rem;color:var(--wise-mute)" class="mb-3">{{ count(json_decode($stage->milestones_json ?? '[]', true) ?? []) }} milestones</div>
       <div class="d-flex gap-2">
         <a href="{{ route('admin.roadmap.edit', $stage) }}" class="btn btn-wise-outline btn-sm">Edit</a>
         <form method="POST" action="{{ route('admin.roadmap.destroy', $stage) }}" onsubmit="return confirm('Delete?')">

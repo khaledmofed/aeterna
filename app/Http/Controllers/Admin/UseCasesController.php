@@ -22,8 +22,8 @@ class UseCasesController extends Controller
     public function store(Request $request)
     {
         $validated = $this->validateCase($request);
-        $validated['features_json'] = $this->parseFeatures($request);
-        UseCase::create($validated);
+        $useCase = UseCase::create($validated);
+        $this->saveFeatures($request, $useCase);
         return redirect()->route('admin.use-cases.index')->with('success', 'Use case created.');
     }
 
@@ -35,8 +35,8 @@ class UseCasesController extends Controller
     public function update(Request $request, UseCase $useCase)
     {
         $validated = $this->validateCase($request);
-        $validated['features_json'] = $this->parseFeatures($request);
         $useCase->update($validated);
+        $this->saveFeatures($request, $useCase);
         return redirect()->route('admin.use-cases.index')->with('success', 'Use case updated.');
     }
 
@@ -49,23 +49,54 @@ class UseCasesController extends Controller
     private function validateCase(Request $request): array
     {
         $v = $request->validate([
-            'title'       => 'required|string|max:200',
-            'description' => 'nullable|string',
-            'icon_svg'    => 'nullable|string',
-            'category'    => 'nullable|string|max:50',
-            'sort_order'  => 'integer',
-            'is_active'   => 'boolean',
+            'title'        => 'required|array',
+            'title.en'     => 'required|string',
+            'title.*'      => 'nullable|string',
+            'description'  => 'nullable|array',
+            'description.*'=> 'nullable|string',
+            'icon_svg'     => 'nullable|string',
+            'category'     => 'nullable|string|max:50',
+            'sort_order'   => 'integer',
+            'is_active'    => 'boolean',
         ]);
         $v['is_active'] = $request->boolean('is_active');
         return $v;
     }
 
-    private function parseFeatures(Request $request): array
+    private function saveFeatures(Request $request, UseCase $useCase): void
     {
-        $features = [];
-        foreach (($request->features ?? []) as $f) {
-            if (!empty($f['title'])) $features[] = $f;
+        $locales = ['en', 'ja', 'ko', 'es', 'zh-TW', 'vi'];
+        $input = $request->input('features', []);
+
+        // Legacy flat array fallback
+        if (isset($input[0])) {
+            $built = [];
+            foreach ($input as $f) {
+                if (!empty($f['title'])) $built[] = $f;
+            }
+            $useCase->setTranslations('features_json', ['en' => json_encode($built, JSON_UNESCAPED_UNICODE)]);
+            $useCase->save();
+            return;
         }
-        return $features;
+
+        $featuresByLocale = [];
+        foreach ($locales as $locale) {
+            $items = $input[$locale] ?? [];
+            $built = [];
+            foreach ($items as $i => $item) {
+                if (!empty($item['title'])) {
+                    $built[] = ['title' => $item['title'], 'description' => $item['description'] ?? ''];
+                }
+            }
+            if ($built) {
+                $featuresByLocale[$locale] = json_encode($built, JSON_UNESCAPED_UNICODE);
+            }
+        }
+        if ($featuresByLocale) {
+            $existing = [];
+            foreach ($locales as $l) { $existing[$l] = $useCase->getTranslation('features_json', $l, false) ?? '[]'; }
+            $useCase->setTranslations('features_json', array_merge($existing, $featuresByLocale));
+            $useCase->save();
+        }
     }
 }

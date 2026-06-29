@@ -3,17 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Translatable\HasTranslations;
 
 class RoadmapStage extends Model
 {
+    use HasTranslations;
+
+    public array $translatable = ['name', 'timeframe', 'milestones_json'];
+
     protected $fillable = [
         'stage_number', 'name', 'timeframe', 'status',
         'milestones_json', 'sort_order', 'is_active',
     ];
 
     protected $casts = [
-        'milestones_json' => 'array',
-        'is_active'       => 'boolean',
+        'is_active' => 'boolean',
     ];
 
     public function scopeActive($query)

@@ -22,32 +22,56 @@ class ArchitectureController extends Controller
     public function update(Request $request, ArchitectureLayer $architecture)
     {
         $validated = $request->validate([
-            'name'        => 'required|string|max:100',
-            'description' => 'nullable|string',
-            'icon_svg'    => 'nullable|string',
-            'is_active'   => 'boolean',
-            'features'              => 'nullable|array',
-            'features.*.title'      => 'nullable|string|max:200',
-            'features.*.description'=> 'nullable|string',
-            'features.*.icon_svg'   => 'nullable|string',
+            'name'          => 'required|array',
+            'name.en'       => 'required|string',
+            'name.*'        => 'nullable|string',
+            'description'   => 'nullable|array',
+            'description.*' => 'nullable|string',
+            'icon_svg'      => 'nullable|string',
+            'is_active'     => 'boolean',
         ]);
 
-        $features = [];
-        if (!empty($request->features)) {
-            foreach ($request->features as $feature) {
-                if (!empty($feature['title'])) {
-                    $features[] = $feature;
+        $architecture->update([
+            'name'        => $validated['name'],
+            'description' => $validated['description'] ?? null,
+            'icon_svg'    => $validated['icon_svg'] ?? null,
+            'is_active'   => $request->boolean('is_active'),
+        ]);
+
+        $featuresInput = $request->input('features', []);
+        $locales = ['en', 'ja', 'ko', 'es', 'zh-TW', 'vi'];
+
+        $enIconMap = [];
+        foreach ($featuresInput['en'] ?? [] as $i => $item) {
+            $enIconMap[$i] = $item['icon_svg'] ?? '';
+        }
+
+        $featuresByLocale = [];
+        foreach ($locales as $locale) {
+            $items = $featuresInput[$locale] ?? [];
+            $built = [];
+            foreach ($items as $i => $item) {
+                if (!empty($item['title'])) {
+                    $built[] = [
+                        'title'       => $item['title'],
+                        'description' => $item['description'] ?? '',
+                        'icon_svg'    => $locale === 'en' ? ($item['icon_svg'] ?? '') : ($enIconMap[$i] ?? ''),
+                    ];
                 }
+            }
+            if ($built) {
+                $featuresByLocale[$locale] = json_encode($built, JSON_UNESCAPED_UNICODE);
             }
         }
 
-        $architecture->update([
-            'name'          => $validated['name'],
-            'description'   => $validated['description'] ?? null,
-            'icon_svg'      => $validated['icon_svg'] ?? null,
-            'features_json' => $features,
-            'is_active'     => $request->boolean('is_active'),
-        ]);
+        if ($featuresByLocale) {
+            $existing = [];
+            foreach ($locales as $locale) {
+                $existing[$locale] = $architecture->getTranslation('features_json', $locale, false) ?? '[]';
+            }
+            $architecture->setTranslations('features_json', array_merge($existing, $featuresByLocale));
+            $architecture->save();
+        }
 
         return redirect()->route('admin.architecture.index')->with('success', 'Layer updated.');
     }

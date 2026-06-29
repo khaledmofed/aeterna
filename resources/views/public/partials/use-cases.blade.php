@@ -2,9 +2,9 @@
   <div class="max-w-7xl mx-auto">
 
     <div class="text-center mb-16" data-animate>
-      <div class="section-label mb-4">Use Cases</div>
-      <h2 class="text-4xl md:text-5xl mb-4" style="color:#1A1A1A;font-weight:900;letter-spacing:-0.03em">RWA Infrastructure &<br>Open UBI Vision</h2>
-      <p class="text-lg max-w-2xl mx-auto" style="color:#454745">Real-world value for real-world people ; powered by Aeterna's AI-native, chain-abstracted infrastructure.</p>
+      <div class="section-label mb-4">{{ __('messages.use_cases.badge') }}</div>
+      <h2 class="text-4xl md:text-5xl mb-4" style="color:#1A1A1A;font-weight:900;letter-spacing:-0.03em">{!! __('messages.use_cases.title') !!}</h2>
+      <p class="text-lg max-w-2xl mx-auto" style="color:#454745">{{ __('messages.use_cases.subtitle') }}</p>
     </div>
 
     <ul class="uc-accordion" id="ucAccordion" data-animate>
@@ -39,9 +39,10 @@
             </div>
             <h2 class="uc-title" style="color:{{ $c['text'] }}">{{ $case->title }}</h2>
             <p class="uc-desc" style="color:{{ $c['sub'] }}">{{ $case->description }}</p>
-            @if($case->features_json)
+            @php $ucFeatures = json_decode($case->features_json ?? '[]', true) ?? []; @endphp
+            @if($ucFeatures)
             <div class="uc-features">
-              @foreach($case->features_json as $feature)
+              @foreach($ucFeatures as $feature)
               <div class="uc-feat">
                 <span class="uc-dot" style="background:{{ $c['accent'] }}"></span>
                 <div>

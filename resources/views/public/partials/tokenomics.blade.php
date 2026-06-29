@@ -15,7 +15,7 @@
             <div class="font-mono text-sm mt-1" style="color:#EBFF00">{{ $tokenomics->token_ticker ?? 'ATA' }}</div>
           </div>
           <div class="text-right">
-            <div class="text-xs mb-1" style="color:rgba(255,255,255,0.4)">Total Supply</div>
+            <div class="text-xs mb-1" style="color:rgba(255,255,255,0.4)">{{ __('messages.tokenomics.total_supply') }}</div>
             <div class="text-lg font-bold" style="color:#FFFFFF">{{ $tokenomics->token_supply ?? '1,000,000,000 ATA' }}</div>
           </div>
         </div>
@@ -25,7 +25,7 @@
             <canvas id="tokenChart"></canvas>
           </div>
           <div class="flex flex-col gap-2 flex-1">
-            @foreach($tokenomics->allocation_json ?? [] as $alloc)
+            @foreach(json_decode($tokenomics->allocation_json ?? '[]', true) ?? [] as $alloc)
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background:{{ $alloc['color'] }}"></span>
@@ -40,7 +40,7 @@
 
       <!-- Stats grid ; light cards -->
       <div class="grid grid-cols-2 gap-4" data-animate>
-        @foreach($tokenomics->stats_json ?? [] as $stat)
+        @foreach(json_decode($tokenomics->stats_json ?? '[]', true) ?? [] as $stat)
         <div class="rounded-xl p-6 transition-all" style="background:#FFFFFF;border:1px solid #D6D6D6;border-radius:16px">
           <div class="text-2xl font-black mb-1" style="color:#1A1A1A;letter-spacing:-0.02em">{{ $stat['value'] }}</div>
           <div class="text-sm font-semibold mb-1" style="color:#1A1A1A">{{ $stat['label'] }}</div>
@@ -62,9 +62,9 @@
         html.dark .flywheel-gear { filter: invert(1); }
       </style>
 
-      <h3 class="text-xl font-bold mb-6 text-center" style="color:#1A1A1A;letter-spacing:-0.02em">Economic Flywheel</h3>
+      <h3 class="text-xl font-bold mb-6 text-center" style="color:#1A1A1A;letter-spacing:-0.02em">{{ __('messages.tokenomics.flywheel_title') }}</h3>
       <div class="flex flex-wrap justify-center items-center gap-2">
-        @foreach($tokenomics->flywheel_steps_json ?? [] as $i => $step)
+        @foreach(json_decode($tokenomics->flywheel_steps_json ?? '[]', true) ?? [] as $i => $step)
           <div class="flex items-center gap-2">
             <div class="px-4 py-2 rounded-full text-xs font-semibold text-center" style="background:rgba(159,232,112,0.18);border:1px solid rgba(159,232,112,0.5);color:#1A1A1A;letter-spacing:0.01em">{{ $step }}</div>
             @if(!$loop->last)
@@ -77,7 +77,7 @@
 
     <!-- Mechanics -->
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 overflow-hidden mb-12" style="border:1px solid #D6D6D6;border-radius:16px;gap:1px;background:#D6D6D6">
-      @foreach($tokenomics->mechanics_json ?? [] as $i => $mech)
+      @foreach(json_decode($tokenomics->mechanics_json ?? '[]', true) ?? [] as $i => $mech)
       <div class="group relative flex flex-col overflow-hidden transition-all duration-500 card-spotlight" style="background:#FFFFFF;animation-delay:{{ $i * 50 }}ms" data-animate>
         <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" style="background:linear-gradient(135deg,rgba(235,255,0,0.08) 0%,transparent 60%)"></div>
         <div class="p-7 flex flex-col h-full relative z-10">
@@ -97,17 +97,6 @@
       </div>
       @endforeach
     </div>
-
-    <!-- AIA Token card ; stays dark for contrast -->
-    <!-- <div class="rounded-3xl p-8" style="background:#1A1A1A;border:1px solid rgba(235,255,0,0.2)" data-animate>
-      <div class="flex items-start gap-6">
-        <div class="w-14 h-14 rounded-xl flex items-center justify-center font-bold text-lg flex-shrink-0" style="background:rgba(235,255,0,0.15);border:1.5px solid rgba(235,255,0,0.4);color:#EBFF00">AIA</div>
-        <div>
-          <h3 class="text-xl font-bold mb-2" style="color:#FFFFFF">{{ $tokenomics->lp_token_name ?? 'AIA' }} - Liquidity Provider Token</h3>
-          <p style="color:rgba(255,255,255,0.6);line-height:1.6">{{ $tokenomics->lp_token_description ?? '' }}</p>
-        </div>
-      </div>
-    </div> -->
   </div>
 </section>
 
@@ -116,7 +105,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   const ctx = document.getElementById('tokenChart');
   if (!ctx) return;
-  const data = @json($tokenomics->allocation_json ?? []);
+  const data = @json(json_decode($tokenomics->allocation_json ?? '[]', true) ?? []);
   new Chart(ctx, {
     type: 'doughnut',
     data: {

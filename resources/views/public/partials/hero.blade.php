@@ -43,9 +43,10 @@
     </div>
 
     <!-- Stats -->
-    @if($hero->stats_json)
+    @php $heroStats = json_decode($hero->stats_json ?? '[]', true) ?? []; @endphp
+    @if($heroStats)
     <div class="flex flex-wrap justify-center gap-8 md:gap-16 mb-14">
-      @foreach($hero->stats_json as $i => $stat)
+      @foreach($heroStats as $i => $stat)
         @if(!empty($stat['value']))
         <div class="text-center animate-fade-in-up" style="animation-delay:{{ 0.6 + $i * 0.1 }}s" data-animate>
           <div class="text-3xl md:text-4xl font-black" style="color:#1A1A1A;letter-spacing:-0.03em">{{ $stat['value'] }}</div>

@@ -6,6 +6,17 @@
 @endsection
 
 @section('content')
+@php
+$langs = [
+    'en'    => ['flag' => '🇺🇸', 'name' => 'English'],
+    'ja'    => ['flag' => '🇯🇵', 'name' => 'Japanese'],
+    'ko'    => ['flag' => '🇰🇷', 'name' => 'Korean'],
+    'es'    => ['flag' => '🇪🇸', 'name' => 'Spanish'],
+    'zh-TW' => ['flag' => '🇹🇼', 'name' => '中文(繁)'],
+    'vi'    => ['flag' => '🇻🇳', 'name' => 'Vietnamese'],
+];
+$tabPrefix = 'uc';
+@endphp
 <div class="mb-4"><h1 class="admin-section-title">{{ isset($useCase) ? 'Edit Use Case' : 'New Use Case' }}</h1></div>
 
 <form method="POST" action="{{ isset($useCase) ? route('admin.use-cases.update', $useCase) : route('admin.use-cases.store') }}">
@@ -13,14 +24,25 @@
   <div class="row g-4">
     <div class="col-lg-8">
       <div class="admin-card p-4 mb-4">
-        <div class="mb-3">
-          <label class="form-label">Title</label>
-          <input type="text" name="title" class="form-control" required value="{{ old('title', $useCase->title ?? '') }}">
+        @include('admin.partials.lang-tabs')
+        <div class="tab-content">
+          @foreach($langs as $locale => $lang)
+          <div class="tab-pane fade {{ $locale === 'en' ? 'show active' : '' }}"
+               id="{{ $tabPrefix }}-{{ str_replace('-','_',$locale) }}" role="tabpanel">
+            <div class="mb-3">
+              <label class="form-label">Title <span class="text-muted small">({{ $lang['flag'] }})</span>{{ $locale === 'en' ? ' *' : '' }}</label>
+              <input type="text" name="title[{{ $locale }}]" class="form-control"
+                     value="{{ old('title.'.$locale, isset($useCase) ? $useCase->getTranslation('title', $locale, false) : '') }}"
+                     {{ $locale === 'en' ? 'required' : '' }}>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Description <span class="text-muted small">({{ $lang['flag'] }})</span></label>
+              <textarea name="description[{{ $locale }}]" class="form-control" rows="4">{{ old('description.'.$locale, isset($useCase) ? $useCase->getTranslation('description', $locale, false) : '') }}</textarea>
+            </div>
+          </div>
+          @endforeach
         </div>
-        <div class="mb-3">
-          <label class="form-label">Description</label>
-          <textarea name="description" class="form-control" rows="4">{{ old('description', $useCase->description ?? '') }}</textarea>
-        </div>
+        <hr class="my-3">
         <div class="mb-3">
           <label class="form-label">Icon SVG</label>
           <textarea name="icon_svg" class="form-control" rows="3" style="font-family:monospace;font-size:.8rem">{{ old('icon_svg', $useCase->icon_svg ?? '') }}</textarea>
@@ -38,16 +60,36 @@
       </div>
 
       <div class="admin-card p-4">
-        <div class="d-flex justify-content-between mb-3">
+        <div class="d-flex justify-content-between align-items-center mb-3">
           <h6 class="fw-semibold mb-0" style="color:var(--wise-ink)">Features</h6>
-          <button type="button" id="add-feat" class="btn btn-wise-secondary btn-sm">+ Add</button>
+          <button type="button" id="add-feat" class="btn btn-wise-secondary btn-sm">+ Add (EN)</button>
         </div>
-        <div id="feat-container">
-          @foreach(old('features', $useCase->features_json ?? []) as $i => $f)
-          <div class="row g-2 mb-2 feat-row">
-            <div class="col-4"><input type="text" name="features[{{ $i }}][title]" class="form-control form-control-sm" placeholder="Title" value="{{ $f['title'] ?? '' }}"></div>
-            <div class="col-7"><input type="text" name="features[{{ $i }}][description]" class="form-control form-control-sm" placeholder="Description" value="{{ $f['description'] ?? '' }}"></div>
-            <div class="col-1"><button type="button" class="btn btn-wise-danger btn-sm w-100 remove-row">✕</button></div>
+        @php $ucEnFeats = json_decode(isset($useCase) ? ($useCase->getTranslation('features_json','en',false) ?? '[]') : '[]', true) ?? []; @endphp
+        <ul class="nav nav-pills mb-3 flex-wrap gap-1">
+          @foreach($langs as $locale => $lang)
+          <li class="nav-item">
+            <button class="nav-link py-1 px-3 {{ $locale === 'en' ? 'active' : '' }}"
+                    data-bs-toggle="pill" data-bs-target="#ucfeat-{{ str_replace('-','_',$locale) }}" type="button">
+              {{ $lang['flag'] }} {{ $lang['name'] }}
+            </button>
+          </li>
+          @endforeach
+        </ul>
+        <div class="tab-content">
+          @foreach($langs as $locale => $lang)
+          @php $locFeats = json_decode(isset($useCase) ? ($useCase->getTranslation('features_json',$locale,false) ?? '[]') : '[]', true) ?? $ucEnFeats; @endphp
+          <div class="tab-pane fade {{ $locale === 'en' ? 'show active' : '' }}" id="ucfeat-{{ str_replace('-','_',$locale) }}">
+            <div class="uc-feat-container" data-locale="{{ $locale }}">
+              @foreach($locFeats as $i => $f)
+              <div class="row g-2 mb-2 uc-feat-row" data-feat-index="{{ $i }}">
+                <div class="col-4"><input type="text" name="features[{{ $locale }}][{{ $i }}][title]" class="form-control form-control-sm" placeholder="Title" value="{{ $f['title'] ?? '' }}"></div>
+                <div class="col-{{ $locale === 'en' ? '7' : '8' }}"><input type="text" name="features[{{ $locale }}][{{ $i }}][description]" class="form-control form-control-sm" placeholder="Description" value="{{ $f['description'] ?? '' }}"></div>
+                @if($locale === 'en')
+                <div class="col-1"><button type="button" class="btn btn-wise-danger btn-sm w-100 remove-uc-feat">✕</button></div>
+                @endif
+              </div>
+              @endforeach
+            </div>
           </div>
           @endforeach
         </div>
@@ -71,15 +113,29 @@
 
 @section('scripts')
 <script>
-let fi = {{ count($useCase->features_json ?? []) }};
+const ucLocales = ['en','ja','ko','es','zh-TW','vi'];
+let ucfi = {{ count($ucEnFeats) }};
+
 document.getElementById('add-feat').addEventListener('click', () => {
-  document.getElementById('feat-container').insertAdjacentHTML('beforeend', `<div class="row g-2 mb-2 feat-row">
-    <div class="col-4"><input type="text" name="features[${fi}][title]" class="form-control form-control-sm" placeholder="Title"></div>
-    <div class="col-7"><input type="text" name="features[${fi}][description]" class="form-control form-control-sm" placeholder="Description"></div>
-    <div class="col-1"><button type="button" class="btn btn-wise-danger btn-sm w-100 remove-row">✕</button></div>
-  </div>`);
-  fi++;
+  ucLocales.forEach(locale => {
+    const c = document.querySelector(`.uc-feat-container[data-locale="${locale}"]`);
+    if (!c) return;
+    const isEn = locale === 'en';
+    const removeBtn = isEn ? `<div class="col-1"><button type="button" class="btn btn-wise-danger btn-sm w-100 remove-uc-feat">✕</button></div>` : '';
+    c.insertAdjacentHTML('beforeend', `<div class="row g-2 mb-2 uc-feat-row" data-feat-index="${ucfi}">
+      <div class="col-4"><input type="text" name="features[${locale}][${ucfi}][title]" class="form-control form-control-sm" placeholder="Title"></div>
+      <div class="col-${isEn?7:8}"><input type="text" name="features[${locale}][${ucfi}][description]" class="form-control form-control-sm" placeholder="Description"></div>
+      ${removeBtn}
+    </div>`);
+  });
+  ucfi++;
 });
-document.addEventListener('click', e => { if (e.target.classList.contains('remove-row')) e.target.closest('.feat-row').remove(); });
+
+document.addEventListener('click', e => {
+  if (!e.target.classList.contains('remove-uc-feat')) return;
+  const row = e.target.closest('.uc-feat-row');
+  const idx = row?.dataset.featIndex;
+  document.querySelectorAll(`.uc-feat-row[data-feat-index="${idx}"]`).forEach(r => r.remove());
+});
 </script>
 @endsection

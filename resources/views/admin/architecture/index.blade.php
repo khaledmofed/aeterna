@@ -24,7 +24,7 @@
         </div>
       </div>
       <p style="font-size:.83rem;line-height:1.5;color:var(--wise-body)" class="mb-2">{{ Str::limit($layer->description, 100) }}</p>
-      <div style="font-size:.78rem;color:var(--wise-mute)">{{ count($layer->features_json ?? []) }} features</div>
+      <div style="font-size:.78rem;color:var(--wise-mute)">{{ count(json_decode($layer->features_json ?? '[]', true) ?? []) }} features</div>
     </div>
   </div>
   @endforeach
