@@ -16,8 +16,8 @@ class ExplorerController extends Controller
                 NavItem::with('children')->active()->topLevel()->orderBy('sort_order')->get()
             ),
             'footerLinks' => Cache::remember('footer_links', 3600, fn() =>
-                FooterLink::active()->get()->groupBy('group_name')
-            ),
+                FooterLink::active()->get()
+            )->groupBy('group_name'),
         ];
     }
 
