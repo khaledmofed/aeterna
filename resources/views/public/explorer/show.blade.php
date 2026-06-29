@@ -276,40 +276,40 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
 
   {{-- ── Sidebar ── --}}
   <aside class="exp-sidebar hidden lg:block">
-    <div class="exp-sidebar-label">Core</div>
+    <div class="exp-sidebar-label">{{ __('messages.explorer.nav.core') }}</div>
     <a href="{{ route('explorer.show', 'dashboard') }}" class="{{ $page->slug === 'dashboard' ? 'active' : '' }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
-      Dashboard
+      {{ __('messages.explorer.nav.dashboard') }}
     </a>
     <a href="{{ route('explorer.show', 'checkpoint') }}" class="{{ $page->slug === 'checkpoint' ? 'active' : '' }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/></svg>
-      Checkpoints
+      {{ __('messages.explorer.nav.checkpoints') }}
     </a>
     <a href="{{ route('explorer.show', 'transaction') }}" class="{{ $page->slug === 'transaction' ? 'active' : '' }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m16 3 4 4-4 4"/><path d="M20 7H4"/><path d="m8 21-4-4 4-4"/><path d="M4 17h16"/></svg>
-      Transactions
+      {{ __('messages.explorer.nav.transactions') }}
     </a>
     <a href="{{ route('explorer.show', 'account') }}" class="{{ $page->slug === 'account' ? 'active' : '' }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
-      Accounts
+      {{ __('messages.explorer.nav.accounts') }}
     </a>
     <a href="{{ route('explorer.show', 'validators') }}" class="{{ $page->slug === 'validators' ? 'active' : '' }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      Validators
+      {{ __('messages.explorer.nav.validators') }}
     </a>
 
-    <div class="exp-sidebar-label">AI Native</div>
+    <div class="exp-sidebar-label">{{ __('messages.explorer.nav.ai_native') }}</div>
     <a href="{{ route('explorer.show', 'agent') }}" class="{{ $page->slug === 'agent' ? 'active' : '' }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
-      Agents
+      {{ __('messages.explorer.nav.agents') }}
     </a>
     <a href="{{ route('explorer.show', 'skills') }}" class="{{ $page->slug === 'skills' ? 'active' : '' }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2H2v10l9.29 9.29c.94.94 2.48.94 3.42 0l6.58-6.58c.94-.94.94-2.48 0-3.42L12 2Z"/><path d="M7 7h.01"/></svg>
-      Skills &amp; Capsules
+      {{ __('messages.explorer.nav.skills') }}
     </a>
     <a href="{{ route('explorer.show', 'crosschain') }}" class="{{ $page->slug === 'crosschain' ? 'active' : '' }}">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
-      Cross-chain
+      {{ __('messages.explorer.nav.crosschain') }}
     </a>
   </aside>
 
@@ -341,10 +341,13 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
 
       <div class="exp-2col">
         <div class="exp-card">
-          <div class="exp-card-title">Recent Checkpoints</div>
+          <div class="exp-card-title">{{ __('messages.explorer.dashboard.recent_checkpoints') }}</div>
           <table class="exp-table">
             <thead><tr>
-              <th>Sequence</th><th>Txns</th><th>Validators</th><th>Time</th>
+              <th>{{ __('messages.explorer.dashboard.th_sequence') }}</th>
+              <th>{{ __('messages.explorer.dashboard.th_txns') }}</th>
+              <th>{{ __('messages.explorer.nav.validators') }}</th>
+              <th>{{ __('messages.explorer.common.time') }}</th>
             </tr></thead>
             <tbody>
               @foreach($c['recent_checkpoints'] ?? [] as $row)
@@ -360,10 +363,13 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
         </div>
 
         <div class="exp-card">
-          <div class="exp-card-title">Recent Transactions</div>
+          <div class="exp-card-title">{{ __('messages.explorer.dashboard.recent_transactions') }}</div>
           <table class="exp-table">
             <thead><tr>
-              <th>Hash</th><th>Type</th><th>Gas</th><th>Status</th>
+              <th>{{ __('messages.explorer.common.hash') }}</th>
+              <th>{{ __('messages.explorer.common.type') }}</th>
+              <th>{{ __('messages.explorer.common.gas') }}</th>
+              <th>{{ __('messages.explorer.common.status') }}</th>
             </tr></thead>
             <tbody>
               @foreach($c['recent_transactions'] ?? [] as $row)
@@ -380,7 +386,7 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
       </div>
 
       <div class="exp-card">
-        <div class="exp-card-title">AI Subsystem Activity</div>
+        <div class="exp-card-title">{{ __('messages.explorer.dashboard.ai_subsystems') }}</div>
         <div class="exp-stat-grid">
           @foreach($c['ai_subsystems'] ?? [] as $s)
           <div class="exp-stat">
@@ -397,27 +403,27 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
     @case('checkpoint')
       @php $ov = $c['overview'] ?? []; @endphp
       <div class="exp-card">
-        <div class="exp-card-title">Checkpoint Overview</div>
+        <div class="exp-card-title">{{ __('messages.explorer.checkpoint.overview') }}</div>
         <div class="exp-kv">
           @foreach([
-            'Checkpoint'       => $ov['checkpoint'] ?? '',
-            'Epoch'            => $ov['sequence'] ?? '',
-            'Status'           => $ov['status'] ?? '',
-            'Digest'           => $ov['digest'] ?? '',
-            'Previous Digest'  => $ov['previous_digest'] ?? '',
-            'Timestamp'        => $ov['timestamp'] ?? '',
-            'Transactions'     => $ov['tx_count'] ?? '',
-            'Gas Computation'  => $ov['gas_computation'] ?? '',
-            'Gas Storage'      => $ov['gas_storage'] ?? '',
-            'Validator Sigs'   => $ov['validator_sigs'] ?? '',
-          ] as $k => $v)
+            ['label' => __('messages.explorer.nav.checkpoints'),               'val' => $ov['checkpoint'] ?? ''],
+            ['label' => __('messages.explorer.validators.current_epoch'),       'val' => $ov['sequence'] ?? ''],
+            ['label' => __('messages.explorer.common.status'),                  'val' => $ov['status'] ?? '',     'badge' => true],
+            ['label' => __('messages.explorer.common.digest'),                  'val' => $ov['digest'] ?? ''],
+            ['label' => __('messages.explorer.checkpoint.kv_previous_digest'),  'val' => $ov['previous_digest'] ?? ''],
+            ['label' => __('messages.explorer.common.timestamp'),               'val' => $ov['timestamp'] ?? ''],
+            ['label' => __('messages.explorer.nav.transactions'),               'val' => $ov['tx_count'] ?? ''],
+            ['label' => __('messages.explorer.checkpoint.kv_gas_computation'),  'val' => $ov['gas_computation'] ?? ''],
+            ['label' => __('messages.explorer.checkpoint.kv_gas_storage'),      'val' => $ov['gas_storage'] ?? ''],
+            ['label' => __('messages.explorer.checkpoint.kv_validator_sigs'),   'val' => $ov['validator_sigs'] ?? ''],
+          ] as $row)
           <div class="exp-kv-row">
-            <div class="exp-kv-key">{{ $k }}</div>
+            <div class="exp-kv-key">{{ $row['label'] }}</div>
             <div class="exp-kv-val">
-              @if($k === 'Status')
-                <span class="exp-badge exp-badge-{{ strtolower($v) }}">{{ $v }}</span>
+              @if(!empty($row['badge']))
+                <span class="exp-badge exp-badge-{{ strtolower($row['val']) }}">{{ $row['val'] }}</span>
               @else
-                {{ $v }}
+                {{ $row['val'] }}
               @endif
             </div>
           </div>
@@ -426,10 +432,14 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
       </div>
 
       <div class="exp-card">
-        <div class="exp-card-title">Transactions ({{ count($c['transactions'] ?? []) }})</div>
+        <div class="exp-card-title">{{ __('messages.explorer.nav.transactions') }} ({{ count($c['transactions'] ?? []) }})</div>
         <table class="exp-table">
           <thead><tr>
-            <th>Digest</th><th>Type</th><th>Sender</th><th>Gas</th><th>Status</th>
+            <th>{{ __('messages.explorer.common.digest') }}</th>
+            <th>{{ __('messages.explorer.common.type') }}</th>
+            <th>{{ __('messages.explorer.common.sender') }}</th>
+            <th>{{ __('messages.explorer.common.gas') }}</th>
+            <th>{{ __('messages.explorer.common.status') }}</th>
           </tr></thead>
           <tbody>
             @foreach($c['transactions'] ?? [] as $tx)
@@ -450,26 +460,26 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
     @case('transaction')
       @php $ov = $c['overview'] ?? []; @endphp
       <div class="exp-card">
-        <div class="exp-card-title">Transaction Overview</div>
+        <div class="exp-card-title">{{ __('messages.explorer.transaction.overview') }}</div>
         <div class="exp-kv">
           @foreach([
-            'Transaction ID'   => $ov['id'] ?? '',
-            'Status'           => $ov['status'] ?? '',
-            'Sender'           => $ov['sender'] ?? '',
-            'Checkpoint'       => $ov['checkpoint'] ?? '',
-            'Timestamp'        => $ov['timestamp'] ?? '',
-            'Gas Total'        => $ov['gas_total'] ?? '',
-            'Gas Computation'  => $ov['gas_computation'] ?? '',
-            'Gas Storage'      => $ov['gas_storage'] ?? '',
-            'Execution'        => $ov['execution'] ?? '',
-          ] as $k => $v)
+            ['label' => __('messages.explorer.transaction.kv_id'),             'val' => $ov['id'] ?? ''],
+            ['label' => __('messages.explorer.common.status'),                  'val' => $ov['status'] ?? '',     'badge' => true],
+            ['label' => __('messages.explorer.common.sender'),                  'val' => $ov['sender'] ?? ''],
+            ['label' => __('messages.explorer.nav.checkpoints'),               'val' => $ov['checkpoint'] ?? ''],
+            ['label' => __('messages.explorer.common.timestamp'),               'val' => $ov['timestamp'] ?? ''],
+            ['label' => __('messages.explorer.transaction.kv_gas_total'),       'val' => $ov['gas_total'] ?? ''],
+            ['label' => __('messages.explorer.checkpoint.kv_gas_computation'),  'val' => $ov['gas_computation'] ?? ''],
+            ['label' => __('messages.explorer.checkpoint.kv_gas_storage'),      'val' => $ov['gas_storage'] ?? ''],
+            ['label' => __('messages.explorer.transaction.kv_execution'),       'val' => $ov['execution'] ?? ''],
+          ] as $row)
           <div class="exp-kv-row">
-            <div class="exp-kv-key">{{ $k }}</div>
+            <div class="exp-kv-key">{{ $row['label'] }}</div>
             <div class="exp-kv-val">
-              @if($k === 'Status')
-                <span class="exp-badge exp-badge-{{ strtolower($v) }}">{{ $v }}</span>
+              @if(!empty($row['badge']))
+                <span class="exp-badge exp-badge-{{ strtolower($row['val']) }}">{{ $row['val'] }}</span>
               @else
-                {{ $v }}
+                {{ $row['val'] }}
               @endif
             </div>
           </div>
@@ -479,7 +489,7 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
 
       <div class="exp-2col">
         <div class="exp-card">
-          <div class="exp-card-title">PTB Command Sequence</div>
+          <div class="exp-card-title">{{ __('messages.explorer.transaction.ptb_commands') }}</div>
           <div class="exp-steps">
             @foreach($c['commands'] ?? [] as $cmd)
             <div class="exp-step">
@@ -495,9 +505,9 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
 
         <div>
           <div class="exp-card">
-            <div class="exp-card-title">Object Changes</div>
+            <div class="exp-card-title">{{ __('messages.explorer.transaction.object_changes') }}</div>
             @if(!empty($c['object_changes']['mutated']))
-            <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,0.3);margin-bottom:.5rem">Mutated</div>
+            <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,0.3);margin-bottom:.5rem">{{ __('messages.explorer.transaction.mutated') }}</div>
             @foreach($c['object_changes']['mutated'] as $obj)
             <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
               <span style="font-size:.82rem;color:rgba(255,255,255,0.7)">{{ $obj['label'] }}</span>
@@ -506,7 +516,7 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
             @endforeach
             @endif
             @if(!empty($c['object_changes']['created']))
-            <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,0.3);margin:.75rem 0 .5rem">Created</div>
+            <div style="font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,0.3);margin:.75rem 0 .5rem">{{ __('messages.explorer.transaction.created') }}</div>
             @foreach($c['object_changes']['created'] as $obj)
             <div style="display:flex;justify-content:space-between;padding:.4rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
               <span style="font-size:.82rem;color:rgba(255,255,255,0.7)">{{ $obj['label'] }}</span>
@@ -517,7 +527,7 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
           </div>
 
           <div class="exp-card">
-            <div class="exp-card-title">Events</div>
+            <div class="exp-card-title">{{ __('messages.explorer.transaction.events') }}</div>
             @foreach($c['events'] ?? [] as $ev)
             <div style="padding:.5rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
               <div style="font-size:.82rem;font-weight:700;color:#EBFF00;font-family:'Fira Code',monospace;margin-bottom:.2rem">{{ $ev['name'] }}</div>
@@ -533,7 +543,7 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
     @case('agent')
       @php $id = $c['identity'] ?? []; @endphp
       <div class="exp-card">
-        <div class="exp-card-title">Identity</div>
+        <div class="exp-card-title">{{ __('messages.explorer.agent.identity') }}</div>
         <div style="display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.25rem">
           <div style="width:56px;height:56px;border-radius:14px;background:rgba(235,255,0,0.1);border:1px solid rgba(235,255,0,0.25);display:flex;align-items:center;justify-content:center;color:#EBFF00;flex-shrink:0">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8V4H8"/><rect width="16" height="12" x="4" y="8" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg>
@@ -544,24 +554,28 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
           </div>
           <div style="margin-left:auto;text-align:right">
             <div style="font-size:1.6rem;font-weight:800;color:#9FE870;letter-spacing:-.03em">{{ $id['reputation'] ?? '' }}</div>
-            <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,0.3)">Reputation</div>
+            <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,0.3)">{{ __('messages.explorer.agent.reputation') }}</div>
           </div>
         </div>
         <div class="exp-stat-grid">
-          <div class="exp-stat"><div class="sv">{{ $id['total_skills'] ?? '' }}</div><div class="sl">Total Skills</div></div>
-          <div class="exp-stat"><div class="sv">{{ $id['self_evolved'] ?? '' }}</div><div class="sl">Self-Evolved</div></div>
-          <div class="exp-stat"><div class="sv">{{ $id['lifetime_royalties'] ?? '' }}</div><div class="sl">Lifetime Royalties</div></div>
-          <div class="exp-stat"><div class="sv">{{ $id['royalties_24h'] ?? '' }}</div><div class="sl">Last 24h</div></div>
-          <div class="exp-stat"><div class="sv">{{ $id['active_collaborations'] ?? '' }}</div><div class="sl">Collaborations</div></div>
-          <div class="exp-stat"><div class="sv">{{ $id['total_citations'] ?? '' }}</div><div class="sl">Citations</div></div>
+          <div class="exp-stat"><div class="sv">{{ $id['total_skills'] ?? '' }}</div><div class="sl">{{ __('messages.explorer.agent.total_skills') }}</div></div>
+          <div class="exp-stat"><div class="sv">{{ $id['self_evolved'] ?? '' }}</div><div class="sl">{{ __('messages.explorer.agent.self_evolved') }}</div></div>
+          <div class="exp-stat"><div class="sv">{{ $id['lifetime_royalties'] ?? '' }}</div><div class="sl">{{ __('messages.explorer.agent.lifetime_royalties') }}</div></div>
+          <div class="exp-stat"><div class="sv">{{ $id['royalties_24h'] ?? '' }}</div><div class="sl">{{ __('messages.explorer.agent.last_24h') }}</div></div>
+          <div class="exp-stat"><div class="sv">{{ $id['active_collaborations'] ?? '' }}</div><div class="sl">{{ __('messages.explorer.agent.collaborations') }}</div></div>
+          <div class="exp-stat"><div class="sv">{{ $id['total_citations'] ?? '' }}</div><div class="sl">{{ __('messages.explorer.agent.citations') }}</div></div>
         </div>
       </div>
 
       <div class="exp-card">
-        <div class="exp-card-title">Skill Portfolio</div>
+        <div class="exp-card-title">{{ __('messages.explorer.agent.skill_portfolio') }}</div>
         <table class="exp-table">
           <thead><tr>
-            <th>Skill</th><th>Invocations</th><th>Royalties</th><th>Reputation</th><th>Lineage</th>
+            <th>{{ __('messages.explorer.skills.th_skill') }}</th>
+            <th>{{ __('messages.explorer.agent.th_invocations') }}</th>
+            <th>{{ __('messages.explorer.agent.reputation') }}</th>
+            <th>{{ __('messages.explorer.agent.reputation') }}</th>
+            <th>{{ __('messages.explorer.agent.th_lineage') }}</th>
           </tr></thead>
           <tbody>
             @foreach($c['skills'] ?? [] as $sk)
@@ -577,9 +591,9 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
               </td>
               <td>
                 @if(!empty($sk['evolved']))
-                  <span class="exp-badge" style="background:rgba(167,139,250,0.1);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">evolved from {{ $sk['parent'] ?? '' }}</span>
+                  <span class="exp-badge" style="background:rgba(167,139,250,0.1);color:#a78bfa;border:1px solid rgba(167,139,250,0.25)">{{ __('messages.explorer.agent.evolved_from') }} {{ $sk['parent'] ?? '' }}</span>
                 @else
-                  <span style="color:rgba(255,255,255,0.25);font-size:.78rem">original</span>
+                  <span style="color:rgba(255,255,255,0.25);font-size:.78rem">{{ __('messages.explorer.agent.original') }}</span>
                 @endif
               </td>
             </tr>
@@ -589,7 +603,7 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
       </div>
 
       <div class="exp-card">
-        <div class="exp-card-title">Collaborations</div>
+        <div class="exp-card-title">{{ __('messages.explorer.agent.collaborations') }}</div>
         @foreach($c['collaborations'] ?? [] as $col)
         <div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
           <div>
@@ -606,32 +620,36 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
     @case('crosschain')
       @php $acc = $c['account'] ?? []; @endphp
       <div class="exp-card">
-        <div class="exp-card-title">Account Summary</div>
+        <div class="exp-card-title">{{ __('messages.explorer.crosschain.account_summary') }}</div>
         <div class="exp-stat-grid">
           <div class="exp-stat accent">
             <div class="sv">{{ $acc['total_value'] ?? '' }}</div>
-            <div class="sl">Total Value</div>
+            <div class="sl">{{ __('messages.explorer.crosschain.total_value') }}</div>
           </div>
           <div class="exp-stat">
             <div class="sv mono" style="font-size:1rem">{{ $acc['address'] ?? '' }}</div>
-            <div class="sl">Aeterna Address</div>
+            <div class="sl">{{ __('messages.explorer.crosschain.aeterna_address') }}</div>
           </div>
           <div class="exp-stat">
             <div class="sv">{{ $acc['tss_nodes'] ?? '' }}</div>
-            <div class="sl">TSS Nodes</div>
+            <div class="sl">{{ __('messages.explorer.crosschain.tss_nodes') }}</div>
           </div>
           <div class="exp-stat">
             <div class="sv" style="font-size:.9rem">{{ $acc['scheme'] ?? '' }}</div>
-            <div class="sl">Signing Scheme</div>
+            <div class="sl">{{ __('messages.explorer.crosschain.signing_scheme') }}</div>
           </div>
         </div>
       </div>
 
       <div class="exp-card">
-        <div class="exp-card-title">Derived Chain Addresses</div>
+        <div class="exp-card-title">{{ __('messages.explorer.crosschain.derived_addresses') }}</div>
         <table class="exp-table">
           <thead><tr>
-            <th>Chain</th><th>Address</th><th>Balance</th><th>Value</th><th>Trust Model</th>
+            <th>{{ __('messages.explorer.crosschain.th_chain') }}</th>
+            <th>{{ __('messages.explorer.common.address') }}</th>
+            <th>{{ __('messages.explorer.crosschain.th_balance') }}</th>
+            <th>{{ __('messages.explorer.crosschain.th_value') }}</th>
+            <th>{{ __('messages.explorer.crosschain.th_trust_model') }}</th>
           </tr></thead>
           <tbody>
             @foreach($c['chains'] ?? [] as $ch)
@@ -649,10 +667,14 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
 
       <div class="exp-2col">
         <div class="exp-card">
-          <div class="exp-card-title">Cross-chain Intents</div>
+          <div class="exp-card-title">{{ __('messages.explorer.crosschain.intents') }}</div>
           <table class="exp-table">
             <thead><tr>
-              <th>Intent</th><th>Solver</th><th>Fee</th><th>Time</th><th>Status</th>
+              <th>{{ __('messages.explorer.crosschain.th_intent') }}</th>
+              <th>{{ __('messages.explorer.crosschain.th_solver') }}</th>
+              <th>{{ __('messages.explorer.crosschain.th_fee') }}</th>
+              <th>{{ __('messages.explorer.common.time') }}</th>
+              <th>{{ __('messages.explorer.common.status') }}</th>
             </tr></thead>
             <tbody>
               @foreach($c['intents'] ?? [] as $intent)
@@ -669,10 +691,13 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
         </div>
 
         <div class="exp-card">
-          <div class="exp-card-title">MPC Signature Activity</div>
+          <div class="exp-card-title">{{ __('messages.explorer.crosschain.mpc_activity') }}</div>
           <table class="exp-table">
             <thead><tr>
-              <th>Transaction</th><th>Approval</th><th>Attest</th><th>Status</th>
+              <th>{{ __('messages.explorer.common.transaction') }}</th>
+              <th>{{ __('messages.explorer.crosschain.th_approval') }}</th>
+              <th>{{ __('messages.explorer.crosschain.th_attest') }}</th>
+              <th>{{ __('messages.explorer.common.status') }}</th>
             </tr></thead>
             <tbody>
               @foreach($c['mpc_activity'] ?? [] as $mpc)
@@ -692,10 +717,14 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
     {{-- ────── SKILLS ────── --}}
     @case('skills')
       <div class="exp-card">
-        <div class="exp-card-title">Skill Market</div>
+        <div class="exp-card-title">{{ __('messages.explorer.skills.market') }}</div>
         <table class="exp-table">
           <thead><tr>
-            <th>Skill</th><th>Creator</th><th>Calls</th><th>Royalties</th><th>Reputation</th>
+            <th>{{ __('messages.explorer.skills.th_skill') }}</th>
+            <th>{{ __('messages.explorer.skills.th_creator') }}</th>
+            <th>{{ __('messages.explorer.skills.th_calls') }}</th>
+            <th>{{ __('messages.explorer.agent.lifetime_royalties') }}</th>
+            <th>{{ __('messages.explorer.agent.reputation') }}</th>
           </tr></thead>
           <tbody>
             @foreach($c['market'] ?? [] as $sk)
@@ -718,11 +747,11 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
 
       @php $cap = $c['capsule'] ?? []; @endphp
       <div class="exp-card">
-        <div class="exp-card-title">Capsule Lineage</div>
+        <div class="exp-card-title">{{ __('messages.explorer.skills.capsule_lineage') }}</div>
         <div style="display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:1.25rem">
-          <div><div class="mono" style="font-size:.82rem;color:rgba(255,255,255,0.5)">{{ $cap['address'] ?? '' }}</div><div style="font-size:.68rem;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:.07em">Capsule Address</div></div>
-          <div><div style="font-size:.9rem;font-weight:700;color:#fff">{{ $cap['versions'] ?? '' }} versions</div><div style="font-size:.68rem;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:.07em">History</div></div>
-          <div><div style="font-size:.9rem;font-weight:700;color:#EBFF00">{{ $cap['encryption'] ?? '' }}</div><div style="font-size:.68rem;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:.07em">Encryption</div></div>
+          <div><div class="mono" style="font-size:.82rem;color:rgba(255,255,255,0.5)">{{ $cap['address'] ?? '' }}</div><div style="font-size:.68rem;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:.07em">{{ __('messages.explorer.skills.capsule_address') }}</div></div>
+          <div><div style="font-size:.9rem;font-weight:700;color:#fff">{{ $cap['versions'] ?? '' }} {{ __('messages.explorer.skills.versions') }}</div><div style="font-size:.68rem;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:.07em">{{ __('messages.explorer.skills.history') }}</div></div>
+          <div><div style="font-size:.9rem;font-weight:700;color:#EBFF00">{{ $cap['encryption'] ?? '' }}</div><div style="font-size:.68rem;color:rgba(255,255,255,0.25);text-transform:uppercase;letter-spacing:.07em">{{ __('messages.explorer.skills.encryption') }}</div></div>
         </div>
         <div class="exp-timeline">
           @foreach($cap['timeline'] ?? [] as $ev)
@@ -740,21 +769,21 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
     @case('account')
       @php $id = $c['identity'] ?? []; @endphp
       <div class="exp-card">
-        <div class="exp-card-title">Account Identity</div>
+        <div class="exp-card-title">{{ __('messages.explorer.account.identity') }}</div>
         <div class="exp-kv">
           @foreach([
-            'Address'                => $id['address'] ?? '',
-            'ATA Balance'            => ($id['ata_balance'] ?? '') . ' ATA',
-            'Lifetime Royalties'     => $id['lifetime_royalties'] ?? '',
-            'Status'                 => $id['status'] ?? '',
-            'First Activity'         => $id['first_activity'] ?? '',
-            'Total Transactions'     => $id['tx_count'] ?? '',
-            'Cross-chain Deployments'=> $id['cross_chain_deployments'] ?? '',
-            'Owned Objects'          => ($id['object_count'] ?? '') . ' (' . ($id['object_types'] ?? '') . ' types)',
-          ] as $k => $v)
+            ['label' => __('messages.explorer.common.address'),                    'val' => $id['address'] ?? ''],
+            ['label' => __('messages.explorer.account.kv_ata_balance'),             'val' => ($id['ata_balance'] ?? '') . ' ATA'],
+            ['label' => __('messages.explorer.agent.lifetime_royalties'),           'val' => $id['lifetime_royalties'] ?? ''],
+            ['label' => __('messages.explorer.common.status'),                      'val' => $id['status'] ?? ''],
+            ['label' => __('messages.explorer.account.kv_first_activity'),          'val' => $id['first_activity'] ?? ''],
+            ['label' => __('messages.explorer.account.kv_total_transactions'),      'val' => $id['tx_count'] ?? ''],
+            ['label' => __('messages.explorer.account.kv_crosschain_deployments'),  'val' => $id['cross_chain_deployments'] ?? ''],
+            ['label' => __('messages.explorer.account.kv_owned_objects'),           'val' => ($id['object_count'] ?? '') . ' (' . ($id['object_types'] ?? '') . ' types)'],
+          ] as $row)
           <div class="exp-kv-row">
-            <div class="exp-kv-key">{{ $k }}</div>
-            <div class="exp-kv-val">{{ $v }}</div>
+            <div class="exp-kv-key">{{ $row['label'] }}</div>
+            <div class="exp-kv-val">{{ $row['val'] }}</div>
           </div>
           @endforeach
         </div>
@@ -762,7 +791,7 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
 
       <div class="exp-2col">
         <div class="exp-card">
-          <div class="exp-card-title">Owned Objects</div>
+          <div class="exp-card-title">{{ __('messages.explorer.account.owned_objects') }}</div>
           @foreach($c['objects'] ?? [] as $obj)
           <div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
             <div>
@@ -775,7 +804,7 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
         </div>
 
         <div class="exp-card">
-          <div class="exp-card-title">Recent Transactions</div>
+          <div class="exp-card-title">{{ __('messages.explorer.dashboard.recent_transactions') }}</div>
           @foreach($c['transactions'] ?? [] as $tx)
           <div style="display:flex;align-items:center;justify-content:space-between;padding:.6rem 0;border-bottom:1px solid rgba(255,255,255,0.05)">
             <div>
@@ -796,19 +825,23 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
     @case('validators')
       @php $net = $c['network'] ?? []; @endphp
       <div class="exp-net-bar">
-        <div class="exp-net-stat"><div class="nv">{{ $net['epoch'] ?? '' }}</div><div class="nl">Current Epoch</div></div>
-        <div class="exp-net-stat"><div class="nv">{{ $net['active_validators'] ?? '' }}</div><div class="nl">Active Validators</div></div>
-        <div class="exp-net-stat"><div class="nv">{{ $net['total_stake'] ?? '' }}</div><div class="nl">Total Stake</div></div>
-        <div class="exp-net-stat"><div class="nv">{{ $net['epoch_progress'] ?? '' }}</div><div class="nl">Epoch Progress</div></div>
-        <div class="exp-net-stat"><div class="nv">{{ $net['epoch_ends'] ?? '' }}</div><div class="nl">Epoch Ends</div></div>
-        <div class="exp-net-stat"><div class="nv" style="color:#9FE870">{{ $net['avg_apy'] ?? '' }}</div><div class="nl">Avg APY <span style="color:rgba(255,255,255,0.3)">{{ $net['apy_change'] ?? '' }}</span></div></div>
+        <div class="exp-net-stat"><div class="nv">{{ $net['epoch'] ?? '' }}</div><div class="nl">{{ __('messages.explorer.validators.current_epoch') }}</div></div>
+        <div class="exp-net-stat"><div class="nv">{{ $net['active_validators'] ?? '' }}</div><div class="nl">{{ __('messages.explorer.validators.active_validators') }}</div></div>
+        <div class="exp-net-stat"><div class="nv">{{ $net['total_stake'] ?? '' }}</div><div class="nl">{{ __('messages.explorer.validators.total_stake') }}</div></div>
+        <div class="exp-net-stat"><div class="nv">{{ $net['epoch_progress'] ?? '' }}</div><div class="nl">{{ __('messages.explorer.validators.epoch_progress') }}</div></div>
+        <div class="exp-net-stat"><div class="nv">{{ $net['epoch_ends'] ?? '' }}</div><div class="nl">{{ __('messages.explorer.validators.epoch_ends') }}</div></div>
+        <div class="exp-net-stat"><div class="nv" style="color:#9FE870">{{ $net['avg_apy'] ?? '' }}</div><div class="nl">{{ __('messages.explorer.validators.avg_apy') }} <span style="color:rgba(255,255,255,0.3)">{{ $net['apy_change'] ?? '' }}</span></div></div>
       </div>
 
       <div class="exp-card">
-        <div class="exp-card-title">Validator Set</div>
+        <div class="exp-card-title">{{ __('messages.explorer.validators.set') }}</div>
         <table class="exp-table">
           <thead><tr>
-            <th>Validator</th><th>Stake</th><th>Voting %</th><th>APY</th><th>Status</th>
+            <th>{{ __('messages.explorer.validators.th_validator') }}</th>
+            <th>{{ __('messages.explorer.validators.th_stake') }}</th>
+            <th>{{ __('messages.explorer.validators.th_voting') }}</th>
+            <th>{{ __('messages.explorer.validators.th_apy') }}</th>
+            <th>{{ __('messages.explorer.common.status') }}</th>
           </tr></thead>
           <tbody>
             @foreach($c['validators'] ?? [] as $v)
@@ -832,14 +865,14 @@ html:not(.dark) .exp-net-stat .nl { color: rgba(0,0,0,0.35); }
       </div>
 
       <div class="exp-card" style="display:flex;gap:2rem;flex-wrap:wrap">
-        <div><div style="font-size:.85rem;font-weight:600;color:#fff">{{ $net['consensus'] ?? '' }}</div><div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,0.3)">Consensus</div></div>
-        <div><div style="font-size:.85rem;font-weight:600;color:#fff">{{ $net['candidate_validators'] ?? '' }}</div><div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,0.3)">Candidates</div></div>
+        <div><div style="font-size:.85rem;font-weight:600;color:#fff">{{ $net['consensus'] ?? '' }}</div><div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,0.3)">{{ __('messages.explorer.validators.consensus') }}</div></div>
+        <div><div style="font-size:.85rem;font-weight:600;color:#fff">{{ $net['candidate_validators'] ?? '' }}</div><div style="font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;color:rgba(255,255,255,0.3)">{{ __('messages.explorer.validators.candidates') }}</div></div>
       </div>
     @break
 
     @default
       <div class="exp-card" style="text-align:center;padding:3rem">
-        <div style="color:rgba(255,255,255,0.3);font-size:.9rem">No content available for this page.</div>
+        <div style="color:rgba(255,255,255,0.3);font-size:.9rem">{{ __('messages.explorer.no_content') }}</div>
       </div>
     @endswitch
 
