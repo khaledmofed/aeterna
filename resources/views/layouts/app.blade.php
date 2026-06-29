@@ -50,7 +50,7 @@ body{background:#F5F4F0;color:#1A1A1A;font-family:'Inter',sans-serif;}
 <style id="custom-css">{!! $customCss !!}</style>
 @endif
 </head>
-<body class="dark">
+<body>
 
 @include('public.partials.navbar')
 <main>@yield('content')</main>

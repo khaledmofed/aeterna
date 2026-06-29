@@ -17,8 +17,15 @@ $currentLang   = $langs[$currentLocale] ?? $langs['en'];
 .dark #main-nav { background: #0E0E0E; border-color: #1C1C1C; }
 
 /* ── Logo / wordmark ─────────────────────────────────────── */
-.nav-logo        { filter: brightness(0); }
-.dark .nav-logo  { filter: brightness(0) invert(1); }
+.nav-logo-wrap {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: #1A1A1A;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: background .3s;
+}
+.dark .nav-logo-wrap { background: transparent; }
+.nav-logo { filter: none; }
+.dark .nav-logo { filter: brightness(0) invert(1); }
 .nav-wordmark        { color: #1A1A1A; }
 .dark .nav-wordmark  { color: #F0F0EC; }
 
@@ -79,7 +86,9 @@ $currentLang   = $langs[$currentLocale] ?? $langs['en'];
 
     <!-- Logo -->
     <a href="{{ route('home') }}" class="flex items-center gap-3 cursor-pointer group z-50">
-      <img alt="Aeterna Logo" class="h-8 w-auto transition-all duration-300 nav-logo" src="/site-assets/logo-wite.svg">
+      <div class="nav-logo-wrap">
+        <img alt="Aeterna Logo" class="h-6 w-auto transition-all duration-300 nav-logo" src="/site-assets/logo-wite.svg">
+      </div>
       <span class="nav-wordmark text-xl font-black tracking-tighter" style="letter-spacing:-0.04em">AETERNA</span>
     </a>
 
@@ -198,7 +207,9 @@ $currentLang   = $langs[$currentLocale] ?? $langs['en'];
 <div id="mobile-menu" class="fixed inset-0 z-[60] hidden flex-col p-6">
   <div class="flex justify-between items-center mb-10">
     <div class="flex items-center gap-3">
-      <img alt="Aeterna Logo" class="h-7 w-auto nav-logo" src="/site-assets/logo-wite.svg">
+      <div class="nav-logo-wrap">
+        <img alt="Aeterna Logo" class="h-5 w-auto nav-logo" src="/site-assets/logo-wite.svg">
+      </div>
       <span class="nav-wordmark text-xl font-black" style="letter-spacing:-0.04em">AETERNA</span>
     </div>
     <button id="menu-close" class="p-2 mobile-nav-link rounded-full">
