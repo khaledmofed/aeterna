@@ -4,6 +4,20 @@
 name: aeterna
 region: lon
 
+domains:
+  - domain: www.aeternax.net
+    type: PRIMARY
+  - domain: aeternax.net
+    type: ALIAS
+
+ingress:
+  rules:
+    - component:
+        name: web
+      match:
+        path:
+          prefix: /
+
 services:
   - name: web
     image:
@@ -16,15 +30,13 @@ services:
     http_port: 8080
     instance_count: 1
     instance_size_slug: basic-xxs
-    routes:
-      - path: /
     health_check:
       http_path: /
-      initial_delay_seconds: 30
+      initial_delay_seconds: 60
       period_seconds: 10
       timeout_seconds: 5
       success_threshold: 1
-      failure_threshold: 3
+      failure_threshold: 6
     envs:
       - key: APP_NAME
         value: AeternaX
@@ -33,11 +45,11 @@ services:
       - key: APP_DEBUG
         value: "false"
       - key: APP_KEY
-        scope: RUN_AND_BUILD_TIME
+        scope: RUN_TIME
         type: SECRET
       - key: APP_URL
-        scope: RUN_AND_BUILD_TIME
-        value: ${_self.URL}
+        scope: RUN_TIME
+        value: https://www.aeternax.net
       - key: DB_CONNECTION
         value: pgsql
       - key: DATABASE_URL
