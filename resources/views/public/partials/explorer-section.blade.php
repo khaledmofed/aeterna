@@ -7,13 +7,13 @@
     <div class="text-center mb-16" data-animate>
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6" style="background:rgba(235,255,0,0.1);border:1px solid rgba(235,255,0,0.2)">
         <span class="w-1.5 h-1.5 rounded-full animate-pulse" style="background:#EBFF00"></span>
-        <span class="text-xs font-bold tracking-widest uppercase" style="color:#EBFF00">Block Explorer</span>
+        <span class="text-xs font-bold tracking-widest uppercase" style="color:#EBFF00">{{ __('messages.explorer_section.badge') }}</span>
       </div>
       <h2 class="text-4xl md:text-5xl lg:text-6xl font-black mb-4" style="color:#FFFFFF;letter-spacing:-0.03em;line-height:1.05">
-        The AI-native L1,<br><span style="color:#EBFF00">made visible</span>
+        {{ __('messages.explorer_section.title_1') }}<br><span style="color:#EBFF00">{{ __('messages.explorer_section.title_2') }}</span>
       </h2>
       <p class="text-lg max-w-2xl mx-auto" style="color:rgba(255,255,255,0.5)">
-        Explore blocks, transactions, AI agents, cross-chain accounts, and skill markets on the Aeterna chain.
+        {{ __('messages.explorer_section.subtitle') }}
       </p>
     </div>
 

@@ -38,8 +38,8 @@ class HomeController extends Controller
         );
 
         $footerLinks = Cache::remember('footer_links', 3600, fn() =>
-            FooterLink::active()->get()->groupBy('group_name')
-        );
+            FooterLink::active()->get()
+        )->groupBy('group_name');
 
         return view('public.home', compact(
             'hero', 'layers', 'solutions', 'tokenomics', 'investors',
@@ -53,7 +53,7 @@ class HomeController extends Controller
 
         $exists = EmailSubscriber::where('email', $request->email)->exists();
         if ($exists) {
-            return response()->json(['message' => 'You are already subscribed!'], 200);
+            return response()->json(['message' => __('messages.subscribe.already_subscribed')], 200);
         }
 
         EmailSubscriber::create([
@@ -62,6 +62,6 @@ class HomeController extends Controller
             'is_active'     => true,
         ]);
 
-        return response()->json(['message' => 'Successfully subscribed! Welcome to Aeterna.'], 200);
+        return response()->json(['message' => __('messages.subscribe.success')], 200);
     }
 }

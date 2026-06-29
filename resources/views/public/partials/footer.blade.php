@@ -4,8 +4,8 @@
       <!-- Brand -->
       <div class="md:col-span-1">
         <div class="text-xl font-black mb-3" style="color:#FFFFFF;letter-spacing:-0.02em">Aeterna<span style="color:#EBFF00">.</span></div>
-        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.4)">RWA Infrastructure for the Open UBI Era. AI Native, Chain Abstracted Layer 1.</p>
-        <p class="text-xs mt-2" style="color:rgba(255,255,255,0.25)">One address, infinite possibilities.</p>
+        <p class="text-sm leading-relaxed" style="color:rgba(255,255,255,0.4)">{{ __('messages.footer.tagline') }}</p>
+        <p class="text-xs mt-2" style="color:rgba(255,255,255,0.25)">{{ __('messages.footer.tagline2') }}</p>
         <!-- Social links -->
         <div class="flex gap-3 mt-5">
           <a href="{{ \App\Models\SiteSetting::get('twitter_url','#') }}" target="_blank"
@@ -45,8 +45,8 @@
 
     <!-- Bottom bar -->
     <div class="pt-6 flex flex-col sm:flex-row justify-between items-center gap-3" style="border-top:1px solid rgba(255,255,255,0.06)">
-      <p class="text-sm" style="color:rgba(255,255,255,0.3)">© 2025 Aeterna Foundation. All rights reserved.</p>
-      <p class="text-xs font-mono" style="color:rgba(255,255,255,0.2)">AI Native · Chain Abstracted · Layer 1</p>
+      <p class="text-sm" style="color:rgba(255,255,255,0.3)">{{ __('messages.footer.copyright') }}</p>
+      <p class="text-xs font-mono" style="color:rgba(255,255,255,0.2)">{{ __('messages.footer.meta') }}</p>
     </div>
   </div>
 </footer>

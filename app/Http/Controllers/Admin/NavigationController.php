@@ -24,7 +24,9 @@ class NavigationController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'label'      => 'required|string|max:100',
+            'label'      => 'required|array',
+            'label.en'   => 'required|string',
+            'label.*'    => 'nullable|string',
             'url'        => 'required|string|max:255',
             'target'     => 'in:_self,_blank',
             'parent_id'  => 'nullable|exists:nav_items,id',
@@ -46,7 +48,9 @@ class NavigationController extends Controller
     public function update(Request $request, NavItem $navigation)
     {
         $validated = $request->validate([
-            'label'      => 'required|string|max:100',
+            'label'      => 'required|array',
+            'label.en'   => 'required|string',
+            'label.*'    => 'nullable|string',
             'url'        => 'required|string|max:255',
             'target'     => 'in:_self,_blank',
             'parent_id'  => 'nullable|exists:nav_items,id',

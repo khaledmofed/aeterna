@@ -6,6 +6,17 @@
 @endsection
 
 @section('content')
+@php
+$langs = [
+    'en'    => ['flag' => '🇺🇸', 'name' => 'English'],
+    'ja'    => ['flag' => '🇯🇵', 'name' => 'Japanese'],
+    'ko'    => ['flag' => '🇰🇷', 'name' => 'Korean'],
+    'es'    => ['flag' => '🇪🇸', 'name' => 'Spanish'],
+    'zh-TW' => ['flag' => '🇹🇼', 'name' => '中文(繁)'],
+    'vi'    => ['flag' => '🇻🇳', 'name' => 'Vietnamese'],
+];
+$tabPrefix = 'exp';
+@endphp
 <div class="mb-4">
   <h1 class="admin-section-title">Edit Explorer Page</h1>
 </div>
@@ -29,28 +40,35 @@
     {{-- Main fields --}}
     <div class="col-lg-8">
       <div class="admin-card p-4 mb-4">
-        <div class="mb-3">
-          <label class="form-label">Title</label>
-          <input type="text" name="title" class="form-control" required
-                 value="{{ old('title', $page->title) }}">
-        </div>
-
-        <div class="mb-3">
-          <label class="form-label">Description</label>
-          <textarea name="description" class="form-control" rows="3">{{ old('description', $page->description) }}</textarea>
-        </div>
-
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label class="form-label">Tag</label>
-            <input type="text" name="tag" class="form-control"
-                   value="{{ old('tag', $page->tag) }}" placeholder="e.g. Core + AI">
+        @include('admin.partials.lang-tabs')
+        <div class="tab-content">
+          @foreach($langs as $locale => $lang)
+          <div class="tab-pane fade {{ $locale === 'en' ? 'show active' : '' }}"
+               id="{{ $tabPrefix }}-{{ str_replace('-','_',$locale) }}" role="tabpanel">
+            <div class="mb-3">
+              <label class="form-label">Title <span class="text-muted small">({{ $lang['flag'] }})</span>{{ $locale === 'en' ? ' *' : '' }}</label>
+              <input type="text" name="title[{{ $locale }}]" class="form-control"
+                     value="{{ old('title.'.$locale, $page->getTranslation('title', $locale, false)) }}"
+                     {{ $locale === 'en' ? 'required' : '' }}>
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Description <span class="text-muted small">({{ $lang['flag'] }})</span></label>
+              <textarea name="description[{{ $locale }}]" class="form-control" rows="3">{{ old('description.'.$locale, $page->getTranslation('description', $locale, false)) }}</textarea>
+            </div>
+            <div class="mb-2">
+              <label class="form-label">Tag <span class="text-muted small">({{ $lang['flag'] }})</span></label>
+              <input type="text" name="tag[{{ $locale }}]" class="form-control"
+                     value="{{ old('tag.'.$locale, $page->getTranslation('tag', $locale, false)) }}"
+                     placeholder="e.g. Core + AI">
+            </div>
           </div>
-          <div class="col-md-6">
-            <label class="form-label">Sort Order</label>
-            <input type="number" name="sort_order" class="form-control"
-                   value="{{ old('sort_order', $page->sort_order) }}">
-          </div>
+          @endforeach
+        </div>
+        <hr class="my-3">
+        <div class="mb-3">
+          <label class="form-label">Sort Order</label>
+          <input type="number" name="sort_order" class="form-control" style="max-width:120px"
+                 value="{{ old('sort_order', $page->sort_order) }}">
         </div>
       </div>
 

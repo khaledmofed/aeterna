@@ -20,6 +20,15 @@ use Illuminate\Support\Facades\Route;
 // Dashboard redirect (for Breeze compatibility)
 Route::get('/dashboard', fn() => redirect()->route('admin.dashboard'))->middleware(['auth'])->name('dashboard');
 
+// Locale switcher
+Route::get('/locale/{locale}', function (string $locale) {
+    $supported = ['en', 'ja', 'ko', 'es', 'zh-TW', 'vi'];
+    if (in_array($locale, $supported)) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back()->withHeaders(['Vary' => 'Accept-Language']);
+})->name('locale');
+
 // Public
 Route::get('/',           [HomeController::class, 'index'])->name('home');
 Route::post('/subscribe', [HomeController::class, 'subscribe'])->name('subscribe');

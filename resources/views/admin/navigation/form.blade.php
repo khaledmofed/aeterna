@@ -6,6 +6,17 @@
 @endsection
 
 @section('content')
+@php
+$langs = [
+    'en'    => ['flag' => '🇺🇸', 'name' => 'English'],
+    'ja'    => ['flag' => '🇯🇵', 'name' => 'Japanese'],
+    'ko'    => ['flag' => '🇰🇷', 'name' => 'Korean'],
+    'es'    => ['flag' => '🇪🇸', 'name' => 'Spanish'],
+    'zh-TW' => ['flag' => '🇹🇼', 'name' => '中文(繁)'],
+    'vi'    => ['flag' => '🇻🇳', 'name' => 'Vietnamese'],
+];
+$tabPrefix = 'nav';
+@endphp
 <div class="mb-4"><h1 class="admin-section-title">{{ isset($item) ? 'Edit Nav Item' : 'New Nav Item' }}</h1></div>
 
 <div class="row"><div class="col-lg-6">
@@ -15,7 +26,18 @@
   <div class="admin-card p-4">
     <div class="mb-3">
       <label class="form-label">Label</label>
-      <input type="text" name="label" class="form-control" required value="{{ old('label', $item->label ?? '') }}">
+      @include('admin.partials.lang-tabs')
+      <div class="tab-content mt-2">
+        @foreach($langs as $locale => $lang)
+        <div class="tab-pane fade {{ $locale === 'en' ? 'show active' : '' }}"
+             id="{{ $tabPrefix }}-{{ str_replace('-','_',$locale) }}" role="tabpanel">
+          <input type="text" name="label[{{ $locale }}]" class="form-control"
+                 placeholder="{{ $lang['flag'] }} Label"
+                 value="{{ old('label.'.$locale, isset($item) ? $item->getTranslation('label', $locale, false) : '') }}"
+                 {{ $locale === 'en' ? 'required' : '' }}>
+        </div>
+        @endforeach
+      </div>
     </div>
     <div class="mb-3">
       <label class="form-label">URL</label>

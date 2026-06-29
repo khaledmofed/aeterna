@@ -1,9 +1,9 @@
 <section id="investors" class="py-24 px-6" style="background:#EEECEA">
   <div class="max-w-7xl mx-auto">
     <div class="text-center mb-16" data-animate>
-      <div class="section-label mb-4">Investors</div>
-      <h2 class="text-4xl md:text-5xl mb-4" style="color:#1A1A1A;font-weight:900;letter-spacing:-0.03em">Backed by the Best</h2>
-      <p class="text-lg" style="color:#454745">World-class investors and partners accelerating the Aeterna ecosystem.</p>
+      <div class="section-label mb-4">{{ __('messages.investors.badge') }}</div>
+      <h2 class="text-4xl md:text-5xl mb-4" style="color:#1A1A1A;font-weight:900;letter-spacing:-0.03em">{{ __('messages.investors.title') }}</h2>
+      <p class="text-lg" style="color:#454745">{{ __('messages.investors.subtitle') }}</p>
     </div>
 
     <!-- Lead investors -->

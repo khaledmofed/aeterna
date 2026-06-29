@@ -22,9 +22,13 @@ class ExplorerController extends Controller
     public function update(Request $request, ExplorerPage $explorer)
     {
         $validated = $request->validate([
-            'title'        => 'required|string|max:150',
-            'description'  => 'nullable|string|max:500',
-            'tag'          => 'nullable|string|max:50',
+            'title'        => 'required|array',
+            'title.en'     => 'required|string',
+            'title.*'      => 'nullable|string',
+            'description'  => 'nullable|array',
+            'description.*'=> 'nullable|string',
+            'tag'          => 'nullable|array',
+            'tag.*'        => 'nullable|string',
             'icon_svg'     => 'nullable|string',
             'content_json' => 'nullable|string',
             'sort_order'   => 'integer',

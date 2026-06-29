@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="dark">
 <script>
   // Apply theme immediately to prevent flash
   if (localStorage.getItem('theme') === 'light') {
@@ -29,6 +29,7 @@ tailwind = { config: {
 <link href="/site-assets/css2" rel="stylesheet">
 <link href="/site-assets/prism-tomorrow.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flag-icons@7.2.3/css/flag-icons.min.css">
 <link rel="stylesheet" href="/css/animations.css?v={{ filemtime(public_path('css/animations.css')) }}">
 <link rel="stylesheet" href="/css/app.css?v={{ filemtime(public_path('css/app.css')) }}">
 

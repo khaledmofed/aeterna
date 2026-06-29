@@ -6,6 +6,17 @@
 @endsection
 
 @section('content')
+@php
+$langs = [
+    'en'    => ['flag' => '🇺🇸', 'name' => 'English'],
+    'ja'    => ['flag' => '🇯🇵', 'name' => 'Japanese'],
+    'ko'    => ['flag' => '🇰🇷', 'name' => 'Korean'],
+    'es'    => ['flag' => '🇪🇸', 'name' => 'Spanish'],
+    'zh-TW' => ['flag' => '🇹🇼', 'name' => '中文(繁)'],
+    'vi'    => ['flag' => '🇻🇳', 'name' => 'Vietnamese'],
+];
+$tabPrefix = 'sol';
+@endphp
 <div class="mb-4">
   <h1 class="admin-section-title">{{ isset($solution->id) ? 'Edit Solution Row' : 'Add Solution Row' }}</h1>
 </div>
@@ -17,24 +28,38 @@
   <div class="row g-4">
     <div class="col-lg-8">
       <div class="admin-card p-4">
-        <div class="mb-4">
-          <label class="form-label fw-semibold">Challenge</label>
-          <input type="text" name="challenge" class="form-control @error('challenge') is-invalid @enderror"
-                 value="{{ old('challenge', $solution->challenge) }}" placeholder="e.g. Fragmented user experience" required>
-          @error('challenge')<div class="invalid-feedback">{{ $message }}</div>@enderror
+        @include('admin.partials.lang-tabs')
+        <div class="tab-content">
+          @foreach($langs as $locale => $lang)
+          <div class="tab-pane fade {{ $locale === 'en' ? 'show active' : '' }}"
+               id="{{ $tabPrefix }}-{{ str_replace('-','_',$locale) }}" role="tabpanel">
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Challenge <span class="text-muted small">({{ $lang['flag'] }})</span>{{ $locale === 'en' ? ' *' : '' }}</label>
+              <input type="text" name="challenge[{{ $locale }}]"
+                     class="form-control @error('challenge.'.$locale) is-invalid @enderror"
+                     value="{{ old('challenge.'.$locale, $solution->getTranslation('challenge', $locale, false)) }}"
+                     placeholder="e.g. Fragmented user experience" {{ $locale === 'en' ? 'required' : '' }}>
+              @error('challenge.'.$locale)<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
+            <div class="mb-4">
+              <label class="form-label fw-semibold">Current State <span class="text-muted small">({{ $lang['flag'] }})</span></label>
+              <textarea name="current_state[{{ $locale }}]"
+                        class="form-control @error('current_state.'.$locale) is-invalid @enderror" rows="3"
+                        placeholder="e.g. Managing multiple wallets across chains">{{ old('current_state.'.$locale, $solution->getTranslation('current_state', $locale, false)) }}</textarea>
+              @error('current_state.'.$locale)<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
+            <div class="mb-2">
+              <label class="form-label fw-semibold">Aeterna Solution <span class="text-muted small">({{ $lang['flag'] }})</span></label>
+              <textarea name="aeterna_solution[{{ $locale }}]"
+                        class="form-control @error('aeterna_solution.'.$locale) is-invalid @enderror" rows="3"
+                        placeholder="e.g. Universal Address controls 15+ chains">{{ old('aeterna_solution.'.$locale, $solution->getTranslation('aeterna_solution', $locale, false)) }}</textarea>
+              @error('aeterna_solution.'.$locale)<div class="invalid-feedback">{{ $message }}</div>@enderror
+            </div>
+          </div>
+          @endforeach
         </div>
-        <div class="mb-4">
-          <label class="form-label fw-semibold">Current State</label>
-          <textarea name="current_state" class="form-control @error('current_state') is-invalid @enderror" rows="3"
-                    placeholder="e.g. Managing multiple wallets, addresses, and gas tokens" required>{{ old('current_state', $solution->current_state) }}</textarea>
-          @error('current_state')<div class="invalid-feedback">{{ $message }}</div>@enderror
-        </div>
-        <div class="mb-4">
-          <label class="form-label fw-semibold">Aeterna Solution</label>
-          <textarea name="aeterna_solution" class="form-control @error('aeterna_solution') is-invalid @enderror" rows="3"
-                    placeholder="e.g. Universal Address controls 15+ chains" required>{{ old('aeterna_solution', $solution->aeterna_solution) }}</textarea>
-          @error('aeterna_solution')<div class="invalid-feedback">{{ $message }}</div>@enderror
-        </div>
+
+        <hr class="my-3">
         <div>
           <label class="form-label fw-semibold">Sort Order</label>
           <input type="number" name="sort_order" class="form-control" style="max-width:120px"

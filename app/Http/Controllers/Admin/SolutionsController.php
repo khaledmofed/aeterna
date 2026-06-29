@@ -21,14 +21,7 @@ class SolutionsController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
-            'challenge'        => 'required|string|max:255',
-            'current_state'    => 'required|string',
-            'aeterna_solution' => 'required|string',
-            'sort_order'       => 'integer',
-            'is_active'        => 'boolean',
-        ]);
-        $data['is_active'] = $request->boolean('is_active');
+        $data = $this->validateSolution($request);
         Solution::create($data);
         return redirect()->route('admin.solutions.index')->with('success', 'Solution row added.');
     }
@@ -40,14 +33,7 @@ class SolutionsController extends Controller
 
     public function update(Request $request, Solution $solution)
     {
-        $data = $request->validate([
-            'challenge'        => 'required|string|max:255',
-            'current_state'    => 'required|string',
-            'aeterna_solution' => 'required|string',
-            'sort_order'       => 'integer',
-            'is_active'        => 'boolean',
-        ]);
-        $data['is_active'] = $request->boolean('is_active');
+        $data = $this->validateSolution($request);
         $solution->update($data);
         return redirect()->route('admin.solutions.index')->with('success', 'Solution row updated.');
     }
@@ -56,6 +42,23 @@ class SolutionsController extends Controller
     {
         $solution->delete();
         return back()->with('success', 'Deleted.');
+    }
+
+    private function validateSolution(Request $request): array
+    {
+        $data = $request->validate([
+            'challenge'          => 'required|array',
+            'challenge.en'       => 'required|string',
+            'challenge.*'        => 'nullable|string',
+            'current_state'      => 'nullable|array',
+            'current_state.*'    => 'nullable|string',
+            'aeterna_solution'   => 'nullable|array',
+            'aeterna_solution.*' => 'nullable|string',
+            'sort_order'         => 'integer',
+            'is_active'          => 'boolean',
+        ]);
+        $data['is_active'] = $request->boolean('is_active');
+        return $data;
     }
 
     public function reorder(Request $request)

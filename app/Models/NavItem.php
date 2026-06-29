@@ -5,9 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Spatie\Translatable\HasTranslations;
 
 class NavItem extends Model
 {
+    use HasTranslations;
+
+    public array $translatable = ['label'];
+
     protected $fillable = ['label', 'url', 'target', 'parent_id', 'sort_order', 'is_active'];
 
     protected $casts = ['is_active' => 'boolean'];

@@ -51,11 +51,15 @@ class FooterLinksController extends Controller
     private function validateLink(Request $request): array
     {
         $v = $request->validate([
-            'group_name' => 'required|string|max:100',
-            'label'      => 'required|string|max:100',
-            'url'        => 'required|string|max:500',
-            'sort_order' => 'integer',
-            'is_active'  => 'boolean',
+            'group_name'    => 'required|array',
+            'group_name.en' => 'required|string',
+            'group_name.*'  => 'nullable|string',
+            'label'         => 'required|array',
+            'label.en'      => 'required|string',
+            'label.*'       => 'nullable|string',
+            'url'           => 'required|string|max:500',
+            'sort_order'    => 'integer',
+            'is_active'     => 'boolean',
         ]);
         $v['is_active'] = $request->boolean('is_active');
         return $v;
