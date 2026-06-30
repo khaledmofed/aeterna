@@ -18,6 +18,12 @@ class DatabaseSeeder extends Seeder
         // Always run seeders that use firstOrCreate (safe to re-run, won't overwrite admin changes)
         $this->call([ExplorerSeeder::class]);
 
+        // Always (re)apply translated strings — idempotent setTranslations() calls, safe to re-run
+        $this->call([
+            TranslationsSeeder::class,
+            JsonTranslationsSeeder::class,
+        ]);
+
         // Skip content seeders if DB was previously seeded to preserve admin changes
         if (SiteSetting::where('key', '_content_seeded')->exists()) {
             $this->command->info('Content already seeded — skipping to preserve admin panel data.');
