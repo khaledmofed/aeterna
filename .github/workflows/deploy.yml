@@ -38,8 +38,8 @@ jobs:
           key = os.environ["APP_KEY"].strip()
           p = Path(".do/app.yaml")
           text = p.read_text()
-          needle = "      - key: APP_KEY\n        scope: RUN_AND_BUILD_TIME\n        type: SECRET"
-          replacement = f"      - key: APP_KEY\n        scope: RUN_AND_BUILD_TIME\n        type: SECRET\n        value: {key}"
+          needle = "      - key: APP_KEY\n        scope: RUN_TIME\n        type: SECRET"
+          replacement = f"      - key: APP_KEY\n        scope: RUN_TIME\n        type: SECRET\n        value: {key}"
           if needle not in text:
               raise SystemExit("APP_KEY block not found in .do/app.yaml")
           p.write_text(text.replace(needle, replacement, 1))
