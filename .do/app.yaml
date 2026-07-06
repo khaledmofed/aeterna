@@ -30,6 +30,10 @@ services:
     http_port: 8080
     instance_count: 1
     instance_size_slug: basic-xxs
+    storage:
+      - name: aeterna-uploads
+        mount_path: /var/www/html/storage/app/public
+        size: 2GiB
     health_check:
       http_path: /
       initial_delay_seconds: 60
