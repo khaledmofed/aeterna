@@ -221,6 +221,9 @@ return [
             'candidates'        => 'Candidates',
         ],
     ],
+    'app_download' => [
+        'install' => 'INSTALL',
+    ],
     'subscribe' => [
         'already_subscribed' => 'You are already subscribed!',
         'success'            => 'Successfully subscribed! Welcome to Aeterna.',

@@ -221,6 +221,9 @@ return [
             'candidates'        => '候選人',
         ],
     ],
+    'app_download' => [
+        'install' => '安裝',
+    ],
     'subscribe' => [
         'already_subscribed' => '您已經訂閱了！',
         'success'            => '訂閱成功！歡迎加入 Aeterna。',

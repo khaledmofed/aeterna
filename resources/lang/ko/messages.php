@@ -221,6 +221,9 @@ return [
             'candidates'        => '후보자',
         ],
     ],
+    'app_download' => [
+        'install' => '설치',
+    ],
     'subscribe' => [
         'already_subscribed' => '이미 구독 중입니다!',
         'success'            => '구독 완료! Aeterna에 오신 것을 환영합니다.',

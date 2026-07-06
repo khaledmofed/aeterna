@@ -221,6 +221,9 @@ return [
             'candidates'        => '候補者',
         ],
     ],
+    'app_download' => [
+        'install' => 'インストール',
+    ],
     'subscribe' => [
         'already_subscribed' => 'すでに登録済みです！',
         'success'            => '登録完了！Aeternaへようこそ。',

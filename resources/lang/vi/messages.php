@@ -221,6 +221,9 @@ return [
             'candidates'        => 'Ứng Viên',
         ],
     ],
+    'app_download' => [
+        'install' => 'CÀI ĐẶT',
+    ],
     'subscribe' => [
         'already_subscribed' => 'Bạn đã đăng ký rồi!',
         'success'            => 'Đăng ký thành công! Chào mừng đến với Aeterna.',
