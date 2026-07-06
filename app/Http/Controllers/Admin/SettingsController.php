@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class SettingsController extends Controller
 {
@@ -30,6 +31,12 @@ class SettingsController extends Controller
                 ? ($request->boolean('maintenance_mode') ? '1' : '0')
                 : ($request->input($key) ?? '');
             SiteSetting::updateOrCreate(['key' => $key], ['value' => $value]);
+        }
+
+        // Handle APK file upload — overrides the android_apk_url text field
+        if ($request->hasFile('android_apk_file') && $request->file('android_apk_file')->isValid()) {
+            $path = $request->file('android_apk_file')->storeAs('apk', 'Aeterna.apk', 'public');
+            SiteSetting::updateOrCreate(['key' => 'android_apk_url'], ['value' => '/storage/' . $path]);
         }
 
         Cache::forget('site_settings');

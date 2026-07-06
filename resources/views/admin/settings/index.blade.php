@@ -5,7 +5,7 @@
 @section('content')
 <div class="mb-4"><h1 class="admin-section-title">Site Settings</h1></div>
 
-<form method="POST" action="{{ route('admin.settings.update') }}">
+<form method="POST" action="{{ route('admin.settings.update') }}" enctype="multipart/form-data">
   @csrf
   <div class="row g-4">
     <!-- General -->
@@ -52,10 +52,22 @@
                  value="{{ old('app_store_url', $settings['app_store_url']->value ?? '') }}">
         </div>
         <div class="mb-3">
-          <label class="form-label">Android APK URL <small class="text-muted">(direct download link to .apk file)</small></label>
-          <input type="text" name="android_apk_url" class="form-control" placeholder="https://... or /storage/..."
-                 value="{{ old('android_apk_url', $settings['android_apk_url']->value ?? '') }}">
-          <small class="text-muted d-block mt-1">Leave empty to hide the buttons from the homepage.</small>
+          <label class="form-label">Android APK <small class="text-muted">(upload .apk file or paste URL)</small></label>
+          @php $currentApk = $settings['android_apk_url']->value ?? ''; @endphp
+          @if($currentApk)
+          <div class="d-flex align-items-center gap-2 mb-2 p-2 rounded" style="background:var(--wise-surface);border:1px solid var(--wise-border)">
+            <i class="bi bi-file-earmark-zip" style="color:var(--wise-accent)"></i>
+            <span class="small font-monospace text-truncate" style="max-width:300px">{{ basename($currentApk) }}</span>
+            <a href="{{ $currentApk }}" target="_blank" class="btn btn-sm ms-auto" style="font-size:.75rem;padding:2px 8px;background:var(--wise-accent);color:#000;border-radius:6px">Download</a>
+          </div>
+          @endif
+          <div class="input-group">
+            <input type="file" name="android_apk_file" class="form-control" accept=".apk">
+            <span class="input-group-text" style="font-size:.8rem">or</span>
+            <input type="text" name="android_apk_url" class="form-control" placeholder="https://... or /storage/..."
+                   value="{{ old('android_apk_url', $currentApk) }}">
+          </div>
+          <small class="text-muted d-block mt-1">Upload overrides the URL field. Leave both empty to hide buttons from homepage.</small>
         </div>
       </div>
 
