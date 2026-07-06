@@ -44,6 +44,23 @@
     <div class="col-lg-6">
       <div class="admin-card p-4 mb-4">
         <h6 class="fw-semibold mb-4" style="color:var(--wise-ink)">
+          <i class="bi bi-phone me-2" style="color:var(--wise-mute)"></i>App Downloads
+        </h6>
+        <div class="mb-3">
+          <label class="form-label">App Store URL <small class="text-muted">(iOS TestFlight or App Store link)</small></label>
+          <input type="text" name="app_store_url" class="form-control" placeholder="https://testflight.apple.com/join/..."
+                 value="{{ old('app_store_url', $settings['app_store_url']->value ?? '') }}">
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Android APK URL <small class="text-muted">(direct download link to .apk file)</small></label>
+          <input type="text" name="android_apk_url" class="form-control" placeholder="https://... or /storage/..."
+                 value="{{ old('android_apk_url', $settings['android_apk_url']->value ?? '') }}">
+          <small class="text-muted d-block mt-1">Leave empty to hide the buttons from the homepage.</small>
+        </div>
+      </div>
+
+      <div class="admin-card p-4 mb-4">
+        <h6 class="fw-semibold mb-4" style="color:var(--wise-ink)">
           <i class="bi bi-share me-2" style="color:var(--wise-mute)"></i>Social Links
         </h6>
         @foreach(['twitter_url'=>'Twitter/X URL','discord_url'=>'Discord URL','telegram_url'=>'Telegram URL','github_url'=>'GitHub URL'] as $key => $label)

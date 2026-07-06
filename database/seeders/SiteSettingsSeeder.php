@@ -28,6 +28,9 @@ class SiteSettingsSeeder extends Seeder
             ['key' => 'ga_id',            'value' => '',                             'type' => 'text',    'group' => 'analytics'],
             // Maintenance
             ['key' => 'maintenance_mode', 'value' => '0',                            'type' => 'boolean', 'group' => 'maintenance'],
+            // App Downloads
+            ['key' => 'app_store_url',    'value' => '',                             'type' => 'text',    'group' => 'app'],
+            ['key' => 'android_apk_url',  'value' => '',                             'type' => 'text',    'group' => 'app'],
         ];
 
         foreach ($settings as $setting) {

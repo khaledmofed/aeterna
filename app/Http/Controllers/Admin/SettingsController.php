@@ -22,6 +22,7 @@ class SettingsController extends Controller
             'meta_title', 'meta_description', 'og_image_url',
             'twitter_url', 'discord_url', 'telegram_url', 'github_url',
             'ga_id', 'maintenance_mode', 'custom_css', 'custom_js',
+            'app_store_url', 'android_apk_url',
         ];
 
         foreach ($keys as $key) {
