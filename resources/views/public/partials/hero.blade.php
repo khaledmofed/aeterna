@@ -28,7 +28,7 @@
     </p>
 
     <!-- CTAs -->
-    <div class="flex flex-wrap justify-center gap-4 mb-14 animate-fade-in-up" style="animation-delay:.5s">
+    <div class="flex flex-wrap justify-center gap-4 mb-10 animate-fade-in-up" style="animation-delay:.5s">
       <a href="{{ $hero->cta_primary_url ?? '#' }}"
          class="shimmer-btn px-8 py-4 font-bold text-base transition-all duration-200 hover:-translate-y-0.5"
          style="background:#9FE870;color:#1A1A1A;border-radius:999px;letter-spacing:0.02em;border:none;display:inline-flex;align-items:center;text-decoration:none">
@@ -90,10 +90,13 @@
           </a>
           @endif
         </div>
+        @php $appVerText = \App\Models\SiteSetting::get('app_version_text', 'v2.4.0 (Beta) • iOS 16+ • Android 13+'); @endphp
+        @if($appVerText)
         <div class="app-dl-ver flex items-center gap-2 text-[10px] font-mono">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/><path d="M7 12h10"/></svg>
-          <span>v2.4.0 (Stable) &bull; iOS 16+ &bull; Android 13+</span>
+          <span>{{ $appVerText }}</span>
         </div>
+        @endif
       </div>
     </div>
     @endif

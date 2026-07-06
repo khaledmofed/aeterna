@@ -69,6 +69,12 @@
           </div>
           <small class="text-muted d-block mt-1">Upload overrides the URL field. Leave both empty to hide buttons from homepage.</small>
         </div>
+        <div class="mb-0">
+          <label class="form-label">Version / Badge Text <small class="text-muted">(shown below buttons — leave empty to hide)</small></label>
+          <input type="text" name="app_version_text" class="form-control"
+                 placeholder="v2.4.0 (Beta) • iOS 16+ • Android 13+"
+                 value="{{ old('app_version_text', $settings['app_version_text']->value ?? 'v2.4.0 (Beta) • iOS 16+ • Android 13+') }}">
+        </div>
       </div>
 
       <div class="admin-card p-4 mb-4">

@@ -29,8 +29,9 @@ class SiteSettingsSeeder extends Seeder
             // Maintenance
             ['key' => 'maintenance_mode', 'value' => '0',                            'type' => 'boolean', 'group' => 'maintenance'],
             // App Downloads
-            ['key' => 'app_store_url',    'value' => '',                             'type' => 'text',    'group' => 'app'],
-            ['key' => 'android_apk_url',  'value' => '',                             'type' => 'text',    'group' => 'app'],
+            ['key' => 'app_store_url',    'value' => '',                                       'type' => 'text', 'group' => 'app'],
+            ['key' => 'android_apk_url',  'value' => '',                                       'type' => 'text', 'group' => 'app'],
+            ['key' => 'app_version_text', 'value' => 'v2.4.0 (Beta) • iOS 16+ • Android 13+', 'type' => 'text', 'group' => 'app'],
         ];
 
         foreach ($settings as $setting) {
