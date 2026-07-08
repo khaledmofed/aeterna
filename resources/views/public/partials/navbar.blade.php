@@ -166,18 +166,6 @@ $currentLang   = $langs[$currentLocale] ?? $langs['en'];
         </div>
       </div>
 
-      <!-- CTA -->
-      <a href="#"
-         class="shimmer-btn relative overflow-hidden px-6 py-2.5 font-bold text-sm transition-all duration-200"
-         style="background:#9FE870;color:#1A1A1A;border-radius:999px;letter-spacing:0.01em;border:none">
-        <span class="relative z-10 flex items-center gap-2">
-          {{ __('messages.nav.start_building') }}
-          <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none"
-               stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
-          </svg>
-        </span>
-      </a>
     </div>
 
     <!-- Mobile: theme toggle + hamburger -->
@@ -260,10 +248,6 @@ $currentLang   = $langs[$currentLocale] ?? $langs['en'];
   </div>
 
   <div class="flex flex-col gap-3">
-    <a href="#" class="text-center py-3.5 font-bold uppercase tracking-wider text-sm"
-       style="background:#9FE870;color:#1A1A1A;border-radius:999px">
-      {{ __('messages.nav.start_building') }}
-    </a>
     <button onclick="openAppModal()"
             class="mobile-nav-link text-center py-3.5 font-semibold uppercase tracking-wider text-sm cursor-pointer w-full"
             style="border-radius:999px;border:1px solid">

@@ -11,10 +11,12 @@ use App\Http\Controllers\Admin\InvestorsController;
 use App\Http\Controllers\Admin\NavigationController;
 use App\Http\Controllers\Admin\RoadmapController;
 use App\Http\Controllers\Admin\ExplorerController as AdminExplorerController;
+use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\SettingsController;
 use App\Http\Controllers\Admin\SubscribersController;
 use App\Http\Controllers\Admin\TokenomicsController;
 use App\Http\Controllers\Admin\UseCasesController;
+use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 
 // Dashboard redirect (for Breeze compatibility)
@@ -104,6 +106,17 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'is_admin'])->group(
 
     Route::get('/settings',  [SettingsController::class, 'index'])->name('settings');
     Route::post('/settings', [SettingsController::class, 'update'])->name('settings.update');
+
+    Route::get('/account',           [AccountController::class, 'edit'])->name('account.edit');
+    Route::put('/account',           [AccountController::class, 'update'])->name('account.update');
+    Route::put('/account/password',  [AccountController::class, 'updatePassword'])->name('account.password');
+
+    Route::get('/users',              [UsersController::class, 'index'])->name('users.index');
+    Route::get('/users/create',       [UsersController::class, 'create'])->name('users.create');
+    Route::post('/users',             [UsersController::class, 'store'])->name('users.store');
+    Route::get('/users/{user}/edit',  [UsersController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{user}',       [UsersController::class, 'update'])->name('users.update');
+    Route::delete('/users/{user}',    [UsersController::class, 'destroy'])->name('users.destroy');
 });
 
 require __DIR__.'/auth.php';

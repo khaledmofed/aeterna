@@ -409,6 +409,9 @@ body {
     <a href="{{ route('admin.subscribers.index') }}" class="{{ request()->routeIs('admin.subscribers*') ? 'active' : '' }}">
       <i class="bi bi-envelope-at"></i> Subscribers
     </a>
+    <a href="{{ route('admin.users.index') }}" class="{{ request()->routeIs('admin.users*') ? 'active' : '' }}">
+      <i class="bi bi-people"></i> Admin Users
+    </a>
     <a href="{{ route('admin.settings') }}" class="{{ request()->routeIs('admin.settings*') ? 'active' : '' }}">
       <i class="bi bi-gear"></i> Settings
     </a>
@@ -418,16 +421,16 @@ body {
   </nav>
 
   <div class="sidebar-footer">
-    <div class="d-flex align-items-center gap-2">
+    <a href="{{ route('admin.account.edit') }}" class="d-flex align-items-center gap-2 text-decoration-none">
       <div class="d-flex align-items-center justify-content-center fw-600"
            style="width:32px;height:32px;border-radius:var(--wise-r-pill);background:var(--wise-primary);color:var(--wise-on-primary);font-size:.8rem;font-weight:700;flex-shrink:0">
         {{ strtoupper(substr(auth()->user()->name ?? 'A', 0, 1)) }}
       </div>
       <div>
         <div style="font-size:.82rem;color:#fff;font-weight:600">{{ auth()->user()->name ?? 'Admin' }}</div>
-        <div style="font-size:.72rem;color:rgba(255,255,255,.35)">Administrator</div>
+        <div style="font-size:.72rem;color:rgba(255,255,255,.35)">My Account</div>
       </div>
-    </div>
+    </a>
   </div>
 </aside>
 
