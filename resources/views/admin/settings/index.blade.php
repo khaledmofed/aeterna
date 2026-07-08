@@ -79,6 +79,30 @@
 
       <div class="admin-card p-4 mb-4">
         <h6 class="fw-semibold mb-4" style="color:var(--wise-ink)">
+          <i class="bi bi-file-earmark-pdf me-2" style="color:var(--wise-mute)"></i>Whitepaper
+        </h6>
+        <div class="mb-0">
+          <label class="form-label">Whitepaper PDF <small class="text-muted">(upload .pdf file or paste URL)</small></label>
+          @php $currentWhitepaper = $settings['whitepaper_url']->value ?? ''; @endphp
+          @if($currentWhitepaper)
+          <div class="d-flex align-items-center gap-2 mb-2 p-2 rounded" style="background:var(--wise-surface);border:1px solid var(--wise-border)">
+            <i class="bi bi-file-earmark-pdf" style="color:var(--wise-accent)"></i>
+            <span class="small font-monospace text-truncate" style="max-width:300px">{{ basename($currentWhitepaper) }}</span>
+            <a href="{{ $currentWhitepaper }}" target="_blank" class="btn btn-sm ms-auto" style="font-size:.75rem;padding:2px 8px;background:var(--wise-accent);color:#000;border-radius:6px">Download</a>
+          </div>
+          @endif
+          <div class="input-group">
+            <input type="file" name="whitepaper_file" class="form-control" accept=".pdf">
+            <span class="input-group-text" style="font-size:.8rem">or</span>
+            <input type="text" name="whitepaper_url" class="form-control" placeholder="https://... or /storage/..."
+                   value="{{ old('whitepaper_url', $currentWhitepaper) }}">
+          </div>
+          <small class="text-muted d-block mt-1">Upload overrides the URL field. Used by the "Download Whitepaper" button on the homepage.</small>
+        </div>
+      </div>
+
+      <div class="admin-card p-4 mb-4">
+        <h6 class="fw-semibold mb-4" style="color:var(--wise-ink)">
           <i class="bi bi-share me-2" style="color:var(--wise-mute)"></i>Social Links
         </h6>
         @foreach(['twitter_url'=>'Twitter/X URL','discord_url'=>'Discord URL','telegram_url'=>'Telegram URL','github_url'=>'GitHub URL'] as $key => $label)

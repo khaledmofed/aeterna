@@ -25,3 +25,4 @@ Thumbs.db
 
 # Large binary files
 public/*.apk
+public/*.pdf

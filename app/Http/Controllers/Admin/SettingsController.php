@@ -24,6 +24,7 @@ class SettingsController extends Controller
             'twitter_url', 'discord_url', 'telegram_url', 'github_url',
             'ga_id', 'maintenance_mode', 'custom_css', 'custom_js',
             'app_store_url', 'android_apk_url', 'app_version_text',
+            'whitepaper_url',
         ];
 
         foreach ($keys as $key) {
@@ -37,6 +38,12 @@ class SettingsController extends Controller
         if ($request->hasFile('android_apk_file') && $request->file('android_apk_file')->isValid()) {
             $path = $request->file('android_apk_file')->storeAs('apk', 'Aeterna.apk', 'public');
             SiteSetting::updateOrCreate(['key' => 'android_apk_url'], ['value' => '/storage/' . $path]);
+        }
+
+        // Handle whitepaper PDF upload — overrides the whitepaper_url text field
+        if ($request->hasFile('whitepaper_file') && $request->file('whitepaper_file')->isValid()) {
+            $path = $request->file('whitepaper_file')->storeAs('whitepaper', 'Aeterna-Whitepaper.pdf', 'public');
+            SiteSetting::updateOrCreate(['key' => 'whitepaper_url'], ['value' => '/storage/' . $path]);
         }
 
         Cache::forget('site_settings');
